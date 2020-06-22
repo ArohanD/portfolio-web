@@ -1,0 +1,103 @@
+$font-default: "Futura";
+$color-primary: #0092c7;
+
+$desk-break: 1000px;
+
+html {
+  font-family: $font-default;
+}
+
+.home-container {
+  margin-top: 100px;
+  padding: 0 30px;
+
+  @media (min-width: $desk-break) {
+    margin-left: 10%;
+    margin-top: 220px;
+  }
+}
+
+.home-nav {
+  display: flex;
+  margin-bottom: 35px;
+  flex-direction: column;
+
+  a {
+    text-decoration: none;
+    color: $color-primary;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 36px;
+    line-height: 48px;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: $desk-break) {
+    margin-bottom: 70px;
+    flex-direction: row;
+
+    a {
+      font-size: 48px;
+      line-height: 64px;
+    }
+
+    a::after {
+      content: "•";
+    }
+
+    a:last-child:after {
+      content: "";
+    }
+  }
+}
+
+.home-section-intro {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: $desk-break) {
+    flex-direction: row;
+  }
+}
+
+.home-profile-photo {
+  align-self: flex-end;
+  max-width: 38vw;
+  max-height: 38vw;
+
+  @media (min-width: 500px) {
+    align-self: flex-start;
+  }
+
+  @media (min-width: $desk-break) {
+    align-self: flex-start;
+    max-width: initial;
+    max-height: initial;
+  }
+}
+
+.home-body-content {
+  margin-top: 35px;
+  padding-right: 8%;
+
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 19px;
+
+  p:first-child {
+    margin-top: 0;
+  }
+
+  @media (min-width: $desk-break) {
+    max-width: 460px;
+    width: 37%;
+
+    margin-left: 4%;
+    margin-top: 165px;
+
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
