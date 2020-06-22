@@ -38,17 +38,13 @@ const homeContent: Array<String> = [
   `Through the lens, I'm an avid learner. Every time shutter clicks, I'm hoping to tell a story a little better than the last. I'm inspired by travel, people and by the idea that a powerful photograph could change the world. Here, my drive comes from a desire to learn how to capture the right moments, use the right tools, and share amazing experiences with the world.`,
 ]
 
-interface IndexPageProps {
-  data: any
-}
-
 const IndexPage: React.FC = () => {
   const data = useStaticQuery(graphql`
     query {
       placeholderImage: file(relativePath: { eq: "profile.jpg" }) {
         childImageSharp {
           fixed(width: 330) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_withWebp
           }
         }
       }
