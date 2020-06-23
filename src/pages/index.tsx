@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import Img from "gatsby-image"
 
@@ -7,28 +7,51 @@ import SEO from "../components/seo"
 import "./home-global-styles.scss"
 
 interface HomeLink {
-  title: String
+  title: string
   path: string
+  backgroundImageSlug: string
+  textColor: string
+  imagePath: any
 }
 
-const homeLinks: Array<HomeLink> = [
+let homeLinks: Array<HomeLink> = [
   {
     title: "Dev",
     path: "/dev",
+    backgroundImageSlug: `dev`,
+    textColor: "#68281B",
+    imagePath: "",
   },
   {
     title: "Photo",
     path: "/photography",
+    backgroundImageSlug: `photo`,
+    textColor: "#EFFFB1",
+    imagePath: "",
   },
   {
-    title: "Write",
+    title: "Writing",
     path: "/writing",
+    backgroundImageSlug: `writing`,
+    textColor: "#68281B",
+    imagePath: "",
   },
   {
     title: "Resume",
     path: "/resume",
+    backgroundImageSlug: `resume`,
+    textColor: "#68281B",
+    imagePath: "",
   },
 ]
+
+const blankHomeLink = {
+  title: "",
+  path: "",
+  backgroundImageSlug: ``,
+  textColor: "",
+  imagePath: "",
+}
 
 const homeContent: Array<String> = [
   `Hi, I’m Arohan,`,
@@ -39,31 +62,61 @@ const homeContent: Array<String> = [
 ]
 
 const IndexPage: React.FC = () => {
-  const data = useStaticQuery(graphql`
+  const handleMouseOver = (homeLink: HomeLink) => {
+    setActiveHomeLink(homeLink)
+  }
+
+  const [activeHomeLink, setActiveHomeLink] = useState(blankHomeLink)
+
+  const photoQuery = useStaticQuery(graphql`
     query {
-      placeholderImage: file(relativePath: { eq: "profile.jpg" }) {
-        childImageSharp {
-          fixed(width: 330) {
-            ...GatsbyImageSharpFixed_withWebp
+      homeImages: allFile(filter: { relativeDirectory: { eq: "home" } }) {
+        nodes {
+          childImageSharp {
+            fluid {
+              ...GatsbyImageSharpFluid
+            }
+            fixed(width: 330) {
+              ...GatsbyImageSharpFixed
+            }
           }
+          name
         }
       }
     }
   `)
 
+  useEffect(() => {
+    addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
+  }, [])
+
+  const homeNavClasses =
+    "home-nav" + (activeHomeLink.imagePath ? " home-nav-faded-text" : "")
+
   return (
     <div className={"home-container"}>
       <SEO title="Home" />
-      <nav className={"home-nav"}>
+      <nav className={homeNavClasses}>
         {homeLinks.map((linkObj: HomeLink) => (
-          <Link to={linkObj.path}>{linkObj.title}</Link>
+          <Link
+            to={linkObj.path}
+            onMouseOver={() => handleMouseOver(linkObj)}
+            onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
+            style={
+              (activeHomeLink.backgroundImageSlug === linkObj.backgroundImageSlug
+                ? { color: linkObj.textColor }
+                : {})
+            }
+          >
+            {linkObj.title}
+          </Link>
         ))}
       </nav>
       <div className="home-section-intro">
         <Img
           className="home-profile-photo"
           alt="Profile Photo"
-          fixed={data.placeholderImage.childImageSharp.fixed}
+          fixed={photoQuery.homeImages.nodes[2].childImageSharp.fixed}
         />
         <div className="home-body-content">
           {homeContent.map((block: string) => (
@@ -71,8 +124,36 @@ const IndexPage: React.FC = () => {
           ))}
         </div>
       </div>
+      {activeHomeLink.title && <BackgroundImage homeLink={activeHomeLink} />}
     </div>
   )
+}
+
+interface BackgroundImageProps {
+  homeLink: HomeLink
+}
+
+const BackgroundImage: React.FC<BackgroundImageProps> = ({
+  homeLink,
+}: BackgroundImageProps) => {
+  if (!homeLink.imagePath) return <div></div>
+
+  return (
+    <Img
+      className={"home-background-image"}
+      alt="Profile Photo"
+      fluid={homeLink.imagePath.fluid}
+    />
+  )
+}
+
+const addSrcLinks = (linkArray: Array<HomeLink>, imageArray: Array<any>) => {
+  linkArray.map((linkObj: HomeLink) => {
+    const target = linkObj.backgroundImageSlug
+    imageArray.forEach((node: any) => {
+      if (target === node.name) linkObj.imagePath = node.childImageSharp
+    })
+  })
 }
 
 export default IndexPage

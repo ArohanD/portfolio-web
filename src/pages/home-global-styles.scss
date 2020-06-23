@@ -1,5 +1,6 @@
 $font-default: "Futura";
 $color-primary: #0092c7;
+$color-faded: rgba(196, 196, 196, 0.83);
 
 $desk-break: 1000px;
 
@@ -7,13 +8,17 @@ html {
   font-family: $font-default;
 }
 
+body {
+  margin: 0;
+}
+
 .home-container {
-  margin-top: 100px;
+  padding-top: 100px;
   padding: 0 30px;
 
   @media (min-width: $desk-break) {
-    margin-left: 10%;
-    margin-top: 220px;
+    padding-left: 10%;
+    padding-top: 220px;
   }
 }
 
@@ -21,6 +26,8 @@ html {
   display: flex;
   margin-bottom: 35px;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 
   a {
     text-decoration: none;
@@ -100,4 +107,16 @@ html {
     font-size: 24px;
     line-height: 32px;
   }
+}
+
+.home-background-image {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.home-nav-faded-text a {
+  color: $color-faded;
 }
