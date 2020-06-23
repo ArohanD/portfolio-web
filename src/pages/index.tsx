@@ -4,7 +4,7 @@ import Img from "gatsby-image"
 
 import SEO from "../components/seo"
 
-import "./home-global-styles.scss"
+import "./home-styles.scss"
 
 interface HomeLink {
   title: string

@@ -1,0 +1,14 @@
+$font-default: "Futura";
+$color-primary: #0092c7;
+$color-faded: rgba(196, 196, 196, 0.83);
+
+$desk-break: 1000px;
+
+html {
+  font-family: $font-default;
+}
+
+body {
+  margin: 0;
+}
+
