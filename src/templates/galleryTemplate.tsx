@@ -2,8 +2,8 @@ import React from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
-import { PageProps } from "gatsby"
 import { Query, SitePageContext } from "../generated/graphql-types"
+import { sanitizeTitle } from "../../utils"
 
 interface GalleryPageProps {
   pageContext: SitePageContext
@@ -11,12 +11,12 @@ interface GalleryPageProps {
 }
 
 const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
-  const queryData = data as Query
-  const gallery = queryData.allFile.nodes
+
+  const gallery = data.allFile.nodes;
 
   return (
     <div>
-      <SEO title={pageContext.title} />
+      <SEO title={sanitizeTitle(pageContext.title)} />
       {gallery.map(node => (
         <Img fluid={node.childImageSharp.fluid} />
       ))}
