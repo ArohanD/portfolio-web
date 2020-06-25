@@ -38,6 +38,14 @@ module.exports = {
         implementation: require("sass"),
       },
     },
+    `gatsby-plugin-typescript`,
+    {
+      // automatically generate typings from graphql schema
+      resolve: 'gatsby-plugin-generate-typings',
+      options: {
+        dest: './src/generated/graphql-types.d.ts',
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

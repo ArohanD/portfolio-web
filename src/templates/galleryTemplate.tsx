@@ -2,27 +2,31 @@ import React from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
 import Img from "gatsby-image"
+import { PageProps } from "gatsby"
+import { Query, SitePageContext } from "../generated/graphql-types"
 
-const ImageTest = props => {
-  console.log(props.pageContext)
-  const gallery = props.data.allFile.nodes
-  console.log(gallery)
-  gallery.map(node => (
-    console.log('n', node.childImageSharp.fixed) 
-  ))
+interface GalleryPageProps {
+  pageContext: SitePageContext
+  data: Query
+}
+
+const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
+  const queryData = data as Query
+  const gallery = queryData.allFile.nodes
+
   return (
     <div>
-      <SEO title={props.pageContext.title} />
+      <SEO title={pageContext.title} />
       {gallery.map(node => (
-        <Img alt="Test Photo" fluid={node.childImageSharp.fluid} />
+        <Img fluid={node.childImageSharp.fluid} />
       ))}
     </div>
   )
 }
 
-export default ImageTest
+export default GalleryPage
 
-export const imageQuery = graphql`
+export const galleryPageQuery = graphql`
   query galleryData($queryRegex: String) {
     allFile(filter: { fields: { slug: { regex: $queryRegex } } }) {
       nodes {
@@ -54,7 +58,7 @@ export const imageQuery = graphql`
             ...GatsbyImageSharpFixed
           }
           fluid {
-            ...GatsbyImageSharpFluid_withWebp
+            ...GatsbyImageSharpFluid
           }
         }
       }

@@ -14,12 +14,12 @@ const IndexPage: React.FC = () => {
   const handleMouseOver = (homeLink: HomeLink) => {
     setActiveHomeLink(homeLink)
   }
-  
+
   const [activeHomeLink, setActiveHomeLink] = useState(blankHomeLink)
-  const [profilePhoto, setProfilePhoto] = useState('')
-  
+  const [profilePhoto, setProfilePhoto] = useState("")
+
   const photoQuery = useStaticQuery(graphql`
-    query {
+    query homeData {
       homeImages: allFile(filter: { relativeDirectory: { eq: "home" } }) {
         nodes {
           childImageSharp {
@@ -40,14 +40,12 @@ const IndexPage: React.FC = () => {
     addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
 
     photoQuery.homeImages.nodes.map((node: any) => {
-      if(node.name === "profile") setProfilePhoto(node.childImageSharp)
+      if (node.name === "profile") setProfilePhoto(node.childImageSharp)
     })
   }, [])
 
   const homeNavClasses =
     "home-nav" + (activeHomeLink.imagePath ? " home-nav-faded-text" : "")
-
-
 
   return (
     <div className={"home-container"}>
@@ -69,11 +67,13 @@ const IndexPage: React.FC = () => {
         ))}
       </nav>
       <div className="home-section-intro">
-        <Img
-          className="home-profile-photo"
-          alt="Profile Photo"
-          fixed={profilePhoto.fixed}
-        />
+        {profilePhoto && (
+          <Img
+            className="home-profile-photo"
+            alt="Profile Photo"
+            fixed={profilePhoto.fixed}
+          />
+        )}
         <div className="home-body-content">
           {homeContent.map((block: string) => (
             <p className="home-about-paragraph">{block}</p>
