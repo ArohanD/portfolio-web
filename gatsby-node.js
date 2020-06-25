@@ -53,7 +53,7 @@ exports.createPages = ({ actions, graphql }) => {
     if (result.errors) console.log(result.errors)
 
     let galleryPages = result.data.allDirectory.nodes
-    const imagePageTemplate = path.resolve("./src/templates/imageTest.js")
+    const imagePageTemplate = path.resolve("./src/templates/galleryTemplate.tsx")
 
     galleryPages.forEach(node => {
       const leaf = node.relativePath.split('/')[1]
