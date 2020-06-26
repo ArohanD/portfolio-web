@@ -4,6 +4,9 @@ import SEO from "../components/seo"
 import Img from "gatsby-image"
 import { Query, SitePageContext } from "../generated/graphql-types"
 import { sanitizeTitle } from "../../utils"
+import GallerySideBar from "../components/gallerySideBar"
+
+import './styles/galleryTemplate.scss'
 
 interface GalleryPageProps {
   pageContext: SitePageContext
@@ -17,9 +20,17 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   return (
     <div>
       <SEO title={sanitizeTitle(pageContext.title)} />
-      {gallery.map(node => (
-        <Img fluid={node.childImageSharp.fluid} />
-      ))}
+      <div className="gallery-content-wrapper">
+        <GallerySideBar />
+        <div className="gallery-images-container">
+          {gallery.map(node => (
+            <React.Fragment key={node.fields.slug}>
+              <Img fixed={node.childImageSharp.fixed}
+              className={'gallery-image'} />
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }
@@ -54,7 +65,7 @@ export const galleryPageQuery = graphql`
         }
         childImageSharp {
           id
-          fixed {
+          fixed (width: 300) {
             ...GatsbyImageSharpFixed
           }
           fluid {

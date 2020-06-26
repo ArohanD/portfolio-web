@@ -1,0 +1,47 @@
+@use '../../pages/global-styles.scss' as *;
+
+.gallery-content-wrapper {
+  display: flex;
+}
+
+.gallery-sidebar-container {
+  width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12vh;
+}
+
+.gallery-linkBlock {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+
+  a {
+    text-decoration: none;
+    color: $color-black;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+}
+
+.gallery-linkBlock:first-of-type {
+  margin-bottom: 100px;
+}
+
+.gallery-images-container {
+  margin-top: 35px;
+  width: 60vw;
+  height: 95vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  overflow: scroll;
+  align-items: space-between;
+}
+
+.gallery-image {
+  border-radius: 4px;
+  margin: 0 10px 20px 10px;
+}

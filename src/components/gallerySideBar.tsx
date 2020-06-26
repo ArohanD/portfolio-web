@@ -1,28 +1,69 @@
 import React from "react"
 import { graphql } from "gatsby"
-import { Link } from "gatsby"
+import { Link, useStaticQuery } from "gatsby"
+import { HomeLink, homeLinks } from "../dummyContent"
+import { Query } from "../generated/graphql-types"
+import { sanitizeTitle } from "../../utils"
 
-const gallerySideBar: React.FC = () => {
-  return <div className="gallery-sidebar-container"></div>
+const GallerySideBar: React.FC = () => {
+  const galleryNavQuery = useStaticQuery(graphql`
+    query galleryLinkQuery {
+      allDirectory(filter: { relativePath: { regex: "/gallery//" } }) {
+        nodes {
+          name
+          relativePath
+        }
+      }
+    }
+  `) as Query
+
+  const queryLinks = galleryNavQuery.allDirectory.nodes
+  const galleryNavLinks = []
+
+  queryLinks.map(({ name, relativePath }) => {
+    galleryNavLinks.push({
+      title: sanitizeTitle(name),
+      path: relativePath,
+    } as galleryLink)
+  })
+
+  const homeLinksWithHome = JSON.parse(JSON.stringify(homeLinks))
+
+  homeLinksWithHome.unshift({
+    title: "Home",
+    path: "/home",
+    backgroundImageSlug: `home`,
+    textColor: "#68281B",
+    imagePath: "",
+  } as HomeLink)
+
+  return (
+    <div className="gallery-sidebar-container">
+      <LinkBlock links={galleryNavLinks} />
+      <LinkBlock links={homeLinksWithHome} />
+    </div>
+  )
 }
 
 interface galleryLink {
   title: string
-  href: string
+  path: string
 }
 
 interface linkBlockProps {
-  links: Array<galleryLink>
+  links: Array<galleryLink> | Array<HomeLink>
 }
 
-const linkBlock: React.FC<linkBlockProps> = ({ links }) => {
+const LinkBlock: React.FC<linkBlockProps> = ({ links }) => {
   return (
     <div className="gallery-linkBlock">
-      {links.map(({ href, title }) => (
-        <Link to={href}>{title}</Link>
+      {links.map(({ path, title }) => (
+        <React.Fragment key={title}>
+          <Link to={path}>{title.toLowerCase()}</Link>
+        </React.Fragment>
       ))}
     </div>
   )
 }
 
-export default gallerySideBar
+export default GallerySideBar

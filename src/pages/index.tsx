@@ -39,7 +39,7 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
 
-    photoQuery.homeImages.nodes.map((node: any) => {
+    photoQuery.homeImages.nodes.map((node) => {
       if (node.name === "profile") setProfilePhoto(node.childImageSharp)
     })
   }, [])
@@ -106,7 +106,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
 const addSrcLinks = (linkArray: Array<HomeLink>, imageArray: Array<any>) => {
   linkArray.map((linkObj: HomeLink) => {
     const target = linkObj.backgroundImageSlug
-    imageArray.forEach((node: any) => {
+    imageArray.forEach((node) => {
       if (target === node.name) linkObj.imagePath = node.childImageSharp
     })
   })
