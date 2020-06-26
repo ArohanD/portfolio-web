@@ -6,7 +6,7 @@ import { Query, SitePageContext } from "../generated/graphql-types"
 import { sanitizeTitle } from "../../utils"
 import GallerySideBar from "../components/gallerySideBar"
 
-import './styles/galleryTemplate.scss'
+import "./styles/galleryTemplate.scss"
 
 interface GalleryPageProps {
   pageContext: SitePageContext
@@ -14,23 +14,37 @@ interface GalleryPageProps {
 }
 
 const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
-
-  const gallery = data.allFile.nodes;
+  const gallery = data.allFile.nodes
 
   return (
     <div>
       <SEO title={sanitizeTitle(pageContext.title)} />
       <div className="gallery-content-wrapper">
         <GallerySideBar />
-        <div className="gallery-images-container">
-          {gallery.map(node => (
-            <React.Fragment key={node.fields.slug}>
-              <Img fixed={node.childImageSharp.fixed}
-              className={'gallery-image'} />
-            </React.Fragment>
-          ))}
+
+        <div className="gallery-column-container">
+          <GalleryColumn gallery={gallery} />
+          <GalleryColumn gallery={gallery} />
+          <GalleryColumn gallery={gallery} />
         </div>
       </div>
+    </div>
+  )
+}
+
+interface GalleryColumnProps {
+  gallery: Array<any>
+}
+
+const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery }) => {
+
+  return (
+    <div className="gallery-images-column">
+      {gallery.map(node => (
+        <React.Fragment key={node.fields.slug}>
+          <Img fixed={node.childImageSharp.fixed} className={"gallery-image"} />
+        </React.Fragment>
+      ))}
     </div>
   )
 }
@@ -65,7 +79,7 @@ export const galleryPageQuery = graphql`
         }
         childImageSharp {
           id
-          fixed (width: 300) {
+          fixed(width: 300) {
             ...GatsbyImageSharpFixed
           }
           fluid {

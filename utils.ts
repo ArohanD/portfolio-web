@@ -2,4 +2,8 @@
 const sanitizeTitle = (rawString: string): string =>
   rawString.split("-").join(" ")
 
-export { sanitizeTitle }
+const allocateArray = (orig: Array<any>, numKids: number) => {
+  
+}
+
+export { sanitizeTitle, allocateArray }
