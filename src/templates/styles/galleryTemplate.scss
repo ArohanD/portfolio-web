@@ -2,6 +2,7 @@
 
 .gallery-content-wrapper {
   display: flex;
+
 }
 
 .gallery-sidebar-container {
@@ -30,31 +31,23 @@
 }
 
 .gallery-column-container {
+  margin-top: 35px;
   height: 95vh;
   overflow: scroll;
-  width: 70%;
-
   display: flex;
-  justify-content: center;
-
-  
-
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
 
 .gallery-images-column {
-  margin: auto;
-  margin-top: 35px;
-  margin-right: 10px;
+  text-align: center;
+  margin-right: 20px;
 
-  // display: flex;
-  // flex-direction: row;
-  // align-items: space-between;
-  // justify-content: center;
+}
 
-  
+.gallery-images-column:last-of-type {
+  margin-right: 0px;
 }
 
 ::-webkit-scrollbar {

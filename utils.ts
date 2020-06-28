@@ -6,4 +6,6 @@ const allocateArray = (orig: Array<any>, numKids: number) => {
   
 }
 
-export { sanitizeTitle, allocateArray }
+const copy = (orig: any) => JSON.parse(JSON.stringify(orig))
+
+export { sanitizeTitle, allocateArray, copy }
