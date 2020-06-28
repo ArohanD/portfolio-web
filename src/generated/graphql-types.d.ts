@@ -1588,6 +1588,295 @@ export type IntQueryOperatorInput = {
 };
 
 
+export type LinkedInResume = Node & {
+  __typename?: 'LinkedInResume';
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
+  maidenName?: Maybe<Scalars['String']>;
+  address?: Maybe<Scalars['String']>;
+  birthDate?: Maybe<Scalars['String']>;
+  headline?: Maybe<Scalars['String']>;
+  summary?: Maybe<Scalars['String']>;
+  industry?: Maybe<Scalars['String']>;
+  zipCode?: Maybe<Scalars['String']>;
+  geoLocation?: Maybe<Scalars['String']>;
+  twitterHandles?: Maybe<Scalars['String']>;
+  websites?: Maybe<Scalars['String']>;
+  instantMessengers?: Maybe<Scalars['String']>;
+  skills?: Maybe<Array<Maybe<Scalars['String']>>>;
+  education?: Maybe<Array<Maybe<LinkedInResumeEducation>>>;
+  languages?: Maybe<Array<Maybe<LinkedInResumeLanguages>>>;
+  experiences?: Maybe<Array<Maybe<LinkedInResumeExperiences>>>;
+};
+
+export type LinkedInResumeConnection = {
+  __typename?: 'LinkedInResumeConnection';
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInResumeEdge>;
+  nodes: Array<LinkedInResume>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<LinkedInResumeGroupConnection>;
+};
+
+
+export type LinkedInResumeConnectionDistinctArgs = {
+  field: LinkedInResumeFieldsEnum;
+};
+
+
+export type LinkedInResumeConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: LinkedInResumeFieldsEnum;
+};
+
+export type LinkedInResumeEdge = {
+  __typename?: 'LinkedInResumeEdge';
+  next?: Maybe<LinkedInResume>;
+  node: LinkedInResume;
+  previous?: Maybe<LinkedInResume>;
+};
+
+export type LinkedInResumeEducation = {
+  __typename?: 'LinkedInResumeEducation';
+  schoolName?: Maybe<Scalars['String']>;
+  startDate?: Maybe<Scalars['Date']>;
+  endDate?: Maybe<Scalars['Date']>;
+  notes?: Maybe<Scalars['String']>;
+  degreeName?: Maybe<Scalars['String']>;
+  activities?: Maybe<Scalars['String']>;
+};
+
+
+export type LinkedInResumeEducationStartDateArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+
+export type LinkedInResumeEducationEndDateArgs = {
+  formatString?: Maybe<Scalars['String']>;
+  fromNow?: Maybe<Scalars['Boolean']>;
+  difference?: Maybe<Scalars['String']>;
+  locale?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInResumeEducationFilterInput = {
+  schoolName?: Maybe<StringQueryOperatorInput>;
+  startDate?: Maybe<DateQueryOperatorInput>;
+  endDate?: Maybe<DateQueryOperatorInput>;
+  notes?: Maybe<StringQueryOperatorInput>;
+  degreeName?: Maybe<StringQueryOperatorInput>;
+  activities?: Maybe<StringQueryOperatorInput>;
+};
+
+export type LinkedInResumeEducationFilterListInput = {
+  elemMatch?: Maybe<LinkedInResumeEducationFilterInput>;
+};
+
+export type LinkedInResumeExperiences = {
+  __typename?: 'LinkedInResumeExperiences';
+  companyName?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  location?: Maybe<Scalars['String']>;
+  startedOn?: Maybe<Scalars['String']>;
+  finishedOn?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInResumeExperiencesFilterInput = {
+  companyName?: Maybe<StringQueryOperatorInput>;
+  title?: Maybe<StringQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  location?: Maybe<StringQueryOperatorInput>;
+  startedOn?: Maybe<StringQueryOperatorInput>;
+  finishedOn?: Maybe<StringQueryOperatorInput>;
+};
+
+export type LinkedInResumeExperiencesFilterListInput = {
+  elemMatch?: Maybe<LinkedInResumeExperiencesFilterInput>;
+};
+
+export type LinkedInResumeFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'firstName'
+  | 'lastName'
+  | 'maidenName'
+  | 'address'
+  | 'birthDate'
+  | 'headline'
+  | 'summary'
+  | 'industry'
+  | 'zipCode'
+  | 'geoLocation'
+  | 'twitterHandles'
+  | 'websites'
+  | 'instantMessengers'
+  | 'skills'
+  | 'education'
+  | 'education___schoolName'
+  | 'education___startDate'
+  | 'education___endDate'
+  | 'education___notes'
+  | 'education___degreeName'
+  | 'education___activities'
+  | 'languages'
+  | 'languages___name'
+  | 'languages___proficiency'
+  | 'experiences'
+  | 'experiences___companyName'
+  | 'experiences___title'
+  | 'experiences___description'
+  | 'experiences___location'
+  | 'experiences___startedOn'
+  | 'experiences___finishedOn';
+
+export type LinkedInResumeFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  firstName?: Maybe<StringQueryOperatorInput>;
+  lastName?: Maybe<StringQueryOperatorInput>;
+  maidenName?: Maybe<StringQueryOperatorInput>;
+  address?: Maybe<StringQueryOperatorInput>;
+  birthDate?: Maybe<StringQueryOperatorInput>;
+  headline?: Maybe<StringQueryOperatorInput>;
+  summary?: Maybe<StringQueryOperatorInput>;
+  industry?: Maybe<StringQueryOperatorInput>;
+  zipCode?: Maybe<StringQueryOperatorInput>;
+  geoLocation?: Maybe<StringQueryOperatorInput>;
+  twitterHandles?: Maybe<StringQueryOperatorInput>;
+  websites?: Maybe<StringQueryOperatorInput>;
+  instantMessengers?: Maybe<StringQueryOperatorInput>;
+  skills?: Maybe<StringQueryOperatorInput>;
+  education?: Maybe<LinkedInResumeEducationFilterListInput>;
+  languages?: Maybe<LinkedInResumeLanguagesFilterListInput>;
+  experiences?: Maybe<LinkedInResumeExperiencesFilterListInput>;
+};
+
+export type LinkedInResumeGroupConnection = {
+  __typename?: 'LinkedInResumeGroupConnection';
+  totalCount: Scalars['Int'];
+  edges: Array<LinkedInResumeEdge>;
+  nodes: Array<LinkedInResume>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInResumeLanguages = {
+  __typename?: 'LinkedInResumeLanguages';
+  name?: Maybe<Scalars['String']>;
+  proficiency?: Maybe<Scalars['String']>;
+};
+
+export type LinkedInResumeLanguagesFilterInput = {
+  name?: Maybe<StringQueryOperatorInput>;
+  proficiency?: Maybe<StringQueryOperatorInput>;
+};
+
+export type LinkedInResumeLanguagesFilterListInput = {
+  elemMatch?: Maybe<LinkedInResumeLanguagesFilterInput>;
+};
+
+export type LinkedInResumeSortInput = {
+  fields?: Maybe<Array<Maybe<LinkedInResumeFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 /** Node Interface */
 export type Node = {
   id: Scalars['ID'];
@@ -1650,6 +1939,8 @@ export type Query = {
   allSite: SiteConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  linkedInResume?: Maybe<LinkedInResume>;
+  allLinkedInResume: LinkedInResumeConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -1823,6 +2114,39 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLinkedInResumeArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  firstName?: Maybe<StringQueryOperatorInput>;
+  lastName?: Maybe<StringQueryOperatorInput>;
+  maidenName?: Maybe<StringQueryOperatorInput>;
+  address?: Maybe<StringQueryOperatorInput>;
+  birthDate?: Maybe<StringQueryOperatorInput>;
+  headline?: Maybe<StringQueryOperatorInput>;
+  summary?: Maybe<StringQueryOperatorInput>;
+  industry?: Maybe<StringQueryOperatorInput>;
+  zipCode?: Maybe<StringQueryOperatorInput>;
+  geoLocation?: Maybe<StringQueryOperatorInput>;
+  twitterHandles?: Maybe<StringQueryOperatorInput>;
+  websites?: Maybe<StringQueryOperatorInput>;
+  instantMessengers?: Maybe<StringQueryOperatorInput>;
+  skills?: Maybe<StringQueryOperatorInput>;
+  education?: Maybe<LinkedInResumeEducationFilterListInput>;
+  languages?: Maybe<LinkedInResumeLanguagesFilterListInput>;
+  experiences?: Maybe<LinkedInResumeExperiencesFilterListInput>;
+};
+
+
+export type QueryAllLinkedInResumeArgs = {
+  filter?: Maybe<LinkedInResumeFilterInput>;
+  sort?: Maybe<LinkedInResumeSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
