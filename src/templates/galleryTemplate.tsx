@@ -22,7 +22,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
 
   if (width < 1000) numCols = 2
 
-  let cols = getCols(numCols, gallery)
+  let cols = getCols(numCols, gallery, columnWidth)
 
   useEffect(() => {
 
@@ -69,21 +69,35 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
   )
 }
 
-const getCols = (numCols: number, gallery: Array<File>) => {
-  let columnArray = new Array(numCols).fill('x').map(spot => ({ heightSum: 0, colArray: []}))
+interface columnWithTracking {
+  heightSum: number;
+  colArray: Array<File>;
+}
+
+const getCols = (numCols: number, gallery: Array<File>, columnWidth: number) => {
+  let columnArray = new Array(numCols).fill('x').map(spot => ({ heightSum: 0, colArray: []} as columnWithTracking))
   let galleryCopy = copy(gallery)
 
-  let currentPos = 0
   while (galleryCopy.length > 0) {
-    columnArray[currentPos].colArray.push(galleryCopy.shift())
-    if(currentPos < numCols - 1) {
-      currentPos++;
-    } else {
-      currentPos = 0;
-    }
+    let addIndex = returnShortestCol(columnArray);
+    let addImage = galleryCopy.shift() as File;
+    columnArray[addIndex].colArray.push(addImage)
+    columnArray[addIndex].heightSum += columnWidth / addImage.childImageSharp.fluid.aspectRatio;
   }
   const returnArray = columnArray.map(col => col.colArray)
   return returnArray as Array<Array<File>>
+}
+
+const returnShortestCol = (columns: Array<columnWithTracking>) => {
+  let minIndex = 0;
+  let minHeight = columns[0].heightSum;
+  columns.forEach((col, index) => {
+    if(col.heightSum < minHeight) {
+      minHeight = col.heightSum;
+      minIndex = index;
+    }
+  })
+  return minIndex;
 }
 
 export default GalleryPage
