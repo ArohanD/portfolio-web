@@ -45,6 +45,44 @@ export const blankHomeLink = {
   imagePath: "",
 }
 
+export let navLinks: Array<HomeLink> = [
+  {
+    title: "Home",
+    path: "/",
+    backgroundImageSlug: `home`,
+    textColor: "#68281B",
+    imagePath: "",
+  },
+  {
+    title: "Dev",
+    path: "/dev",
+    backgroundImageSlug: `dev`,
+    textColor: "#68281B",
+    imagePath: "",
+  },
+  {
+    title: "Photo",
+    path: "/photography",
+    backgroundImageSlug: `photo`,
+    textColor: "#EFFFB1",
+    imagePath: "",
+  },
+  {
+    title: "Writing",
+    path: "/writing",
+    backgroundImageSlug: `writing`,
+    textColor: "#c44637",
+    imagePath: "",
+  },
+  {
+    title: "Resume",
+    path: "/resume",
+    backgroundImageSlug: `resume`,
+    textColor: "#edb879",
+    imagePath: "",
+  },
+]
+
 export const homeContent: Array<String> = [
   `Hi, I’m Arohan,`,
 

@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Link, useStaticQuery } from "gatsby"
-import { HomeLink, homeLinks } from "../dummyContent"
+import { HomeLink, homeLinks } from "../staticContent"
 import { Query } from "../generated/graphql-types"
 import { sanitizeTitle } from "../../utils"
 

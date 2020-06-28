@@ -8,7 +8,7 @@ import {
   homeLinks,
   blankHomeLink,
   homeContent,
-} from "../dummyContent"
+} from "../staticContent"
 
 const IndexPage: React.FC = () => {
   const handleMouseOver = (homeLink: HomeLink) => {

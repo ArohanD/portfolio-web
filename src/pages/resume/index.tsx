@@ -3,8 +3,10 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import "./resume-styles.scss"
 import SEO from "../../components/seo"
 import { Query } from "../../generated/graphql-types"
+import MobileNav from "../../components/mobileNav"
+import { PageProps } from "gatsby"
 
-const Resume: React.FC = () => {
+const Resume: React.FC = (props: PageProps) => {
   const resumeQuery = useStaticQuery(graphql`
     query ResumeQuery {
       linkedInResume {
@@ -49,6 +51,7 @@ const Resume: React.FC = () => {
           })}
         </div>
       </div>
+      <MobileNav URI={props.uri} />
     </React.Fragment>
   )
 }

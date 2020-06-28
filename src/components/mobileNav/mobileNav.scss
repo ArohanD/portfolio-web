@@ -1,0 +1,44 @@
+@use '../../pages/global-styles.scss' as *;
+
+.navigation-closed,
+.navigation-open {
+  position: fixed;
+  bottom: 45px;
+  left: 25px;
+}
+
+.navigation-closed {
+  height: 60px;
+  width: 60px;
+  background-color: $color-primary;
+  border-radius: 40px;
+  border: 2px solid white;
+}
+
+.navigation-open {
+
+  padding-right: 20px;
+  background-color: white;
+  border-radius: 10px;
+  z-index: 0;
+
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 0.9;
+    z-index: -1;
+  }
+}
+
+.nav-mobile-link {
+  margin-top: 10px;
+  a {
+    text-decoration: none;
+    color: $color-black;
+  }
+}
