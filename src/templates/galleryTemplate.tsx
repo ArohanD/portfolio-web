@@ -18,7 +18,6 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   const gallery = data.allFile.nodes
   const galleryWidth = width * 0.8
   const columnWidth = window.innerWidth > 1600? 600 : 300;
-  console.log(galleryWidth)
   let numCols = Math.floor(galleryWidth / columnWidth)
 
   if (width < 1000) numCols = 2
@@ -42,7 +41,6 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
       <SEO title={sanitizeTitle(pageContext.title)} />
       <div className="gallery-content-wrapper">
         <GallerySideBar />
-
         <div className="gallery-column-container">
           {cols.map(column => (
             <GalleryColumn gallery={column} width={columnWidth} />
