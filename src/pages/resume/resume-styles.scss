@@ -1,9 +1,41 @@
+@use '../global-styles.scss' as *;
+
 .resume-page-wrapper {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+  
+  @media (min-width: $desk-break) {
+    align-items: center;
+  }
+
+  h4, p, ul {
+    margin: 0px;
+  }
 }
 
 .resume-content-wrapper {
-  min-width: 300px;
-  padding: 10px;
+
+
+  @media (min-width: $desk-break) {
+    max-width: 500px;
+    margin-top: 50px;
+  }
+}
+
+.resume-experience-title {
+  color: $color-primary;
+}
+
+.resume-experience-block {
+  margin-bottom: 20px;
+
+}
+
+.resume-experience-bullets {
+  margin-top: 10px !important;
+  font-size: 12px;
+  padding-left: 14px;
+
+
 }
