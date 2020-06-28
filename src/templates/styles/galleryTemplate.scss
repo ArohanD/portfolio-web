@@ -24,6 +24,12 @@
     margin-bottom: 20px;
     font-size: 14px;
   }
+
+  @media (min-width: $break-HiDPI) {
+    a {
+      font-size: 18px;
+    }
+  }
 }
 
 .gallery-linkBlock:first-of-type {

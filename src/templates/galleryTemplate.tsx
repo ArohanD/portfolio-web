@@ -16,8 +16,9 @@ interface GalleryPageProps {
 const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   const [width, setWidth] = useState(window.innerWidth)
   const gallery = data.allFile.nodes
-  const columnWidth = 300
   const galleryWidth = width * 0.8
+  const columnWidth = window.innerWidth > 1600? 600 : 300;
+  console.log(galleryWidth)
   let numCols = Math.floor(galleryWidth / columnWidth)
 
   if (width < 1000) numCols = 2
