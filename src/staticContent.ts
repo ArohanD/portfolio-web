@@ -16,7 +16,7 @@ export let homeLinks: Array<HomeLink> = [
   },
   {
     title: "Photo",
-    path: "/photography",
+    path: "/gallery/latest",
     backgroundImageSlug: `photo`,
     textColor: "#EFFFB1",
     imagePath: "",

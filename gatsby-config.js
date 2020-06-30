@@ -46,7 +46,14 @@ module.exports = {
         dest: './src/generated/graphql-types.d.ts',
       },
     },
-    'gatsby-plugin-linkedin-resume',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `data`,
+        path: `linkedin`,
+      },
+    },
+    `gatsby-transformer-csv`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

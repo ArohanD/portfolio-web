@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
+import MobileNav from "../components/mobileNav"
 import Img from "gatsby-image"
 import { Query, SitePageContext, File } from "../generated/graphql-types"
 import { sanitizeTitle, copy } from "../../utils"
@@ -17,7 +18,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   const [width, setWidth] = useState(window.innerWidth)
   const gallery = data.allFile.nodes
   const galleryWidth = width * 0.8
-  const columnWidth = window.innerWidth > 1600? 600 : 300;
+  const columnWidth = window.innerWidth > 1680 ? 600 : 300
   let numCols = Math.floor(galleryWidth / columnWidth)
 
   if (width < 1000) numCols = 2
@@ -25,14 +26,13 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   let cols = getCols(numCols, gallery, columnWidth)
 
   useEffect(() => {
-
     const handleResize = () => {
-      setWidth(window.innerWidth);
+      setWidth(window.innerWidth)
     }
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
     return () => {
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener("resize", handleResize)
     }
   }, [])
 
@@ -47,6 +47,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
           ))}
         </div>
       </div>
+      <MobileNav URI={"/photo"} />
     </div>
   )
 }
@@ -69,34 +70,41 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
 }
 
 interface columnWithTracking {
-  heightSum: number;
-  colArray: Array<File>;
+  heightSum: number
+  colArray: Array<File>
 }
 
-const getCols = (numCols: number, gallery: Array<File>, columnWidth: number) => {
-  let columnArray = new Array(numCols).fill('x').map(spot => ({ heightSum: 0, colArray: []} as columnWithTracking))
+const getCols = (
+  numCols: number,
+  gallery: Array<File>,
+  columnWidth: number
+) => {
+  let columnArray = new Array(numCols)
+    .fill("x")
+    .map(spot => ({ heightSum: 0, colArray: [] } as columnWithTracking))
   let galleryCopy = copy(gallery)
 
   while (galleryCopy.length > 0) {
-    let addIndex = returnShortestCol(columnArray);
-    let addImage = galleryCopy.shift() as File;
+    let addIndex = returnShortestCol(columnArray)
+    let addImage = galleryCopy.shift() as File
     columnArray[addIndex].colArray.push(addImage)
-    columnArray[addIndex].heightSum += columnWidth / addImage.childImageSharp.fluid.aspectRatio;
+    columnArray[addIndex].heightSum +=
+      columnWidth / addImage.childImageSharp.fluid.aspectRatio
   }
   const returnArray = columnArray.map(col => col.colArray)
   return returnArray as Array<Array<File>>
 }
 
 const returnShortestCol = (columns: Array<columnWithTracking>) => {
-  let minIndex = 0;
-  let minHeight = columns[0].heightSum;
+  let minIndex = 0
+  let minHeight = columns[0].heightSum
   columns.forEach((col, index) => {
-    if(col.heightSum < minHeight) {
-      minHeight = col.heightSum;
-      minIndex = index;
+    if (col.heightSum < minHeight) {
+      minHeight = col.heightSum
+      minIndex = index
     }
   })
-  return minIndex;
+  return minIndex
 }
 
 export default GalleryPage

@@ -3,26 +3,27 @@ import { Link, useStaticQuery, graphql } from "gatsby"
 import "./resume-styles.scss"
 import SEO from "../../components/seo"
 import { Query } from "../../generated/graphql-types"
-import MobileNav from "../../components/mobileNav"
+import MobileNav from "../../components/mobileNav/"
 import { PageProps } from "gatsby"
 
 const Resume: React.FC = (props: PageProps) => {
   const resumeQuery = useStaticQuery(graphql`
     query ResumeQuery {
-      linkedInResume {
-        experiences {
-          companyName
-          title
-          description
-          location
-          startedOn
-          finishedOn
+      allPositionsCsv {
+        nodes {
+          Company_Name
+          Description
+          Finished_On
+          Location
+          Started_On
+          Title
         }
       }
     }
   `) as Query
 
-  const { experiences } = resumeQuery.linkedInResume
+  const { nodes } = resumeQuery.allPositionsCsv
+  console.log(nodes)
 
   return (
     <React.Fragment>
@@ -30,18 +31,18 @@ const Resume: React.FC = (props: PageProps) => {
       <div className={"resume-page-wrapper"}>
         <h1>Resume</h1>
         <div className={"resume-content-wrapper"}>
-          {experiences.map(experience => {
-            if (experience.companyName !== "Personal Projects") {
+          {nodes.map(experience => {
+            if (experience.Company_Name !== "Personal Projects") {
               return (
-                <div key={experience.title} className="resume-experience-block">
-                  <h4 className="resume-experience-title">{`${experience.title} @ ${experience.companyName}`}</h4>
-                  <p>{`${experience.startedOn.toUpperCase()} - ${
-                    experience.finishedOn
-                      ? experience.finishedOn.toUpperCase()
+                <div key={experience.Title} className="resume-experience-block">
+                  <h4 className="resume-experience-title">{`${experience.Title} @ ${experience.Company_Name}`}</h4>
+                  <p>{`${experience.Started_On.toUpperCase()} - ${
+                    experience.Finished_On
+                      ? experience.Finished_On.toUpperCase()
                       : "present"
                   }`}</p>
                   <ul className="resume-experience-bullets">
-                    {experience.description.split("•").map(bullet => {
+                    {experience.Description.split("•").map(bullet => {
                       if (bullet !== "") return <li key={bullet}>{bullet}</li>
                     })}
                   </ul>
