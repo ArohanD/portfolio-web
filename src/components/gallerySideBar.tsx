@@ -55,13 +55,22 @@ interface linkBlockProps {
 }
 
 const LinkBlock: React.FC<linkBlockProps> = ({ links }) => {
+  console.log(links)
   return (
     <div className="gallery-linkBlock">
-      {links.map(({ path, title }) => (
-        <React.Fragment key={title}>
-          <Link to={path}>{title.toLowerCase()}</Link>
-        </React.Fragment>
-      ))}
+      {links.map(({ path, title }) => {
+        console.log()
+
+        if(title === 'Photo') return null;
+
+        let linkPath = path[0] === '/' ? path : `/${path}/`;
+
+        return (
+          <React.Fragment key={title}>
+            <Link to={linkPath}>{title.toLowerCase()}</Link>
+          </React.Fragment>
+        )
+      })}
     </div>
   )
 }
