@@ -23,7 +23,6 @@ const Resume: React.FC = (props: PageProps) => {
   `) as Query
 
   const { nodes } = resumeQuery.allPositionsCsv
-  console.log(nodes)
 
   return (
     <React.Fragment>

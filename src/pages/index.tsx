@@ -39,7 +39,7 @@ const IndexPage: React.FC = () => {
   useEffect(() => {
     addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
 
-    photoQuery.homeImages.nodes.map((node) => {
+    photoQuery.homeImages.nodes.map(node => {
       if (node.name === "profile") setProfilePhoto(node.childImageSharp)
     })
   }, [])
@@ -66,20 +66,22 @@ const IndexPage: React.FC = () => {
           </Link>
         ))}
       </nav>
-      <div className="home-section-intro">
-        {profilePhoto && (
-          <Img
-            className="home-profile-photo"
-            alt="Profile Photo"
-            fixed={profilePhoto.fixed}
-          />
-        )}
-        <div className="home-body-content">
-          {homeContent.map((block: string) => (
-            <p className="home-about-paragraph">{block}</p>
-          ))}
+      {!activeHomeLink.imagePath && (
+        <div className="home-section-intro">
+          {profilePhoto && (
+            <Img
+              className="home-profile-photo"
+              alt="Profile Photo"
+              fixed={profilePhoto.fixed}
+            />
+          )}
+          <div className="home-body-content">
+            {homeContent.map((block: string) => (
+              <p className="home-about-paragraph">{block}</p>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
       {activeHomeLink.title && <BackgroundImage homeLink={activeHomeLink} />}
     </div>
   )
@@ -106,7 +108,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
 const addSrcLinks = (linkArray: Array<HomeLink>, imageArray: Array<any>) => {
   linkArray.map((linkObj: HomeLink) => {
     const target = linkObj.backgroundImageSlug
-    imageArray.forEach((node) => {
+    imageArray.forEach(node => {
       if (target === node.name) linkObj.imagePath = node.childImageSharp
     })
   })

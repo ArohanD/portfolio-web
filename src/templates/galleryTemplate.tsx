@@ -40,14 +40,14 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
     <div>
       <SEO title={sanitizeTitle(pageContext.title)} />
       <div className="gallery-content-wrapper">
-        <GallerySideBar />
+        {window.innerWidth  1000 && <GallerySideBar />}
         <div className="gallery-column-container">
           {cols.map(column => (
             <GalleryColumn gallery={column} width={columnWidth} />
           ))}
         </div>
       </div>
-      <MobileNav URI={"/photo"} />
+      {window.innerWidth < 1000 && <MobileNav URI={"/photo"} />}
     </div>
   )
 }

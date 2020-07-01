@@ -31,7 +31,7 @@ const GallerySideBar: React.FC = () => {
 
   homeLinksWithHome.unshift({
     title: "Home",
-    path: "/home",
+    path: "/",
     backgroundImageSlug: `home`,
     textColor: "#68281B",
     imagePath: "",
