@@ -73,3 +73,6 @@ gallery
 
 # Linkedin Archive (https://www.linkedin.com/psettings/member-data)
 linkedin
+
+# Markdown
+*.md
