@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { Link, useStaticQuery } from "gatsby"
 import { HomeLink, homeLinks } from "../staticContent"
 import { Query } from "../generated/graphql-types"
-import { sanitizeTitle } from "../../utils"
+import { sanitizeTitle, copy } from "../../utils"
 
 const GallerySideBar: React.FC = () => {
   const galleryNavQuery = useStaticQuery(graphql`
@@ -27,7 +27,7 @@ const GallerySideBar: React.FC = () => {
     } as galleryLink)
   })
 
-  const homeLinksWithHome = JSON.parse(JSON.stringify(homeLinks))
+  const homeLinksWithHome = copy(homeLinks)
 
   homeLinksWithHome.unshift({
     title: "Home",
