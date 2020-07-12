@@ -13,7 +13,6 @@ const exif = require("fast-exif")
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
-    //console.log(node)
     const imagePath = "src/images/" + node.relativePath
 
     const slug = createFilePath({ node, getNode, basePath: `gallery-image` })
@@ -41,7 +40,9 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
-  return graphql(`
+
+  // GALLERY PAGES
+  const galleryPages = graphql(`
     {
       allDirectory(filter: { relativeDirectory: { eq: "gallery" } }) {
         nodes {
@@ -52,23 +53,64 @@ exports.createPages = ({ actions, graphql }) => {
   `).then(result => {
     if (result.errors) console.log(result.errors)
 
-    let galleryPages = result.data.allDirectory.nodes
-    const imagePageTemplate = path.resolve("./src/templates/galleryTemplate.tsx")
+    let galleryPageNodes = result.data.allDirectory.nodes
+    const imagePageTemplate = path.resolve(
+      "./src/templates/galleryTemplate.tsx"
+    )
 
-    galleryPages.forEach(node => {
-      const leaf = node.relativePath.split('/')[1]
-      const pageQuery = `/${leaf}/`;
-      
+    galleryPageNodes.forEach(node => {
+      const leaf = node.relativePath.split("/")[1]
+      const pageQuery = `/${leaf}/`
+
       createPage({
         path: node.relativePath,
         component: imagePageTemplate,
         context: {
           slug: node.relativePath,
           queryRegex: pageQuery,
-          title: leaf
+          title: leaf,
         },
       })
     })
-
   })
+
+  // MARKDOWN PAGES
+  const markdownPages = graphql(`
+    {
+      allMarkdownRemark {
+        nodes {
+          html
+          parent {
+            ... on File {
+              id
+              name
+              relativeDirectory
+              relativePath
+            }
+          }
+        }
+      }
+    }
+  `).then(result => {
+    if (result.errors) console.log(errors)
+
+    const mdPageNodes = result.data.allMarkdownRemark.nodes
+    const mdPageTemplate = path.resolve(
+      "./src/templates/markdownTemplate.tsx"
+    )
+
+    mdPageNodes.forEach(node => {
+      
+      createPage({
+        path: node.parent.relativePath,
+        component: mdPageTemplate,
+        context: {
+          slug: node.parent.relativePath,
+          content: node,
+        },
+      })
+    })
+  })
+
+  return Promise.all([galleryPages, markdownPages])
 }
