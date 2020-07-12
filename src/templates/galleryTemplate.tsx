@@ -47,7 +47,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
           ))}
         </div>
       </div>
-      {window.innerWidth < 1000 && <MobileNav URI={"/photo"} />}
+      <MobileNav URI={"/photo"} />
     </div>
   )
 }

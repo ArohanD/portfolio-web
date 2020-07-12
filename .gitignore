@@ -69,7 +69,10 @@ yarn-error.log
 .yarn-integrity
 
 # Images
-gallery
+*.png 
+*.jpg 
+*.jpeg 
+*.webp 
 
 # Linkedin Archive (https://www.linkedin.com/psettings/member-data)
 linkedin

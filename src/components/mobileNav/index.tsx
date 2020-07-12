@@ -1,10 +1,25 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Link } from 'gatsby'
 import { navLinks } from "../../staticContent"
 import "./mobileNav.scss"
 
 const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
   const [navOpen, setNavOpen] = useState(false)
+  const [width, setWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
+
+    window.addEventListener("resize", handleResize)
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
+
+  if(window.innerWidth > 1000) return <div></div>
+
   return (
     <div
       className={navOpen ? "navigation-open" : "navigation-closed"}

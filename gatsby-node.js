@@ -88,6 +88,13 @@ exports.createPages = ({ actions, graphql }) => {
               relativePath
             }
           }
+          frontmatter {
+            title
+            slug
+            date
+            images
+            imageJustification
+          }
         }
       }
     }
@@ -107,6 +114,7 @@ exports.createPages = ({ actions, graphql }) => {
         context: {
           slug: node.parent.relativePath,
           content: node,
+          imageQuery: node.parent.relativePath.split('.')[0],
         },
       })
     })
