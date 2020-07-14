@@ -4,7 +4,6 @@ import Img from "gatsby-image"
 import SEO from "../components/seo"
 import MobileNav from "../components/mobileNav"
 import { Query, SitePageContext, File } from "../generated/graphql-types"
-import { sanitizeTitle, copy } from "../../utils"
 import "./styles/markdownTemplate.scss"
 
 interface MarkdownPageProps {
@@ -17,6 +16,7 @@ const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
 
   return (
     <div className="markdown-page-wrapper">
+      <SEO title={pageContext.content.frontmatter.title} />
       <div
         className={"markdown-wrapper"}
         dangerouslySetInnerHTML={{ __html: pageContext.content.html }}
