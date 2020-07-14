@@ -13,7 +13,6 @@ interface MarkdownPageProps {
 }
 
 const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
-
   const images = data.allFile.nodes
 
   return (
@@ -24,7 +23,11 @@ const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
       ></div>
       <div className="markdown-images">
         {images.map(node => (
-          <Img key={node.id} fixed={node.childImageSharp.fixed} />
+          <Img
+            key={node.id}
+            fixed={node.childImageSharp.fixed}
+            className={"markdown-image"}
+          />
         ))}
       </div>
       <MobileNav URI={"/writing"} />
@@ -39,7 +42,7 @@ export const markdownPageQuery = graphql`
     allFile(filter: { relativeDirectory: { eq: $imageQuery } }) {
       nodes {
         childImageSharp {
-          fixed(width: 300) {
+          fixed(height: 300) {
             ...GatsbyImageSharpFixed
           }
           fluid {
