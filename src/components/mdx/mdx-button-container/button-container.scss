@@ -1,0 +1,17 @@
+@use '../../../pages/global-styles.scss' as *;
+
+.mdx-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.mdx-button-style {
+  padding: 13px 26px;
+  text-transform: uppercase;
+  background-color: $color-off-black;
+  color: $color-white;
+  font-weight: 700;
+  letter-spacing: .12em;
+  border: none;;
+}

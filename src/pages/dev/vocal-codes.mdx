@@ -1,0 +1,31 @@
+import "./dev-styles.scss"
+import { ButtonContainer } from "../../components/mdx/mdx-button-container/index.tsx"
+export const buttons = [
+  { text: "git repo", url: "google.com" },
+  { text: "live demo", url: "google.com" },
+]
+
+# Vocal Codes
+
+<div class='image-right-wrapper' >
+
+<div class='image-right-text' >
+An app that allows immobile persons to communicate with morse code using a single input button. This app is Inspired by my uncle, who is now immobile due to an injury. Its features are as follows:
+
+- Users are able to have input with short and long presses, either as yes/no or in morse code, and have their input translated and spoken to others.
+- A predictive text engine allows for easier sentence construction.
+- The app has adjustable sensitivities so they can be tailored to users with different needs.
+- A high-contrast color scheme is utilized for facilitated reading.
+
+Stack: React // Node.js // SpeechSynthesis // AWS EC2 + PM2 // Express // ARIA
+
+<ButtonContainer buttons={buttons} />
+
+</div>
+
+<img
+  class="image-right-image"
+  src="https://images.squarespace-cdn.com/content/v1/54c0768de4b07740895fb25f/1572025068065-RA1WPF36FKTPOIGX2ZJM/ke17ZwdGBToddI8pDm48kJO_Aj-M1eF3QqAViXELqo97gQa3H78H3Y0txjaiv_0fDoOvxcdMmMKkDsyUqMSsMWxHk725yiiHCCLfrh8O1z5QHyNOqBUUEtDDsRWrJLTmQx21nqIT8mD2igu2ZXJ_19t5gqJ5CkHK8N9f0mJ1zcy2uhiDiJWxyOnCWyLf2OmL/ec2-54-173-143-128.compute-1.amazonaws.com_Translator%28iPhone+6_7_8+Plus%29+%281%29.png?format=750w"
+/>
+
+</div>

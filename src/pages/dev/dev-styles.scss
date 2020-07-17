@@ -1,0 +1,31 @@
+@use '../global-styles.scss' as *;
+
+.image-right-wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: $desk-break) {
+    flex-direction: row;
+    width: 70vw;
+    max-width: 900px;
+    margin: auto;
+  }
+}
+
+.image-right-text {
+  @media (min-width: $desk-break) {
+    max-width: 50%;
+  }
+
+  margin-bottom: 100px;
+}
+
+.image-right-image {
+  display: block;
+  max-height: 500px;
+  @media (min-width: $desk-break) {
+    max-width: 30%;
+  }
+}

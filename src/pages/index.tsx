@@ -54,6 +54,7 @@ const IndexPage: React.FC = () => {
         {homeLinks.map((linkObj: HomeLink) => (
           <Link
             to={linkObj.path}
+            key={linkObj.title}
             onMouseOver={() => handleMouseOver(linkObj)}
             onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
             style={
@@ -77,7 +78,7 @@ const IndexPage: React.FC = () => {
           )}
           <div className="home-body-content">
             {homeContent.map((block: string) => (
-              <p className="home-about-paragraph">{block}</p>
+              <p key={block} className="home-about-paragraph">{block}</p>
             ))}
           </div>
         </div>
