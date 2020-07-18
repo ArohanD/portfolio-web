@@ -5,6 +5,7 @@
   justify-content: space-between;
   flex-direction: column;
   align-items: center;
+  padding: 15px;
 
   @media (min-width: $desk-break) {
     flex-direction: row;
@@ -42,14 +43,22 @@
   }
 }
 
-.mdx-video {
+.mdx-default-media {
   align-self: center;
-  width: 100%;
-  height: 90vw;
-  max-height: 500px;
+  width: auto;
+  max-width: 90%;
+  height: auto;
   margin-top: 20px;
   
   @media (min-width: $desk-break) {
     margin-top: 100px;
   }
 }
+
+.mdx-iframe {
+  display: inline-block;
+  margin-top: 20px;
+  min-height: 500px;
+}
+
+

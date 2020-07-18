@@ -1,0 +1,42 @@
+import "./dev-styles.scss"
+import { ButtonContainer } from "../../components/mdx/mdx-button-container/index.tsx"
+import {
+  SkillStack,
+  addColorToSkills,
+} from "../../components/skillStack/index.tsx"
+export const buttons = [
+  { text: "pitch deck", url: "https://google.com" },
+  { text: "live demo", url: "google.com" },
+]
+export const tags = [
+  "React",
+  "React Router",
+  "Javascript",
+  "Node",
+  "AWS",
+  "EC2",
+  "PM2",
+  "Postgres",
+  "Express",
+  "Bootstrap",
+]
+
+<div class='mdx-default-wrapper'>
+
+# AdVocation
+
+Developed at a diversity hackathon, AdVocation is platform that allows under-represented candidates looking for referrals to find employees looking to refer candidates to their companies. The app features:
+
+- A portal for a company’s employees to find applicants in the general public looking for referrals, including a shortlist functionality for sorting through candidates.
+- The ability for employees at a company to post jobs.
+- A portal for job seekers to create profiles and look for open jobs where a company’s employees are looking to refer.
+
+<ButtonContainer buttons={buttons} />
+<SkillStack skills={addColorToSkills(tags)} />
+
+<img
+  class="mdx-default-media"
+  src="https://images.squarespace-cdn.com/content/v1/54c0768de4b07740895fb25f/1572451023341-RVN7VWFQU58M347GQXPE/ke17ZwdGBToddI8pDm48kD33KhhWEodMJvcytjXFyvFZw-zPPgdn4jUwVcJE1ZvWQUxwkmyExglNqGp0IvTJZamWLI2zvYWH8K3-s_4yszcp2ryTI0HqTOaaUohrI8PIQVUjsvMYGrjk5P5guv3Gb1aPQrnDLhtGUJ-UJkarKCw/adVocation.png?format=1500w"
+/>
+
+</div>

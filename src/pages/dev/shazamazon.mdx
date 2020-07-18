@@ -1,0 +1,45 @@
+import "./dev-styles.scss"
+import { ButtonContainer } from "../../components/mdx/mdx-button-container/index.tsx"
+import {
+  SkillStack,
+  addColorToSkills,
+} from "../../components/skillStack/index.tsx"
+export const buttons = [
+  { text: "git repo", url: "https://google.com" },
+  { text: "live demo", url: "google.com" },
+]
+export const tags = [
+  "React",
+  "Node",
+  "Javascript",
+  "AWS",
+  "EC2",
+  "PM2",
+  "MongoDB",
+  "Express",
+  "ARIA",
+  "Postgres",
+]
+
+<div class='mdx-default-wrapper'>
+
+# Shazamazon
+
+Shazamazon is a full stack item description page modeled after Amazon. It is composed of nine individually deployed micro-services that are stitched together in order to architect scalable components with separation of concerns. My major contributions to this project are as follows:
+
+- Creating the reviews component - a component that has its own front-end, back-end and database to handle review display, review submission, and helpful demarcations. The component also features a profanity filter, is WAI-ARIA compliant for voice-reader access and communicates to other components as reviews are submitted.
+- Scaled the Carousel to handle 10 million items and 1000 RPS by implementing load balancing across multiple server instances.
+- Created a proxy to stitch all nine components together.
+
+<ButtonContainer buttons={buttons} />
+<SkillStack skills={addColorToSkills(tags)} />
+
+<iframe
+  class="mdx-video mdx-iframe"
+  src="https://www.youtube.com/embed/jEG-kVc52FE"
+  frameborder="0"
+  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+</div>
