@@ -1,0 +1,15 @@
+@use '../../pages/global-styles.scss' as *;
+
+.skillStack-container {
+  margin-top: 20px;
+}
+
+.skillStack-skill {
+  padding: 2px 8px;
+  margin-right: 2px;
+  border-radius: 8px;
+  display: inline-block;
+  margin-top: 8px;
+
+  font-size: 12px;
+}

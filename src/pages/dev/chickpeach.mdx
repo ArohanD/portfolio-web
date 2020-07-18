@@ -1,0 +1,30 @@
+
+
+import "./dev-styles.scss"
+import { ButtonContainer } from "../../components/mdx/mdx-button-container/index.tsx"
+import { SkillStack, addColorToSkills } from "../../components/skillStack/index.tsx"
+export const buttons = [
+  { text: "git repo", url: "https://google.com" },
+  { text: "live demo", url: "google.com" },
+]
+export const tags = ['React', 'React Router', 'Node', 'Javascript', 'AWS', 'EC2', 'PM2', 'Firebase', 'MySQL', 'Express', 'ARIA', 'Javascript', 'Grommet', 'Docker']
+
+<div class='mdx-default-wrapper'>
+
+# Chickpeach
+
+Chickpeach is your one stop meal planning, recipe discovery and grocery-management app. Users are able to:
+
+- Search for recipes and save them to a menu or favorites
+- Input custom allergens and dislikes and have those ingredients never show up in search or the menu
+- Generate custom shopping lists based on selected menu items
+- Adjust meal prepping to accommodate multiple persons, dietary restrictions and popular diets
+
+The app features a clean UI that is WAI-ARIA compliant. Chickpeach is fully responsive and can be taken on the go or browsed as a rich desktop experience. 
+
+<ButtonContainer buttons={buttons} />
+<SkillStack skills={addColorToSkills(tags)} />
+
+<iframe class='mdx-video' src="https://www.youtube.com/embed/1Q_Wb6s6fA8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+</div>
