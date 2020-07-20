@@ -1,2 +1,12 @@
 @use '../../pages/global-styles.scss' as *;
 
+.thumbNailContainer {
+  box-sizing: border-box;
+  padding-top: 40px;
+  height: 100%;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
+}

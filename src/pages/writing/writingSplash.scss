@@ -1,2 +1,40 @@
 @use '../global-styles.scss' as *;
 
+.writingSplash-wrapper {
+  box-sizing: border-box;
+  padding-top: 20px;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.writingSplash-title {
+  display: block;
+  margin:auto;
+  width: 350px;
+  color: $color-primary;
+}
+
+.writingSplash-card {
+  width: 350px;
+  margin-bottom: 40px;
+  border-radius: 10px;
+  -webkit-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
+  -moz-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
+  box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
+
+  &:last-child {
+    margin-bottom: 500px;
+  }
+}
+
+.writingSplash-card-image {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.writingSplash-card-title,
+.writingSplash-card-description {
+  padding: 0px 10px;
+}

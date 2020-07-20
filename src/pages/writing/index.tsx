@@ -18,7 +18,7 @@ const WritingSplash: React.FC = () => {
             title
           }
           rawMarkdownBody
-          excerptAst
+          excerpt
           parent {
             ... on File {
               name
@@ -30,7 +30,7 @@ const WritingSplash: React.FC = () => {
       allFile(filter: { relativeDirectory: { regex: "/writing/" } }) {
         nodes {
           childImageSharp {
-            fixed {
+            fixed(width: 350, height: 250) {
               ...GatsbyImageSharpFixed
             }
           }
@@ -51,8 +51,8 @@ const WritingSplash: React.FC = () => {
     return {
       img: thumbImage,
       title: node.frontmatter.title,
-      url: "",
-      description: "",
+      url: node.parent.relativePath,
+      description: node.excerpt,
       tags: [],
     } as thumbNailProps
   }) as Array<thumbNailProps>
@@ -60,6 +60,7 @@ const WritingSplash: React.FC = () => {
   return (
     <div className="writingSplash-wrapper">
       {/* <Sidebar /> */}
+      <h1 className="writingSplash-title">Marketing & Creative Writing</h1>
       <ThumbNailContainer
         ThumbNailComponent={<WritingThumbNail title={""} img={""} />}
         thumbNailData={thumbNailData}

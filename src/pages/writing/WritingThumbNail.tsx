@@ -13,7 +13,7 @@ const WritingThumbNail: React.FC<thumbNailProps> = ({
   const placeHolderQuery = useStaticQuery(graphql`
     query {
       imageSharp(id: { eq: "3d8a7415-4106-5636-bf3e-94cd22d16b47" }) {
-        fixed {
+        fixed (width: 350, height: 250) {
           ...GatsbyImageSharpFixed
         }
       }
@@ -24,9 +24,9 @@ const WritingThumbNail: React.FC<thumbNailProps> = ({
 
   return (
     <div className="writingSplash-card">
-      <Img fixed={img || placeholder} />
-      <h2 className="writingSplash-title">{title}</h2>
-      <p className="writingSplash-description">{description}</p>
+      <Img className="writingSplash-card-image" fixed={img || placeholder} />
+      <h2 className="writingSplash-card-title">{title}</h2>
+      <p className="writingSplash-card-description">{description}</p>
     </div>
   )
 }
