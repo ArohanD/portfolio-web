@@ -1,5 +1,6 @@
 import React from 'react';
 import './thumbNailGallery.scss';
+import { ImageSharp } from '../../generated/graphql-types';
 
 export interface ThumbNailContainerProps {
   ThumbNailComponent?: React.ReactElement
@@ -7,7 +8,7 @@ export interface ThumbNailContainerProps {
 }
 
 export interface thumbNailProps {
-  img: string
+  img: any | ImageSharp
   title?: string
   url?: string
   description?: string

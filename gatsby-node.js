@@ -90,7 +90,6 @@ exports.createPages = ({ actions, graphql }) => {
           }
           frontmatter {
             title
-            slug
             date
             images
             imageJustification
