@@ -9,11 +9,22 @@
   flex-direction: column;
 }
 
+.writingSplash-card {
+  @media (min-width: $desk-break) {
+    // Update when tags are added
+    min-height: 500px;
+  }
+}
+
 .writingSplash-title {
   display: block;
-  margin:auto;
+  margin: auto;
   width: 350px;
   color: $color-primary;
+
+  @media (min-width: $desk-break) {
+    display: none;
+  }
 }
 
 .writingSplash-card {
@@ -23,10 +34,6 @@
   -webkit-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
   -moz-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
   box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
-
-  &:last-child {
-    margin-bottom: 500px;
-  }
 }
 
 .writingSplash-card-image {
