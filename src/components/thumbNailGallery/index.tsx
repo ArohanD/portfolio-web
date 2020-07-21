@@ -9,8 +9,8 @@ export interface ThumbNailContainerProps {
 
 export interface thumbNailProps {
   img: any | ImageSharp
-  title?: string
-  url?: string
+  title: string
+  url: string
   description?: string
   tags?: Array<string>
 }

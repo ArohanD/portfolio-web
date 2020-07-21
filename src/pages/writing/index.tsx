@@ -8,6 +8,7 @@ import {
 import { graphql, useStaticQuery } from "gatsby"
 import { Query, ImageSharp, Node } from "../../generated/graphql-types"
 import WritingThumbNail from "./WritingThumbNail"
+import SEO from "../../components/seo"
 
 const WritingSplash: React.FC = () => {
   const writingSplashQuery = useStaticQuery(graphql`
@@ -59,10 +60,11 @@ const WritingSplash: React.FC = () => {
 
   return (
     <div className="writingSplash-wrapper">
+      <SEO title="Writing" />
       {/* <Sidebar /> */}
       <h1 className="writingSplash-title">Marketing & Creative Writing</h1>
       <ThumbNailContainer
-        ThumbNailComponent={<WritingThumbNail title={""} img={""} />}
+        ThumbNailComponent={<WritingThumbNail title={""} img={""} url={""} />}
         thumbNailData={thumbNailData}
       />
     </div>
