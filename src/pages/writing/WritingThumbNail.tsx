@@ -1,6 +1,6 @@
 import React from "react"
 import { thumbNailProps } from "../../components/thumbNailGallery"
-import { useStaticQuery, graphql } from "gatsby"
+import { useStaticQuery, graphql, Link } from "gatsby"
 import { ImageSharp, Query } from "../../generated/graphql-types"
 import Img from "gatsby-image"
 
@@ -9,6 +9,7 @@ const WritingThumbNail: React.FC<thumbNailProps> = ({
   title,
   description,
   tags,
+  url
 }) => {
   const placeHolderQuery = useStaticQuery(graphql`
     query {
@@ -21,12 +22,14 @@ const WritingThumbNail: React.FC<thumbNailProps> = ({
   `) as Query
 
   const placeholder = placeHolderQuery.imageSharp.fixed
+  console.log(url)
 
   return (
     <div className="writingSplash-card">
       <Img className="writingSplash-card-image" fixed={img || placeholder} />
       <h2 className="writingSplash-card-title">{title}</h2>
       <p className="writingSplash-card-description">{description}</p>
+      <Link to={'/' + url} ><button className='writingSplash-button'>Read More</button></Link>
     </div>
   )
 }

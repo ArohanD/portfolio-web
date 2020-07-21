@@ -1,5 +1,6 @@
 $font-default: "Futura";
 $color-primary: #0092c7;
+$color-off-primary: #3073c5;
 $color-faded: rgba(196, 196, 196, 0.83);
 $color-black: #000000;
 $color-off-black: #272727;
@@ -14,4 +15,37 @@ html {
 
 body {
   margin: 0;
+}
+
+button {
+  display: inline-block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 0;
+  text-decoration: none;
+  background: $color-primary;
+  border-radius: 2px;
+  color: #ffffff;
+  font-family: sans-serif;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background 250ms ease-in-out, 
+              transform 150ms ease;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+  background: $color-off-primary;
+}
+
+button:focus {
+  outline: 1px solid #fff;
+  outline-offset: -4px;
+}
+
+button:active {
+  transform: scale(0.99);
 }
