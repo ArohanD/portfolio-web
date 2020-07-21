@@ -61,6 +61,13 @@ module.exports = {
         name: `markdown-pages`,
       },
     },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        path: `${__dirname}/src/pages`,
+        name: `pages`,
+      },
+    },
     `gatsby-transformer-remark`,
     `gatsby-plugin-mdx`,
     // this (optional) plugin enables Progressive Web App + Offline functionality

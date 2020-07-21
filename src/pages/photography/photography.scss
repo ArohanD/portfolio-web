@@ -49,7 +49,9 @@
   display: grid;
   place-items: center;
   text-transform: uppercase;
-  height: 50px;
+  height: auto;
   align-self: end;
   border-top-left-radius: 20px;
+  padding: 10px;
+  text-align: center;
 }

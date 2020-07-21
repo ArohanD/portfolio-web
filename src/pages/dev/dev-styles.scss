@@ -1,5 +1,10 @@
 @use '../global-styles.scss' as *;
 
+hr {
+  width: 30%;
+  margin: 40px auto;
+}
+
 .image-right-wrapper {
   display: flex;
   justify-content: space-between;
@@ -9,7 +14,7 @@
 
   @media (min-width: $desk-break) {
     flex-direction: row;
-    width: 70vw;
+    max-width: 50vw;
     max-width: 900px;
     margin: auto;
   }
@@ -39,7 +44,7 @@
   
   
   @media (min-width: $desk-break) {
-    max-width: 50%;
+    max-width: 50vw;
   }
 }
 
@@ -59,6 +64,25 @@
   display: inline-block;
   margin-top: 20px;
   min-height: 500px;
+}
+
+.dev-sectionHeader {
+  max-width: 90%;
+  text-align: center;
+  display: block;
+  margin: auto;
+  margin-top: 40px;
+
+  h1 {
+    color: $color-primary;
+  }
+}
+
+.dev-applications {
+
+  h1, p, .skillStack-container {
+    text-align: center;
+  }
 }
 
 
