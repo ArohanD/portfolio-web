@@ -2,10 +2,18 @@
 
 .gallery-sidebar-container {
   width: 20vw;
+  display: grid;
+  height: 95vh;
+  place-items: center;
+  grid-template-rows: 1fr 2fr 1fr;
+}
+
+.gallery-content-cell {
+  grid-row: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-top: 12vh;
+  height: 100%;
+  justify-content: space-around;
 }
 
 .gallery-linkBlock {
@@ -25,8 +33,4 @@
       font-size: 16px;
     }
   }
-}
-
-.gallery-linkBlock:first-of-type {
-  margin-bottom: 100px;
 }

@@ -56,7 +56,7 @@ const PhotoSplash: React.FC = () => {
     <div className={"photoSplash-body"}>
       <SEO title="Photography" />
       <h1 className="photoSplash-title">Photography</h1>
-      <GallerySidebar />
+      <GallerySidebar pageString={'gallery'} />
       <ThumbNailContainer
         thumbNailData={thumbNailData}
         ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}

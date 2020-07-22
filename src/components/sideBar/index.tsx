@@ -3,7 +3,7 @@ import { graphql } from "gatsby"
 import { Link, useStaticQuery } from "gatsby"
 import { HomeLink, homeLinks } from "../../staticContent"
 import { Query } from "../../generated/graphql-types"
-import { sanitizeTitle } from "../../../utils"
+import { sanitizeTitle, isNotNavDupe } from "../../../utils"
 import "./sidebar.scss"
 
 interface SideBarProps {
@@ -30,10 +30,11 @@ const SideBar: React.FC<SideBarProps> = ({ pageString }) => {
       const pathSplit = path.split("/")
       console.log(pathSplit)
       if (pathSplit[1] === pageString) {
-        navLinks.push({
+        const newLink = {
           title: sanitizeTitle(pathSplit[2]),
           path: path,
-        } as sideBarLink)
+        } as sideBarLink
+        if (isNotNavDupe(newLink, navLinks)) navLinks.push(newLink)
       }
     })
   }
@@ -50,18 +51,20 @@ const SideBar: React.FC<SideBarProps> = ({ pageString }) => {
 
   return (
     <div className="gallery-sidebar-container">
-      {pageString && <LinkBlock links={navLinks} />}
-      <LinkBlock links={homeLinksWithHome} />
+      <div className="gallery-content-cell">
+        {pageString && <LinkBlock links={navLinks} />}
+        <LinkBlock links={homeLinksWithHome} />
+      </div>
     </div>
   )
 }
 
-interface sideBarLink {
+export interface sideBarLink {
   title: string
   path: string
 }
 
-interface linkBlockProps {
+export interface linkBlockProps {
   links: Array<sideBarLink> | Array<HomeLink>
 }
 
