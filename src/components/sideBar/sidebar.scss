@@ -1,0 +1,32 @@
+@use '../../pages/global-styles.scss' as *;
+
+.gallery-sidebar-container {
+  width: 20vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 12vh;
+}
+
+.gallery-linkBlock {
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+
+  a {
+    text-decoration: none;
+    color: $color-black;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+
+  @media (min-width: $break-HiDPI) {
+    a {
+      font-size: 16px;
+    }
+  }
+}
+
+.gallery-linkBlock:first-of-type {
+  margin-bottom: 100px;
+}

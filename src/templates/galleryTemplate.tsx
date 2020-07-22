@@ -5,7 +5,7 @@ import MobileNav from "../components/mobileNav"
 import Img from "gatsby-image"
 import { Query, SitePageContext, File } from "../generated/graphql-types"
 import { sanitizeTitle, copy } from "../../utils"
-import GallerySideBar from "../components/gallerySideBar"
+import GallerySideBar from "../components/sideBar"
 
 import "./styles/galleryTemplate.scss"
 
@@ -40,7 +40,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
     <div>
       <SEO title={sanitizeTitle(pageContext.title)} />
       <div className="gallery-content-wrapper">
-        {(window.innerWidth >= 1000) && <GallerySideBar />}
+        {(window.innerWidth >= 1000) && <GallerySideBar pageString={'gallery'} />}
         <div className="gallery-column-container">
           {cols.map(column => (
             <GalleryColumn gallery={column} width={columnWidth} />

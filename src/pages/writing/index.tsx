@@ -7,7 +7,7 @@ import {
 } from "../../components/thumbNailGallery"
 import { graphql, useStaticQuery } from "gatsby"
 import { Query, ImageSharp, Node } from "../../generated/graphql-types"
-import WritingThumbNail from "./WritingThumbNail"
+import WritingThumbNail from "../../components/thumbNailGallery/WritingThumbNail"
 import SEO from "../../components/seo"
 
 const WritingSplash: React.FC = () => {

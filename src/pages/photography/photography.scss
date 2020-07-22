@@ -7,6 +7,10 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  @media (min-width: $desk-break) {
+    flex-direction: row;
+  }
 }
 
 .photoSplash-title {

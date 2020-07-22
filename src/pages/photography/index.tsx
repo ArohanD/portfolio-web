@@ -10,6 +10,7 @@ import SEO from "../../components/seo"
 import "./photography.scss"
 import { sanitizeTitle } from "../../../utils"
 import Img from "gatsby-image"
+import GallerySidebar from '../../components/sideBar'
 
 const PhotoSplash: React.FC = () => {
   const photoSplashQuery = useStaticQuery(graphql`
@@ -36,7 +37,6 @@ const PhotoSplash: React.FC = () => {
     }
   `) as Query
 
-  console.log(photoSplashQuery)
   const rawDirectories = photoSplashQuery.allDirectory.nodes
   const rawImages = photoSplashQuery.allImageSharp.nodes
 
@@ -51,13 +51,12 @@ const PhotoSplash: React.FC = () => {
     } as thumbNailProps
   }) as Array<thumbNailProps>
 
-  console.log(thumbNailData)
 
   return (
     <div className={"photoSplash-body"}>
       <SEO title="Photography" />
       <h1 className="photoSplash-title">Photography</h1>
-      {/* <Sidebar /> */}
+      <GallerySidebar />
       <ThumbNailContainer
         thumbNailData={thumbNailData}
         ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}

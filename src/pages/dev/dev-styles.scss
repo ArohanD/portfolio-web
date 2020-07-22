@@ -14,7 +14,6 @@ hr {
 
   @media (min-width: $desk-break) {
     flex-direction: row;
-    max-width: 50vw;
     max-width: 900px;
     margin: auto;
   }
@@ -44,7 +43,7 @@ hr {
   
   
   @media (min-width: $desk-break) {
-    max-width: 50vw;
+    max-width: 900px;
   }
 }
 

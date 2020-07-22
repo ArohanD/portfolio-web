@@ -1,5 +1,5 @@
 import React from "react"
-import { thumbNailProps } from "../../components/thumbNailGallery"
+import { thumbNailProps } from "."
 import { useStaticQuery, graphql, Link } from "gatsby"
 import { ImageSharp, Query } from "../../generated/graphql-types"
 import Img from "gatsby-image"
@@ -22,7 +22,6 @@ const WritingThumbNail: React.FC<thumbNailProps> = ({
   `) as Query
 
   const placeholder = placeHolderQuery.imageSharp.fixed
-  console.log(url)
 
   return (
     <div className="writingSplash-card">
