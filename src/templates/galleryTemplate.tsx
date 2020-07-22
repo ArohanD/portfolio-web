@@ -40,7 +40,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
     <div>
       <SEO title={sanitizeTitle(pageContext.title)} />
       <div className="gallery-content-wrapper">
-        {(window.innerWidth >= 1000) && <GallerySideBar pageString={'gallery'} />}
+        <GallerySideBar pageString={'gallery'} />
         <div className="gallery-column-container">
           {cols.map(column => (
             <GalleryColumn gallery={column} width={columnWidth} />

@@ -6,6 +6,10 @@
   height: 95vh;
   place-items: center;
   grid-template-rows: 1fr 2fr 1fr;
+
+  @media (max-width: $desk-break) {
+    display: none;
+  }
 }
 
 .gallery-content-cell {
@@ -33,4 +37,10 @@
       font-size: 16px;
     }
   }
+}
+
+.dev-contentWrapper {
+  height: 100vh;
+  width: 100%;
+  overflow: scroll;
 }
