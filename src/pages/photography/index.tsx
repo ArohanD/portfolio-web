@@ -6,11 +6,10 @@ import {
 } from "../../components/thumbNailGallery"
 import { graphql, useStaticQuery, Link } from "gatsby"
 import { Query, ImageSharp, Node } from "../../generated/graphql-types"
-import SEO from "../../components/seo"
 import "./photography.scss"
 import { sanitizeTitle } from "../../../utils"
 import Img from "gatsby-image"
-import GallerySidebar from '../../components/sideBar'
+import SideBarLayout from "../../components/pageLayout"
 
 const PhotoSplash: React.FC = () => {
   const photoSplashQuery = useStaticQuery(graphql`
@@ -51,17 +50,16 @@ const PhotoSplash: React.FC = () => {
     } as thumbNailProps
   }) as Array<thumbNailProps>
 
-
   return (
-    <div className={"photoSplash-body"}>
-      <SEO title="Photography" />
-      <h1 className="photoSplash-title">Photography</h1>
-      <GallerySidebar pageString={'gallery'} />
-      <ThumbNailContainer
-        thumbNailData={thumbNailData}
-        ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}
-      />
-    </div>
+    <SideBarLayout title={"photography"} sideBarString={"gallery"}>
+      <div className={"photoSplash-body"}>
+        <h1 className="photoSplash-title">Photography</h1>
+        <ThumbNailContainer
+          thumbNailData={thumbNailData}
+          ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}
+        />
+      </div>
+    </SideBarLayout>
   )
 }
 
