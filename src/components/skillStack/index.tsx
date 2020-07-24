@@ -18,8 +18,9 @@ export const SkillStack: React.FC<SkillStackProps> = ({ skills }) => {
   return (
     <div className='skillStack-container'>
       {`Stack:  `}
-      {skills.map(skill => (
+      {skills.map((skill, index) => (
         <div
+          key={skill.name + index}
           style={{ backgroundColor: skill.color }}
           className="skillStack-skill"
         >{skill.name}</div>

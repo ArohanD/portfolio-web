@@ -55,7 +55,7 @@ export let navLinks: Array<HomeLink> = [
   },
   {
     title: "Dev",
-    path: "/dev",
+    path: "/dev/applications",
     backgroundImageSlug: `dev`,
     textColor: "#68281B",
     imagePath: "",

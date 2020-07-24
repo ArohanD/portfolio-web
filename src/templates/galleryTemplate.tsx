@@ -13,9 +13,10 @@ import SideBarLayout from "../components/pageLayout"
 interface GalleryPageProps {
   pageContext: SitePageContext
   data: Query
+  location: Location
 }
 
-const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
+const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }) => {
   const [width, setWidth] = useState(window.innerWidth)
   const gallery = data.allFile.nodes
   const galleryWidth = width * 0.8
@@ -41,6 +42,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
     <SideBarLayout
       title={sanitizeTitle(pageContext.title)}
       sideBarString={"gallery"}
+      currentPath={location.pathname}
     >
       <div className="gallery-column-container">
         {cols.map(column => (
