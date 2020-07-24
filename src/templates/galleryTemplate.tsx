@@ -8,6 +8,7 @@ import { sanitizeTitle, copy } from "../../utils"
 import GallerySideBar from "../components/sideBar"
 
 import "./styles/galleryTemplate.scss"
+import SideBarLayout from "../components/pageLayout"
 
 interface GalleryPageProps {
   pageContext: SitePageContext
@@ -37,18 +38,18 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   }, [])
 
   return (
-    <div>
-      <SEO title={sanitizeTitle(pageContext.title)} />
-      <div className="gallery-content-wrapper">
-        <GallerySideBar pageString={'gallery'} />
-        <div className="gallery-column-container">
-          {cols.map(column => (
-            <GalleryColumn gallery={column} width={columnWidth} />
-          ))}
-        </div>
+    <SideBarLayout
+      title={sanitizeTitle(pageContext.title)}
+      sideBarString={"gallery"}
+    >
+      <div className="gallery-column-container">
+        {cols.map(column => (
+          <GalleryColumn gallery={column} width={columnWidth} />
+        ))}
       </div>
+
       <MobileNav URI={"/photo"} />
-    </div>
+    </SideBarLayout>
   )
 }
 

@@ -53,6 +53,7 @@ const SideBar: React.FC<SideBarProps> = ({ pageString }) => {
     <div className="gallery-sidebar-container">
       <div className="gallery-content-cell">
         {pageString && <LinkBlock links={navLinks} />}
+        {navLinks.length > 5 && <div style={{marginBottom: 50}} />}
         <LinkBlock links={homeLinksWithHome} />
       </div>
     </div>

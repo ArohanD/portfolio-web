@@ -14,7 +14,10 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
     justify-items: center;
-    grid-gap: 50px;
+    grid-gap: 20px;
+  }
+
+  @media (min-width: $break-HiDPI) {
     padding: 10%;
   }
 }
