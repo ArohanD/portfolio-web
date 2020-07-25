@@ -5,7 +5,7 @@ import "./mobileNav.scss"
 
 const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
   const [navOpen, setNavOpen] = useState(false)
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(0)
 
   useEffect(() => {
     const handleResize = () => {
@@ -13,12 +13,13 @@ const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
     }
 
     window.addEventListener("resize", handleResize)
+    setWidth(window.innerWidth)
     return () => {
       window.removeEventListener("resize", handleResize)
     }
   }, [])
 
-  if(window.innerWidth > 1000) return <div></div>
+  if(width > 1000) return <div></div>
 
   return (
     <div

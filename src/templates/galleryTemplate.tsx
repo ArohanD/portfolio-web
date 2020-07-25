@@ -17,10 +17,10 @@ interface GalleryPageProps {
 }
 
 const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }) => {
-  const [width, setWidth] = useState(window.innerWidth)
+  const [width, setWidth] = useState(0)
   const gallery = data.allFile.nodes
   const galleryWidth = width * 0.8
-  const columnWidth = window.innerWidth > 1680 ? 600 : 300
+  const columnWidth = width > 1680 ? 600 : 300
   let numCols = Math.floor(galleryWidth / columnWidth)
 
   if (width < 1000) numCols = 2
@@ -33,6 +33,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }
     }
 
     window.addEventListener("resize", handleResize)
+    setWidth(window.innerWidth)
     return () => {
       window.removeEventListener("resize", handleResize)
     }
@@ -143,7 +144,7 @@ export const galleryPageQuery = graphql`
           fixed(width: 300) {
             ...GatsbyImageSharpFixed
           }
-          fluid {
+          fluid(maxWidth: 350, quality: 50) {
             ...GatsbyImageSharpFluid
           }
         }
