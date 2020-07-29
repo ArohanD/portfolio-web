@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import { graphql } from "gatsby"
+import { graphql, Link } from "gatsby"
 import SEO from "../components/seo"
 import MobileNav from "../components/mobileNav"
 import Img from "gatsby-image"
@@ -65,9 +65,9 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
   return (
     <div className="gallery-images-column" style={{ width: width }}>
       {gallery.map(node => (
-        <React.Fragment key={node.fields.slug}>
+        <Link to={'/' + node.relativePath} key={node.fields.slug}>
           <Img fluid={node.childImageSharp.fluid} className={"gallery-image"} />
-        </React.Fragment>
+        </Link>
       ))}
     </div>
   )
@@ -119,35 +119,14 @@ export const galleryPageQuery = graphql`
       nodes {
         fields {
           slug
-          exif {
-            image {
-              ImageDescription
-              Make
-              Model
-              XResolution
-              YResolution
-              ResolutionUnit
-              Software
-              ModifyDate
-              ExifOffset
-              Orientation
-              ImageWidth
-              ImageHeight
-              SamplesPerPixel
-              YCbCrPositioning
-              GPSInfo
-            }
-          }
         }
         childImageSharp {
           id
-          fixed(width: 300) {
-            ...GatsbyImageSharpFixed
-          }
           fluid(maxWidth: 350, quality: 50) {
             ...GatsbyImageSharpFluid
           }
         }
+        relativePath
       }
     }
   }

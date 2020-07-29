@@ -74,6 +74,40 @@ exports.createPages = ({ actions, graphql }) => {
     })
   })
 
+  const imagePages = graphql(`
+    {
+      allImageSharp {
+        nodes {
+          id
+          parent {
+            ... on File {
+              name
+              relativePath
+            }
+          }
+        }
+      }
+    }
+  `).then(result => {
+    if (result.errors) console.log(result.errors)
+
+    const imageNodes = result.data.allImageSharp.nodes
+    const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
+
+    imageNodes.forEach(node => {
+      if (node.parent.relativePath.includes("gallery/")) {
+        createPage({
+          path: node.parent.relativePath,
+          component: imageTemplate,
+          context: {
+            slug: node.parent.relativePath,
+            imageQuery: node.id,
+          },
+        })
+      }
+    })
+  })
+
   // MARKDOWN PAGES
   const markdownPages = graphql(`
     {
@@ -98,22 +132,19 @@ exports.createPages = ({ actions, graphql }) => {
       }
     }
   `).then(result => {
-    if (result.errors) console.log(errors)
+    if (result.errors) console.log(result.errors)
 
     const mdPageNodes = result.data.allMarkdownRemark.nodes
-    const mdPageTemplate = path.resolve(
-      "./src/templates/markdownTemplate.tsx"
-    )
+    const mdPageTemplate = path.resolve("./src/templates/markdownTemplate.tsx")
 
     mdPageNodes.forEach(node => {
-      
       createPage({
         path: node.parent.relativePath,
         component: mdPageTemplate,
         context: {
           slug: node.parent.relativePath,
           content: node,
-          imageQuery: node.parent.relativePath.split('.')[0],
+          imageQuery: node.parent.relativePath.split(".")[0],
         },
       })
     })

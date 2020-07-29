@@ -1,0 +1,13 @@
+@use '../../pages/global-styles.scss' as *;
+
+.imagePage-container {
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: auto auto;
+  overflow: scroll;
+
+  @media (min-width: $desk-break) {
+    grid-template-columns: auto auto;
+  }
+}
