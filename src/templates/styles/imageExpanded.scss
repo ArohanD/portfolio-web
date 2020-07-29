@@ -4,10 +4,17 @@
   height: 100vh;
   width: 100vw;
   display: grid;
-  grid-template-rows: auto auto;
-  overflow: scroll;
+  background-color: $color-black;
+  grid-template-rows: 1fr auto;
+  color: $color-white;
 
   @media (min-width: $desk-break) {
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr 1fr;
   }
+}
+
+.imagePage-imageInfo-Wrapper {
+  display: grid;
+  place-items: center;
+  justify-content: start;
 }

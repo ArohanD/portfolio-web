@@ -18,7 +18,8 @@ const ImageExpanded: React.FC<ImageProps> = ({
   console.log(process.env)
   return (
     <div className='imagePage-container'>
-      <Img fluid={data.imageSharp.fluid} />
+      <Img fluid={data.imageSharp.fluid} imgStyle={{objectFit: 'contain'}} />
+      <div className="imagePage-imageInfo-Wrapper">Lorem ipsum dolor sit amet</div>
     </div>
   )
 }
@@ -29,7 +30,7 @@ export const imageQuery = graphql`
   query ImagePageQuery($imageQuery: String) {
     imageSharp(id: { eq: $imageQuery }) {
       id
-      fluid(maxHeight: 1000, cropFocus: CENTER, fit: CONTAIN) {
+      fluid(maxHeight: 1000) {
         ...GatsbyImageSharpFluid
       }
     }
