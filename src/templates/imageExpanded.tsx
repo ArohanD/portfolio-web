@@ -1,8 +1,12 @@
 import React from "react"
-import { SitePageContext, Query } from "../generated/graphql-types"
+import {
+  SitePageContext,
+  Query,
+  FileFieldsExifExif,
+} from "../generated/graphql-types"
 import Img from "gatsby-image"
 import { graphql } from "gatsby"
-import './styles/imageExpanded.scss'
+import "./styles/imageExpanded.scss"
 
 interface ImageProps {
   pageContext: SitePageContext
@@ -15,13 +19,33 @@ const ImageExpanded: React.FC<ImageProps> = ({
   data,
   location,
 }) => {
-  console.log(process.env)
+  const exifData = data.imageSharp.parent.fields.exif.exif as FileFieldsExifExif;
   return (
-    <div className='imagePage-container'>
-      <Img fluid={data.imageSharp.fluid} imgStyle={{objectFit: 'contain'}} />
-      <div className="imagePage-imageInfo-Wrapper">Lorem ipsum dolor sit amet</div>
+    <div className="imagePage-container">
+      <Img
+        fluid={data.imageSharp.fluid}
+        imgStyle={{ objectFit: "contain" }}
+        className="imagePage-container-image"
+      />
+      <div className="imagePage-imageInfo-Wrapper">
+        <ExifDisplay {...exifData} />
+      </div>
     </div>
   )
+}
+
+const ExifDisplay: React.FC<FileFieldsExifExif> = ({
+  ISO,
+  DateTimeOriginal,
+  ExposureTime,
+  FNumber,
+  FocalLength,
+  FocalLengthIn35mmFormat,
+  ShutterSpeedValue,
+  ApertureValue,
+}) => {
+  console.log(ISO)
+  return <div>EXIF</div>
 }
 
 export default ImageExpanded
@@ -32,6 +56,30 @@ export const imageQuery = graphql`
       id
       fluid(maxHeight: 1000) {
         ...GatsbyImageSharpFluid
+      }
+      parent {
+        ... on File {
+          id
+          name
+          fields {
+            exif {
+              exif {
+                ISO
+                DateTimeOriginal
+                ExposureTime
+                FNumber
+                FocalLength
+                FocalLengthIn35mmFormat
+                ShutterSpeedValue
+                ApertureValue
+              }
+              image {
+                GPSInfo
+                Model
+              }
+            }
+          }
+        }
       }
     }
   }
