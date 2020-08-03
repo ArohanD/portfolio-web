@@ -1178,6 +1178,8 @@ export type FileFieldsEnum =
   | 'childImageSharp___resize___height'
   | 'childImageSharp___resize___aspectRatio'
   | 'childImageSharp___resize___originalName'
+  | 'childImageSharp___fields___gallery'
+  | 'childImageSharp___fields___order'
   | 'childImageSharp___id'
   | 'childImageSharp___parent___id'
   | 'childImageSharp___parent___parent___id'
@@ -2090,6 +2092,7 @@ export type ImageSharp = Node & {
   sizes?: Maybe<ImageSharpSizes>;
   original?: Maybe<ImageSharpOriginal>;
   resize?: Maybe<ImageSharpResize>;
+  fields?: Maybe<ImageSharpFields>;
   id: Scalars['ID'];
   parent?: Maybe<Node>;
   children: Array<Node>;
@@ -2244,6 +2247,12 @@ export type ImageSharpEdge = {
   previous?: Maybe<ImageSharp>;
 };
 
+export type ImageSharpFields = {
+  __typename?: 'ImageSharpFields';
+  gallery?: Maybe<Scalars['String']>;
+  order?: Maybe<Scalars['Int']>;
+};
+
 export type ImageSharpFieldsEnum = 
   | 'fixed___base64'
   | 'fixed___tracedSVG'
@@ -2298,6 +2307,8 @@ export type ImageSharpFieldsEnum =
   | 'resize___height'
   | 'resize___aspectRatio'
   | 'resize___originalName'
+  | 'fields___gallery'
+  | 'fields___order'
   | 'id'
   | 'parent___id'
   | 'parent___parent___id'
@@ -2385,6 +2396,11 @@ export type ImageSharpFieldsEnum =
   | 'internal___owner'
   | 'internal___type';
 
+export type ImageSharpFieldsFilterInput = {
+  gallery?: Maybe<StringQueryOperatorInput>;
+  order?: Maybe<IntQueryOperatorInput>;
+};
+
 export type ImageSharpFilterInput = {
   fixed?: Maybe<ImageSharpFixedFilterInput>;
   resolutions?: Maybe<ImageSharpResolutionsFilterInput>;
@@ -2392,6 +2408,7 @@ export type ImageSharpFilterInput = {
   sizes?: Maybe<ImageSharpSizesFilterInput>;
   original?: Maybe<ImageSharpOriginalFilterInput>;
   resize?: Maybe<ImageSharpResizeFilterInput>;
+  fields?: Maybe<ImageSharpFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -3868,16 +3885,16 @@ export type Query = {
   allMdx: MdxConnection;
   connectionsCsv?: Maybe<ConnectionsCsv>;
   allConnectionsCsv: ConnectionsCsvConnection;
-  positionsCsv?: Maybe<PositionsCsv>;
-  allPositionsCsv: PositionsCsvConnection;
   profileCsv?: Maybe<ProfileCsv>;
   allProfileCsv: ProfileCsvConnection;
+  positionsCsv?: Maybe<PositionsCsv>;
+  allPositionsCsv: PositionsCsvConnection;
   skillsCsv?: Maybe<SkillsCsv>;
   allSkillsCsv: SkillsCsvConnection;
-  recommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsv>;
-  allRecommendationsReceivedCsv: RecommendationsReceivedCsvConnection;
   languagesCsv?: Maybe<LanguagesCsv>;
   allLanguagesCsv: LanguagesCsvConnection;
+  recommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsv>;
+  allRecommendationsReceivedCsv: RecommendationsReceivedCsvConnection;
   organizationsCsv?: Maybe<OrganizationsCsv>;
   allOrganizationsCsv: OrganizationsCsvConnection;
   educationCsv?: Maybe<EducationCsv>;
@@ -4057,6 +4074,7 @@ export type QueryImageSharpArgs = {
   sizes?: Maybe<ImageSharpSizesFilterInput>;
   original?: Maybe<ImageSharpOriginalFilterInput>;
   resize?: Maybe<ImageSharpResizeFilterInput>;
+  fields?: Maybe<ImageSharpFieldsFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
@@ -4148,28 +4166,6 @@ export type QueryAllConnectionsCsvArgs = {
 };
 
 
-export type QueryPositionsCsvArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  Company_Name?: Maybe<StringQueryOperatorInput>;
-  Title?: Maybe<StringQueryOperatorInput>;
-  Description?: Maybe<StringQueryOperatorInput>;
-  Location?: Maybe<StringQueryOperatorInput>;
-  Started_On?: Maybe<StringQueryOperatorInput>;
-  Finished_On?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllPositionsCsvArgs = {
-  filter?: Maybe<PositionsCsvFilterInput>;
-  sort?: Maybe<PositionsCsvSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QueryProfileCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4199,6 +4195,28 @@ export type QueryAllProfileCsvArgs = {
 };
 
 
+export type QueryPositionsCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  Company_Name?: Maybe<StringQueryOperatorInput>;
+  Title?: Maybe<StringQueryOperatorInput>;
+  Description?: Maybe<StringQueryOperatorInput>;
+  Location?: Maybe<StringQueryOperatorInput>;
+  Started_On?: Maybe<StringQueryOperatorInput>;
+  Finished_On?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllPositionsCsvArgs = {
+  filter?: Maybe<PositionsCsvFilterInput>;
+  sort?: Maybe<PositionsCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySkillsCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4211,6 +4229,24 @@ export type QuerySkillsCsvArgs = {
 export type QueryAllSkillsCsvArgs = {
   filter?: Maybe<SkillsCsvFilterInput>;
   sort?: Maybe<SkillsCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLanguagesCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  Name?: Maybe<StringQueryOperatorInput>;
+  Proficiency?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllLanguagesCsvArgs = {
+  filter?: Maybe<LanguagesCsvFilterInput>;
+  sort?: Maybe<LanguagesCsvSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -4234,24 +4270,6 @@ export type QueryRecommendationsReceivedCsvArgs = {
 export type QueryAllRecommendationsReceivedCsvArgs = {
   filter?: Maybe<RecommendationsReceivedCsvFilterInput>;
   sort?: Maybe<RecommendationsReceivedCsvSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryLanguagesCsvArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  Name?: Maybe<StringQueryOperatorInput>;
-  Proficiency?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllLanguagesCsvArgs = {
-  filter?: Maybe<LanguagesCsvFilterInput>;
-  sort?: Maybe<LanguagesCsvSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };

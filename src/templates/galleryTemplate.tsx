@@ -16,9 +16,15 @@ interface GalleryPageProps {
   location: Location
 }
 
-const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }) => {
+const GalleryPage: React.FC<GalleryPageProps> = ({
+  pageContext,
+  data,
+  location,
+}) => {
   const [width, setWidth] = useState(0)
   const gallery = data.allFile.nodes
+  //sort photos here
+  console.log(gallery)
   const galleryWidth = width * 0.8
   const columnWidth = width > 1680 ? 600 : 300
   let numCols = Math.floor(galleryWidth / columnWidth)
@@ -39,6 +45,8 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }
     }
   }, [])
 
+  if (width === 0) return <div></div>
+
   return (
     <SideBarLayout
       title={sanitizeTitle(pageContext.title)}
@@ -46,8 +54,8 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }
       currentPath={location.pathname}
     >
       <div className="gallery-column-container">
-        {cols.map(column => (
-          <GalleryColumn gallery={column} width={columnWidth} />
+        {cols.map((column, index) => (
+          <GalleryColumn gallery={column} width={columnWidth} key={index} />
         ))}
       </div>
 
@@ -57,7 +65,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data, location }
 }
 
 interface GalleryColumnProps {
-  gallery: Array<any>
+  gallery: Array<Array<File>> | Array<any>
   width: number
 }
 
@@ -65,7 +73,7 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
   return (
     <div className="gallery-images-column" style={{ width: width }}>
       {gallery.map(node => (
-        <Link to={'/' + node.relativePath} key={node.fields.slug}>
+        <Link to={"/" + node.relativePath} key={node.childImageSharp.id}>
           <Img fluid={node.childImageSharp.fluid} className={"gallery-image"} />
         </Link>
       ))}

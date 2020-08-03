@@ -39,7 +39,6 @@ const SideBar: React.FC<SideBarProps> = ({ pageString, currentPath }) => {
       }
     })
   }
-  console.log(queryLinks, navLinks)
 
   const homeLinksWithHome = JSON.parse(JSON.stringify(homeLinks))
 
