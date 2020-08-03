@@ -12,6 +12,21 @@ const exif = require("fast-exif")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
+  if (node.internal.type === 'ImageSharp') {
+    const parent = getNode(node.parent)
+
+    createNodeField({
+      node,
+      name: `gallery`,
+      value: parent.relativeDirectory.split('/').pop()
+    })
+
+    createNodeField({
+      node,
+      name: 'order',
+      value: Math.floor(Math.random() * Math.floor(10))
+    })
+  }
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
     const imagePath = "src/images/" + node.relativePath
 
@@ -150,5 +165,5 @@ exports.createPages = ({ actions, graphql }) => {
     })
   })
 
-  return Promise.all([galleryPages, markdownPages])
+  return Promise.all([galleryPages, markdownPages, imagePages])
 }
