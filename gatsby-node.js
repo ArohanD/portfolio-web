@@ -25,7 +25,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: 'order',
-      value: returnImageOrder(node.id)
+      value: returnImageOrder(node.id, category)
     })
   }
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
