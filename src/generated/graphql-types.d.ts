@@ -924,9 +924,9 @@ export type File = Node & {
   childrenConnectionsCsv?: Maybe<Array<Maybe<ConnectionsCsv>>>;
   childrenOrganizationsCsv?: Maybe<Array<Maybe<OrganizationsCsv>>>;
   childrenPositionsCsv?: Maybe<Array<Maybe<PositionsCsv>>>;
-  childrenLanguagesCsv?: Maybe<Array<Maybe<LanguagesCsv>>>;
   childrenRecommendationsReceivedCsv?: Maybe<Array<Maybe<RecommendationsReceivedCsv>>>;
   childrenSkillsCsv?: Maybe<Array<Maybe<SkillsCsv>>>;
+  childrenLanguagesCsv?: Maybe<Array<Maybe<LanguagesCsv>>>;
   childProfileCsv?: Maybe<ProfileCsv>;
   childMarkdownRemark?: Maybe<MarkdownRemark>;
 };
@@ -1527,47 +1527,6 @@ export type FileFieldsEnum =
   | 'childrenPositionsCsv___Location'
   | 'childrenPositionsCsv___Started_On'
   | 'childrenPositionsCsv___Finished_On'
-  | 'childrenLanguagesCsv'
-  | 'childrenLanguagesCsv___id'
-  | 'childrenLanguagesCsv___parent___id'
-  | 'childrenLanguagesCsv___parent___parent___id'
-  | 'childrenLanguagesCsv___parent___parent___children'
-  | 'childrenLanguagesCsv___parent___children'
-  | 'childrenLanguagesCsv___parent___children___id'
-  | 'childrenLanguagesCsv___parent___children___children'
-  | 'childrenLanguagesCsv___parent___internal___content'
-  | 'childrenLanguagesCsv___parent___internal___contentDigest'
-  | 'childrenLanguagesCsv___parent___internal___description'
-  | 'childrenLanguagesCsv___parent___internal___fieldOwners'
-  | 'childrenLanguagesCsv___parent___internal___ignoreType'
-  | 'childrenLanguagesCsv___parent___internal___mediaType'
-  | 'childrenLanguagesCsv___parent___internal___owner'
-  | 'childrenLanguagesCsv___parent___internal___type'
-  | 'childrenLanguagesCsv___children'
-  | 'childrenLanguagesCsv___children___id'
-  | 'childrenLanguagesCsv___children___parent___id'
-  | 'childrenLanguagesCsv___children___parent___children'
-  | 'childrenLanguagesCsv___children___children'
-  | 'childrenLanguagesCsv___children___children___id'
-  | 'childrenLanguagesCsv___children___children___children'
-  | 'childrenLanguagesCsv___children___internal___content'
-  | 'childrenLanguagesCsv___children___internal___contentDigest'
-  | 'childrenLanguagesCsv___children___internal___description'
-  | 'childrenLanguagesCsv___children___internal___fieldOwners'
-  | 'childrenLanguagesCsv___children___internal___ignoreType'
-  | 'childrenLanguagesCsv___children___internal___mediaType'
-  | 'childrenLanguagesCsv___children___internal___owner'
-  | 'childrenLanguagesCsv___children___internal___type'
-  | 'childrenLanguagesCsv___internal___content'
-  | 'childrenLanguagesCsv___internal___contentDigest'
-  | 'childrenLanguagesCsv___internal___description'
-  | 'childrenLanguagesCsv___internal___fieldOwners'
-  | 'childrenLanguagesCsv___internal___ignoreType'
-  | 'childrenLanguagesCsv___internal___mediaType'
-  | 'childrenLanguagesCsv___internal___owner'
-  | 'childrenLanguagesCsv___internal___type'
-  | 'childrenLanguagesCsv___Name'
-  | 'childrenLanguagesCsv___Proficiency'
   | 'childrenRecommendationsReceivedCsv'
   | 'childrenRecommendationsReceivedCsv___id'
   | 'childrenRecommendationsReceivedCsv___parent___id'
@@ -1654,6 +1613,47 @@ export type FileFieldsEnum =
   | 'childrenSkillsCsv___internal___owner'
   | 'childrenSkillsCsv___internal___type'
   | 'childrenSkillsCsv___Name'
+  | 'childrenLanguagesCsv'
+  | 'childrenLanguagesCsv___id'
+  | 'childrenLanguagesCsv___parent___id'
+  | 'childrenLanguagesCsv___parent___parent___id'
+  | 'childrenLanguagesCsv___parent___parent___children'
+  | 'childrenLanguagesCsv___parent___children'
+  | 'childrenLanguagesCsv___parent___children___id'
+  | 'childrenLanguagesCsv___parent___children___children'
+  | 'childrenLanguagesCsv___parent___internal___content'
+  | 'childrenLanguagesCsv___parent___internal___contentDigest'
+  | 'childrenLanguagesCsv___parent___internal___description'
+  | 'childrenLanguagesCsv___parent___internal___fieldOwners'
+  | 'childrenLanguagesCsv___parent___internal___ignoreType'
+  | 'childrenLanguagesCsv___parent___internal___mediaType'
+  | 'childrenLanguagesCsv___parent___internal___owner'
+  | 'childrenLanguagesCsv___parent___internal___type'
+  | 'childrenLanguagesCsv___children'
+  | 'childrenLanguagesCsv___children___id'
+  | 'childrenLanguagesCsv___children___parent___id'
+  | 'childrenLanguagesCsv___children___parent___children'
+  | 'childrenLanguagesCsv___children___children'
+  | 'childrenLanguagesCsv___children___children___id'
+  | 'childrenLanguagesCsv___children___children___children'
+  | 'childrenLanguagesCsv___children___internal___content'
+  | 'childrenLanguagesCsv___children___internal___contentDigest'
+  | 'childrenLanguagesCsv___children___internal___description'
+  | 'childrenLanguagesCsv___children___internal___fieldOwners'
+  | 'childrenLanguagesCsv___children___internal___ignoreType'
+  | 'childrenLanguagesCsv___children___internal___mediaType'
+  | 'childrenLanguagesCsv___children___internal___owner'
+  | 'childrenLanguagesCsv___children___internal___type'
+  | 'childrenLanguagesCsv___internal___content'
+  | 'childrenLanguagesCsv___internal___contentDigest'
+  | 'childrenLanguagesCsv___internal___description'
+  | 'childrenLanguagesCsv___internal___fieldOwners'
+  | 'childrenLanguagesCsv___internal___ignoreType'
+  | 'childrenLanguagesCsv___internal___mediaType'
+  | 'childrenLanguagesCsv___internal___owner'
+  | 'childrenLanguagesCsv___internal___type'
+  | 'childrenLanguagesCsv___Name'
+  | 'childrenLanguagesCsv___Proficiency'
   | 'childProfileCsv___id'
   | 'childProfileCsv___parent___id'
   | 'childProfileCsv___parent___parent___id'
@@ -2015,9 +2015,9 @@ export type FileFilterInput = {
   childrenConnectionsCsv?: Maybe<ConnectionsCsvFilterListInput>;
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
-  childrenLanguagesCsv?: Maybe<LanguagesCsvFilterListInput>;
   childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
   childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
+  childrenLanguagesCsv?: Maybe<LanguagesCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
   childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
@@ -3885,14 +3885,14 @@ export type Query = {
   allMdx: MdxConnection;
   connectionsCsv?: Maybe<ConnectionsCsv>;
   allConnectionsCsv: ConnectionsCsvConnection;
-  profileCsv?: Maybe<ProfileCsv>;
-  allProfileCsv: ProfileCsvConnection;
   positionsCsv?: Maybe<PositionsCsv>;
   allPositionsCsv: PositionsCsvConnection;
-  skillsCsv?: Maybe<SkillsCsv>;
-  allSkillsCsv: SkillsCsvConnection;
   languagesCsv?: Maybe<LanguagesCsv>;
   allLanguagesCsv: LanguagesCsvConnection;
+  profileCsv?: Maybe<ProfileCsv>;
+  allProfileCsv: ProfileCsvConnection;
+  skillsCsv?: Maybe<SkillsCsv>;
+  allSkillsCsv: SkillsCsvConnection;
   recommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsv>;
   allRecommendationsReceivedCsv: RecommendationsReceivedCsvConnection;
   organizationsCsv?: Maybe<OrganizationsCsv>;
@@ -3954,9 +3954,9 @@ export type QueryFileArgs = {
   childrenConnectionsCsv?: Maybe<ConnectionsCsvFilterListInput>;
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
-  childrenLanguagesCsv?: Maybe<LanguagesCsvFilterListInput>;
   childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
   childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
+  childrenLanguagesCsv?: Maybe<LanguagesCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
   childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
@@ -4166,6 +4166,46 @@ export type QueryAllConnectionsCsvArgs = {
 };
 
 
+export type QueryPositionsCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  Company_Name?: Maybe<StringQueryOperatorInput>;
+  Title?: Maybe<StringQueryOperatorInput>;
+  Description?: Maybe<StringQueryOperatorInput>;
+  Location?: Maybe<StringQueryOperatorInput>;
+  Started_On?: Maybe<StringQueryOperatorInput>;
+  Finished_On?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllPositionsCsvArgs = {
+  filter?: Maybe<PositionsCsvFilterInput>;
+  sort?: Maybe<PositionsCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryLanguagesCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  Name?: Maybe<StringQueryOperatorInput>;
+  Proficiency?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllLanguagesCsvArgs = {
+  filter?: Maybe<LanguagesCsvFilterInput>;
+  sort?: Maybe<LanguagesCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QueryProfileCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4195,28 +4235,6 @@ export type QueryAllProfileCsvArgs = {
 };
 
 
-export type QueryPositionsCsvArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  Company_Name?: Maybe<StringQueryOperatorInput>;
-  Title?: Maybe<StringQueryOperatorInput>;
-  Description?: Maybe<StringQueryOperatorInput>;
-  Location?: Maybe<StringQueryOperatorInput>;
-  Started_On?: Maybe<StringQueryOperatorInput>;
-  Finished_On?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllPositionsCsvArgs = {
-  filter?: Maybe<PositionsCsvFilterInput>;
-  sort?: Maybe<PositionsCsvSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QuerySkillsCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4229,24 +4247,6 @@ export type QuerySkillsCsvArgs = {
 export type QueryAllSkillsCsvArgs = {
   filter?: Maybe<SkillsCsvFilterInput>;
   sort?: Maybe<SkillsCsvSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QueryLanguagesCsvArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  Name?: Maybe<StringQueryOperatorInput>;
-  Proficiency?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllLanguagesCsvArgs = {
-  filter?: Maybe<LanguagesCsvFilterInput>;
-  sort?: Maybe<LanguagesCsvSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };

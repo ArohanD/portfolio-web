@@ -5,26 +5,27 @@
  */
 
 // You can delete this file if you're not using it
-
 const path = require("path")
 const { createFilePath, createFileNode } = require("gatsby-source-filesystem")
 const exif = require("fast-exif")
+const { returnImageOrder } = require('./nodeUtils.ts')
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
   if (node.internal.type === 'ImageSharp') {
     const parent = getNode(node.parent)
+    const category = parent.relativeDirectory.split('/').pop()
 
     createNodeField({
       node,
       name: `gallery`,
-      value: parent.relativeDirectory.split('/').pop()
+      value: category
     })
 
     createNodeField({
       node,
       name: 'order',
-      value: Math.floor(Math.random() * Math.floor(10))
+      value: returnImageOrder(node.id)
     })
   }
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
