@@ -22,6 +22,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
       value: category
     })
 
+    // Write order of images to be displayed into a GQL param
     createNodeField({
       node,
       name: 'order',
