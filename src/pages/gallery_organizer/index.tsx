@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react"
+import { Query } from "../../generated/graphql-types"
+import { useStaticQuery, graphql } from "gatsby"
 
 const GalleryOrganizer: React.FC = () => {
   const [imageOrder, setImageOrder] = useState([])
@@ -12,8 +14,27 @@ const GalleryOrganizer: React.FC = () => {
       },
     })
       .then(response => response.json())
-      .then(data => console.log(data))
+      .then(data => setImageOrder(data))
   }, [])
+
+  const photoSplashQuery = useStaticQuery(graphql`
+    query photoOrderToolQuery {
+      allImageSharp(sort: { fields: fields___order }) {
+        nodes {
+          fields {
+            gallery
+            order
+          }
+          id
+          fluid {
+            originalName
+          }
+        }
+      }
+    }
+  `) as Query
+
+  console.log(photoSplashQuery)
 
   return <div>Insert images here</div>
 }
