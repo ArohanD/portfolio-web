@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Query, Node } from "../../generated/graphql-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { copy } from "../../../utils"
+import Img from "gatsby-image"
 
 const GalleryOrganizer: React.FC = () => {
   const [imageOrder, setImageOrder] = useState({})
@@ -18,14 +19,14 @@ const GalleryOrganizer: React.FC = () => {
       .then(data => setImageOrder(data))
       .then(() => {
         const categorizedImages = breakoutCategories(
-          photoSplashQuery.allImageSharp.nodes
+          photoOrderToolQuery.allImageSharp.nodes
         )
         const orderedImages = orderImages(imageOrder, categorizedImages)
         setImageOrder(orderedImages)
       })
   }, [])
 
-  const photoSplashQuery = useStaticQuery(graphql`
+  const photoOrderToolQuery = useStaticQuery(graphql`
     query photoOrderToolQuery {
       allImageSharp(sort: { fields: fields___order }) {
         nodes {
@@ -34,33 +35,54 @@ const GalleryOrganizer: React.FC = () => {
             order
           }
           id
-          fluid {
-            originalName
+          fixed(height: 150) {
+            ...GatsbyImageSharpFixed
           }
         }
       }
     }
   `) as Query
 
-  console.log(imageOrder)
+  const AllIDMap = photoOrderToolQuery.allImageSharp.nodes.map(
+    imageNode => imageNode.id
+  )
+  console.log(AllIDMap)
 
   const saveOrder = () => {
     fetch("http://localhost:3000", {
       method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(imageOrder)
+      body: JSON.stringify(imageOrder),
     })
   }
 
-  return <div>
-    <button onClick={() => saveOrder()} >Save</button>
-  </div>
+  const categories = Object.keys(imageOrder)
+  return (
+    <div>
+      {categories.map(category => {
+        return (
+          <div
+            className="organizer_category"
+            key={category}
+          >
+            <h2>{category}</h2>
+            {imageOrder[category].map(imageData => {
+              const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
+                imageNode => imageNode.id === imageData.id
+              ).fixed
+              return <Img fixed={imageFixed} />
+            })}
+          </div>
+        )
+      })}
+      <button onClick={() => saveOrder()}>Save</button>
+    </div>
+  )
 }
 
 const breakoutCategories = (imageNodes: Array<Node>) => {
-
   const imageDictionary = {}
   imageNodes.forEach(imageNode => {
     const category = imageNode.fields.gallery
