@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react"
-import { Query } from "../../generated/graphql-types"
+import { Query, Node } from "../../generated/graphql-types"
 import { useStaticQuery, graphql } from "gatsby"
+import { copy } from "../../../utils"
 
 const GalleryOrganizer: React.FC = () => {
-  const [imageOrder, setImageOrder] = useState([])
+  const [imageOrder, setImageOrder] = useState({})
   if (!imageOrder) return <div>Loading...</div>
 
   useEffect(() => {
@@ -15,6 +16,13 @@ const GalleryOrganizer: React.FC = () => {
     })
       .then(response => response.json())
       .then(data => setImageOrder(data))
+      .then(() => {
+        const categorizedImages = breakoutCategories(
+          photoSplashQuery.allImageSharp.nodes
+        )
+        const orderedImages = orderImages(imageOrder, categorizedImages)
+        setImageOrder(orderedImages)
+      })
   }, [])
 
   const photoSplashQuery = useStaticQuery(graphql`
@@ -34,9 +42,58 @@ const GalleryOrganizer: React.FC = () => {
     }
   `) as Query
 
-  console.log(photoSplashQuery)
+  console.log(imageOrder)
 
-  return <div>Insert images here</div>
+  const saveOrder = () => {
+    fetch("http://localhost:3000", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(imageOrder)
+    })
+  }
+
+  return <div>
+    <button onClick={() => saveOrder()} >Save</button>
+  </div>
+}
+
+const breakoutCategories = (imageNodes: Array<Node>) => {
+
+  const imageDictionary = {}
+  imageNodes.forEach(imageNode => {
+    const category = imageNode.fields.gallery
+    if (category) {
+      if (!imageDictionary[category]) imageDictionary[category] = []
+      imageDictionary[category].push(imageNode)
+    }
+  })
+  return imageDictionary
+}
+
+const orderImages = (imageOrder, categorizedImages) => {
+  const newState = copy(imageOrder)
+  const categories = Object.keys(categorizedImages)
+  categories.forEach(category => {
+    if (!newState[category]) {
+      newState[category] = []
+    }
+    const IDMap = newState[category].map(imageNode => imageNode.id)
+    const organizedCategory = categorizedImages[category].sort(
+      (imageA: Node, imageB: Node) => {
+        if (!IDMap.includes(imageA.id)) {
+          return -1
+        } else if (!IDMap.includes(imageB.id)) {
+          return 1
+        } else {
+          IDMap.indexOf(imageA.id) - IDMap.indexOf(imageA.id)
+        }
+      }
+    )
+    newState[category] = organizedCategory
+  })
+  return newState
 }
 
 export default GalleryOrganizer
