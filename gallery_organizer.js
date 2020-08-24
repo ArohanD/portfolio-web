@@ -20,8 +20,7 @@ app.get("/*", function (req, res) {
 })
 
 app.post("/*", function (req, res) {
-  console.log(req.body)
-  fs.writeFile('test.json', JSON.stringify(req.body), err => {
+  fs.writeFile('galleryTrack.json', JSON.stringify(req.body), err => {
     if (err) res.send(err)
     res.send("new order saved")
   })
