@@ -19,9 +19,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `gallery`,
-      value: category
+      value: parent.absolutePath.includes('/images/gallery/') ? category : ''
     })
 
+    // Write order of images to be displayed into a GQL param
     createNodeField({
       node,
       name: 'order',

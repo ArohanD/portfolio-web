@@ -1,0 +1,26 @@
+body {
+  padding: 10px;
+}
+
+.organizer_category {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.organizer_card {
+  margin: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.organizer_image_card_options {
+  padding-top: 5px;
+  display: flex;
+  width: 100px;
+  justify-content: space-around;
+}
+
+.organizer_text_input {
+  width: 20%;
+}
