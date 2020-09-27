@@ -1,0 +1,15 @@
+body {
+  padding: 10px;
+}
+
+.organizer_category {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.organizer_card {
+  margin: auto 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
