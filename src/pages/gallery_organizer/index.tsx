@@ -12,14 +12,15 @@ import "./gallery_organizer.scss"
 
 type adjustImageOrderProps = (
   category: string,
-  place: Number,
-  imageID: string
+  currentPlace: number,
+  newPlace: number,
 ) => void
 
 interface ImageOrgCardProps {
-  imageNode: ImageSharp
+  fixedImage: ImageSharpFixed
   category: string
   adjustImageOrder: adjustImageOrderProps
+  order: number
 }
 
 const GalleryOrganizer: React.FC = () => {
@@ -77,13 +78,27 @@ const GalleryOrganizer: React.FC = () => {
 
   const adjustImageOrder: adjustImageOrderProps = (
     category,
-    place,
-    imageID
+    currentPlace,
+    newPlace,
   ) => {
-    const gallery = imageOrder[category]
-    if (place < 0 || place >= gallery.length) return
+    console.log(newPlace, currentPlace)
+    const row = copy(imageOrder[category]) as Array<ImageSharp>
+    if (newPlace < 0 || newPlace >= row.length) return
 
-    
+    const imageNodeA = copy(row[currentPlace])
+    const imageNodeB = copy(row[newPlace])
+
+    row[currentPlace] = imageNodeB;
+    row[newPlace] = imageNodeA;
+
+    row[newPlace].fields.order = newPlace;
+    row[currentPlace].fields.order = currentPlace;
+
+    const newImageOrder = copy(imageOrder)
+    newImageOrder[category] = row;
+    console.log(imageOrder[category], row)
+    setImageOrder(newImageOrder)
+
   }
 
   const categories = Object.keys(imageOrder)
@@ -95,15 +110,16 @@ const GalleryOrganizer: React.FC = () => {
           <React.Fragment>
             <h2>{category}</h2>
             <div className="organizer_category" key={category}>
-              {imageOrder[category].map(imageData => {
+              {imageOrder[category].map((imageData, index) => {
                 const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
                   imageNode => imageNode.id === imageData.id
-                )
+                ).fixed
                 return (
                   <ImageOrgCard
-                    imageNode={imageFixed}
+                    fixedImage={imageFixed}
                     category={category}
                     adjustImageOrder={adjustImageOrder}
+                    order={index}
                   />
                 )
               })}
@@ -117,29 +133,30 @@ const GalleryOrganizer: React.FC = () => {
 }
 
 const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
-  imageNode,
+  fixedImage,
   category,
   adjustImageOrder,
+  order
 }) => {
   return (
     <div className="organizer_card">
-      <Img fixed={imageNode.fixed} />
+      <Img fixed={fixedImage} />
       <div className="organizer_image_card_options">
-        <span
+        <div
           onClick={() =>
-            adjustImageOrder(category, imageNode.fields.order - 1, imageNode.id)
+            adjustImageOrder(category, order, order - 1)
           }
         >
           ⬅️
-        </span>
-        <input type="text" value={imageNode.fields.order} className={'organizer_text_input'} />
-        <span
+        </div>
+        <input type="text" value={order} className={'organizer_text_input'} />
+        <div
           onClick={() =>
-            adjustImageOrder(category, imageNode.fields.order + 1, imageNode.id)
+            adjustImageOrder(category, order, order + 1)
           }
         >
           ➡️
-        </span>
+        </div>
       </div>
     </div>
   )
