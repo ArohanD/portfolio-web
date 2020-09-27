@@ -10,6 +10,18 @@ import { copy } from "../../../utils"
 import Img from "gatsby-image"
 import "./gallery_organizer.scss"
 
+type adjustImageOrderProps = (
+  category: string,
+  place: Number,
+  imageID: string
+) => void
+
+interface ImageOrgCardProps {
+  imageNode: ImageSharp
+  category: string
+  adjustImageOrder: adjustImageOrderProps
+}
+
 const GalleryOrganizer: React.FC = () => {
   const [imageOrder, setImageOrder] = useState({})
   if (!imageOrder) return <div>Loading...</div>
@@ -52,7 +64,6 @@ const GalleryOrganizer: React.FC = () => {
   const AllIDMap = photoOrderToolQuery.allImageSharp.nodes.map(
     imageNode => imageNode.id
   )
-  console.log(AllIDMap)
 
   const saveOrder = () => {
     fetch("http://localhost:3000", {
@@ -62,6 +73,17 @@ const GalleryOrganizer: React.FC = () => {
       },
       body: JSON.stringify(imageOrder),
     })
+  }
+
+  const adjustImageOrder: adjustImageOrderProps = (
+    category,
+    place,
+    imageID
+  ) => {
+    const gallery = imageOrder[category]
+    if (place < 0 || place >= gallery.length) return
+
+    
   }
 
   const categories = Object.keys(imageOrder)
@@ -77,7 +99,13 @@ const GalleryOrganizer: React.FC = () => {
                 const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
                   imageNode => imageNode.id === imageData.id
                 )
-                return <ImageOrgCard imageNode={imageFixed} />
+                return (
+                  <ImageOrgCard
+                    imageNode={imageFixed}
+                    category={category}
+                    adjustImageOrder={adjustImageOrder}
+                  />
+                )
               })}
             </div>
           </React.Fragment>
@@ -88,16 +116,30 @@ const GalleryOrganizer: React.FC = () => {
   )
 }
 
-interface ImageOrgCardProps {
-  imageNode: ImageSharp
-}
-
-const ImageOrgCard: React.FC<ImageOrgCardProps> = ({ imageNode }) => {
+const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
+  imageNode,
+  category,
+  adjustImageOrder,
+}) => {
   return (
     <div className="organizer_card">
       <Img fixed={imageNode.fixed} />
-      <div className="organizer_imageCardOptions">
-        <div>{imageNode.fields.order}</div>
+      <div className="organizer_image_card_options">
+        <span
+          onClick={() =>
+            adjustImageOrder(category, imageNode.fields.order - 1, imageNode.id)
+          }
+        >
+          ⬅️
+        </span>
+        <input type="text" value={imageNode.fields.order} className={'organizer_text_input'} />
+        <span
+          onClick={() =>
+            adjustImageOrder(category, imageNode.fields.order + 1, imageNode.id)
+          }
+        >
+          ➡️
+        </span>
       </div>
     </div>
   )
