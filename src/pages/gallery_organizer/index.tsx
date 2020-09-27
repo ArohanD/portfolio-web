@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { Query, Node } from "../../generated/graphql-types"
+import {
+  Query,
+  Node,
+  ImageSharpFixed,
+  ImageSharp,
+} from "../../generated/graphql-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { copy } from "../../../utils"
 import Img from "gatsby-image"
+import "./gallery_organizer.scss"
 
 const GalleryOrganizer: React.FC = () => {
   const [imageOrder, setImageOrder] = useState({})
@@ -59,25 +65,40 @@ const GalleryOrganizer: React.FC = () => {
   }
 
   const categories = Object.keys(imageOrder)
+  console.log(imageOrder)
   return (
     <div>
       {categories.map(category => {
         return (
-          <div
-            className="organizer_category"
-            key={category}
-          >
+          <React.Fragment>
             <h2>{category}</h2>
-            {imageOrder[category].map(imageData => {
-              const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
-                imageNode => imageNode.id === imageData.id
-              ).fixed
-              return <Img fixed={imageFixed} />
-            })}
-          </div>
+            <div className="organizer_category" key={category}>
+              {imageOrder[category].map(imageData => {
+                const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
+                  imageNode => imageNode.id === imageData.id
+                )
+                return <ImageOrgCard imageNode={imageFixed} />
+              })}
+            </div>
+          </React.Fragment>
         )
       })}
       <button onClick={() => saveOrder()}>Save</button>
+    </div>
+  )
+}
+
+interface ImageOrgCardProps {
+  imageNode: ImageSharp
+}
+
+const ImageOrgCard: React.FC<ImageOrgCardProps> = ({ imageNode }) => {
+  return (
+    <div className="organizer_card">
+      <Img fixed={imageNode.fixed} />
+      <div className="organizer_imageCardOptions">
+        <div>{imageNode.fields.order}</div>
+      </div>
     </div>
   )
 }
