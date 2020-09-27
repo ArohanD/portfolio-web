@@ -13,7 +13,7 @@ import "./gallery_organizer.scss"
 type adjustImageOrderProps = (
   category: string,
   currentPlace: number,
-  newPlace: number,
+  newPlace: number
 ) => void
 
 interface ImageOrgCardProps {
@@ -25,7 +25,6 @@ interface ImageOrgCardProps {
 
 const GalleryOrganizer: React.FC = () => {
   const [imageOrder, setImageOrder] = useState({})
-  if (!imageOrder) return <div>Loading...</div>
 
   useEffect(() => {
     fetch("http://localhost:3000", {
@@ -40,7 +39,7 @@ const GalleryOrganizer: React.FC = () => {
         const categorizedImages = breakoutCategories(
           photoOrderToolQuery.allImageSharp.nodes
         )
-        const orderedImages = orderImages(imageOrder, categorizedImages)
+        const orderedImages = orderImages(categorizedImages)
         setImageOrder(orderedImages)
       })
   }, [])
@@ -62,47 +61,58 @@ const GalleryOrganizer: React.FC = () => {
     }
   `) as Query
 
-  const AllIDMap = photoOrderToolQuery.allImageSharp.nodes.map(
-    imageNode => imageNode.id
-  )
+  if (!Object.keys(imageOrder).length) return <div>Loading...</div>
 
   const saveOrder = () => {
+    const strippedData = {}
+    Object.keys(imageOrder).forEach(category => {
+      const row = imageOrder[category] as Array<ImageSharpFixed>
+      const newRow = row.map(imageNode => {
+        const { fields, id } = imageNode
+        return {
+          fields,
+          id,
+        }
+      })
+      strippedData[category] = newRow
+    })
+
+    console.log(strippedData)
+
     fetch("http://localhost:3000", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(imageOrder),
+      body: JSON.stringify(strippedData),
     })
   }
 
   const adjustImageOrder: adjustImageOrderProps = (
     category,
     currentPlace,
-    newPlace,
+    newPlace
   ) => {
-    console.log(newPlace, currentPlace)
     const row = copy(imageOrder[category]) as Array<ImageSharp>
     if (newPlace < 0 || newPlace >= row.length) return
 
     const imageNodeA = copy(row[currentPlace])
     const imageNodeB = copy(row[newPlace])
 
-    row[currentPlace] = imageNodeB;
-    row[newPlace] = imageNodeA;
+    row[currentPlace] = imageNodeB
+    row[newPlace] = imageNodeA
 
-    row[newPlace].fields.order = newPlace;
-    row[currentPlace].fields.order = currentPlace;
+    row[newPlace].fields.order = newPlace
+    row[currentPlace].fields.order = currentPlace
 
     const newImageOrder = copy(imageOrder)
-    newImageOrder[category] = row;
+    newImageOrder[category] = row
     console.log(imageOrder[category], row)
     setImageOrder(newImageOrder)
-
   }
 
   const categories = Object.keys(imageOrder)
-  console.log(imageOrder)
+
   return (
     <div>
       {categories.map(category => {
@@ -136,25 +146,17 @@ const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
   fixedImage,
   category,
   adjustImageOrder,
-  order
+  order,
 }) => {
   return (
     <div className="organizer_card">
       <Img fixed={fixedImage} />
       <div className="organizer_image_card_options">
-        <div
-          onClick={() =>
-            adjustImageOrder(category, order, order - 1)
-          }
-        >
+        <div onClick={() => adjustImageOrder(category, order, order - 1)}>
           ⬅️
         </div>
-        <input type="text" value={order} className={'organizer_text_input'} />
-        <div
-          onClick={() =>
-            adjustImageOrder(category, order, order + 1)
-          }
-        >
+        <input type="text" value={order} className={"organizer_text_input"} />
+        <div onClick={() => adjustImageOrder(category, order, order + 1)}>
           ➡️
         </div>
       </div>
@@ -174,14 +176,14 @@ const breakoutCategories = (imageNodes: Array<Node>) => {
   return imageDictionary
 }
 
-const orderImages = (imageOrder, categorizedImages) => {
-  const newState = copy(imageOrder)
+const orderImages = categorizedImages => {
+  const newState = {}
   const categories = Object.keys(categorizedImages)
   categories.forEach(category => {
     if (!newState[category]) {
       newState[category] = []
     }
-    const IDMap = newState[category].map(imageNode => imageNode.id)
+    const IDMap = categorizedImages[category].map(imageNode => imageNode.id)
     const organizedCategory = categorizedImages[category].sort(
       (imageA: Node, imageB: Node) => {
         if (!IDMap.includes(imageA.id)) {
@@ -189,7 +191,7 @@ const orderImages = (imageOrder, categorizedImages) => {
         } else if (!IDMap.includes(imageB.id)) {
           return 1
         } else {
-          IDMap.indexOf(imageA.id) - IDMap.indexOf(imageA.id)
+          imageA.fields.order - imageB.fields.order
         }
       }
     )
