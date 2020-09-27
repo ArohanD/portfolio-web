@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react"
 import {
   Query,
-  Node,
   ImageSharpFixed,
   ImageSharp,
 } from "../../generated/graphql-types"
@@ -11,6 +10,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { copy } from "../../../utils"
 import Img from "gatsby-image"
 import "./gallery_organizer.scss"
+import { breakoutCategories, orderImages } from "./galleryUtils"
 
 type adjustImageOrderProps = (
   category: string,
@@ -79,8 +79,6 @@ const GalleryOrganizer: React.FC = () => {
       strippedData[category] = newRow
     })
 
-    console.log(strippedData)
-
     fetch("http://localhost:3000", {
       method: "POST",
       headers: {
@@ -109,7 +107,6 @@ const GalleryOrganizer: React.FC = () => {
 
     const newImageOrder = copy(imageOrder)
     newImageOrder[category] = row
-    console.log(imageOrder[category], row)
     setImageOrder(newImageOrder)
   }
 
@@ -121,9 +118,9 @@ const GalleryOrganizer: React.FC = () => {
       <p>Updated state will not show unless Gatsby cache is re-built</p>
       {categories.map(category => {
         return (
-          <React.Fragment>
+          <React.Fragment key={category}>
             <h2>{category}</h2>
-            <div className="organizer_category" key={category}>
+            <div className="organizer_category">
               {imageOrder[category].map((imageData, index) => {
                 const imageFixed = photoOrderToolQuery.allImageSharp.nodes.find(
                   imageNode => imageNode.id === imageData.id
@@ -134,6 +131,7 @@ const GalleryOrganizer: React.FC = () => {
                     category={category}
                     adjustImageOrder={adjustImageOrder}
                     order={index}
+                    key={imageData.id}
                   />
                 )
               })}
@@ -159,49 +157,13 @@ const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
         <div onClick={() => adjustImageOrder(category, order, order - 1)}>
           ⬅️
         </div>
-        <input type="text" value={order} className={"organizer_text_input"} />
+        <input type="text" defaultValue={order} className={"organizer_text_input"} />
         <div onClick={() => adjustImageOrder(category, order, order + 1)}>
           ➡️
         </div>
       </div>
     </div>
   )
-}
-
-const breakoutCategories = (imageNodes: Array<Node>) => {
-  const imageDictionary = {}
-  imageNodes.forEach(imageNode => {
-    const category = imageNode.fields.gallery
-    if (category) {
-      if (!imageDictionary[category]) imageDictionary[category] = []
-      imageDictionary[category].push(imageNode)
-    }
-  })
-  return imageDictionary
-}
-
-const orderImages = categorizedImages => {
-  const newState = {}
-  const categories = Object.keys(categorizedImages)
-  categories.forEach(category => {
-    if (!newState[category]) {
-      newState[category] = []
-    }
-    const IDMap = categorizedImages[category].map(imageNode => imageNode.id)
-    const organizedCategory = categorizedImages[category].sort(
-      (imageA: Node, imageB: Node) => {
-        if (!IDMap.includes(imageA.id)) {
-          return -1
-        } else if (!IDMap.includes(imageB.id)) {
-          return 1
-        } else {
-          imageA.fields.order - imageB.fields.order
-        }
-      }
-    )
-    newState[category] = organizedCategory
-  })
-  return newState
 }
 
 export default GalleryOrganizer
