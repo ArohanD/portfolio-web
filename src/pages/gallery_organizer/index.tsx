@@ -1,3 +1,5 @@
+// In order to show changes, Gatsby currently has to be restarted.
+
 import React, { useState, useEffect } from "react"
 import {
   Query,
@@ -115,6 +117,8 @@ const GalleryOrganizer: React.FC = () => {
 
   return (
     <div>
+      <h1>Image Organizer</h1>
+      <p>Updated state will not show unless Gatsby cache is re-built</p>
       {categories.map(category => {
         return (
           <React.Fragment>
