@@ -26,7 +26,7 @@ const Resume: React.FC = (props: PageProps) => {
 
   return (
     <React.Fragment>
-      <SEO title="Resume" />
+      <SEO title="Resume Arohan Dutt" />
       <div className={"resume-page-wrapper"}>
         <h1>Resume</h1>
         <div className={"resume-content-wrapper"}>
