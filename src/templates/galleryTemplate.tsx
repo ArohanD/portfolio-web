@@ -50,7 +50,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
   return (
     <SideBarLayout
       title={sanitizeTitle(pageContext.title)}
-      sideBarString={"gallery"}
+      sideBarString={"photography"}
       currentPath={location.pathname}
     >
       <div className="gallery-column-container">

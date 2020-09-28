@@ -19,7 +19,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
     createNodeField({
       node,
       name: `gallery`,
-      value: parent.absolutePath.includes('/images/gallery/') ? category : ''
+      value: parent.absolutePath.includes('/images/photography/') ? category : ''
     })
 
     // Write order of images to be displayed into a GQL param
@@ -58,10 +58,10 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
-  // GALLERY PAGES
+  // PHOTO GALLERY PAGES
   const galleryPages = graphql(`
     {
-      allDirectory(filter: { relativeDirectory: { eq: "gallery" } }) {
+      allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
         nodes {
           relativePath
         }
@@ -112,7 +112,7 @@ exports.createPages = ({ actions, graphql }) => {
     const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
 
     imageNodes.forEach(node => {
-      if (node.parent.relativePath.includes("gallery/")) {
+      if (node.parent.relativePath.includes("photography/")) {
         createPage({
           path: node.parent.relativePath,
           component: imageTemplate,

@@ -77,9 +77,12 @@ const LinkBlock: React.FC<linkBlockProps> = ({ links, currentPath }) => {
       {links.map(({ path, title }) => {
         let linkPath = path[0] === "/" ? path : `/${path}`
 
+        console.log(currentPath, linkPath)
+
         // Special case for dev/applications to leave room for more in dev section (ie work, speaking, etc...)
+        // Second case is for category and subsection (photos, people) to be highlighted
         const highlight =
-          currentPath === linkPath ||
+          currentPath === linkPath || (currentPath.split('/').includes(linkPath.split('/').join('')) && linkPath !== '/' ) ||
           (currentPath.includes("dev/") &&
             linkPath.includes("dev/applications"))
 
