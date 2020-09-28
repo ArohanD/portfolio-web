@@ -18,7 +18,7 @@ interface PhotoSplashProps {
 const PhotoSplash: React.FC<PhotoSplashProps> = ({ location }) => {
   const photoSplashQuery = useStaticQuery(graphql`
     query PhotoSplash {
-      allDirectory(filter: { relativeDirectory: { eq: "gallery" } }) {
+      allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
         nodes {
           relativePath
         }
@@ -57,7 +57,7 @@ const PhotoSplash: React.FC<PhotoSplashProps> = ({ location }) => {
   return (
     <SideBarLayout
       title={"photography"}
-      sideBarString={"gallery"}
+      sideBarString={"photography"}
       currentPath={location.pathname}
     >
       <div className={"photoSplash-body"}>
