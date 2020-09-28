@@ -22,9 +22,9 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
   location,
 }) => {
   const [width, setWidth] = useState(0)
-  const gallery = data.allFile.nodes
-  //sort photos here
-  console.log(gallery)
+  let gallery = data.allFile.nodes
+  gallery = gallery.sort((NodeA, NodeB) => NodeA.childImageSharp.fields.order - NodeB.childImageSharp.fields.order)
+
   const galleryWidth = width * 0.8
   const columnWidth = width > 1680 ? 600 : 300
   let numCols = Math.floor(galleryWidth / columnWidth)
@@ -130,6 +130,9 @@ export const galleryPageQuery = graphql`
         }
         childImageSharp {
           id
+          fields {
+            order
+          }
           fluid(maxWidth: 350, quality: 50) {
             ...GatsbyImageSharpFluid
           }
