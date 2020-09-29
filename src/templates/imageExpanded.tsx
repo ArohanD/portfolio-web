@@ -19,6 +19,7 @@ const ImageExpanded: React.FC<ImageProps> = ({
   data,
   location,
 }) => {
+  console.log(pageContext)
   const exifData = data.imageSharp.parent.fields.exif.exif as FileFieldsExifExif;
   return (
     <div className="imagePage-container">

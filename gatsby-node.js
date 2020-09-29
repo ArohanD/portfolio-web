@@ -8,25 +8,28 @@
 const path = require("path")
 const { createFilePath, createFileNode } = require("gatsby-source-filesystem")
 const exif = require("fast-exif")
-const { returnImageOrder } = require('./nodeUtils.ts')
+const { returnImageOrder } = require("./nodeUtils.ts")
+const { node } = require("prop-types")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === 'ImageSharp') {
+  if (node.internal.type === "ImageSharp") {
     const parent = getNode(node.parent)
-    const category = parent.relativeDirectory.split('/').pop()
+    const category = parent.relativeDirectory.split("/").pop()
 
     createNodeField({
       node,
       name: `gallery`,
-      value: parent.absolutePath.includes('/images/photography/') ? category : ''
+      value: parent.absolutePath.includes("/images/photography/")
+        ? category
+        : "",
     })
 
     // Write order of images to be displayed into a GQL param
     createNodeField({
       node,
-      name: 'order',
-      value: returnImageOrder(node.id, category)
+      name: "order",
+      value: returnImageOrder(node.id, category),
     })
   }
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
@@ -111,7 +114,8 @@ exports.createPages = ({ actions, graphql }) => {
     const imageNodes = result.data.allImageSharp.nodes
     const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
 
-    imageNodes.forEach(node => {
+    imageNodes.forEach((node, index) => {
+
       if (node.parent.relativePath.includes("photography/")) {
         createPage({
           path: node.parent.relativePath,
@@ -119,6 +123,8 @@ exports.createPages = ({ actions, graphql }) => {
           context: {
             slug: node.parent.relativePath,
             imageQuery: node.id,
+            nextNode: imageNodes[index + 1] ? imageNodes[index + 1].id : undefined,
+            prevNode: imageNodes[index - 1]? imageNodes[index - 1].id : undefined,
           },
         })
       }
