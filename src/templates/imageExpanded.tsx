@@ -19,15 +19,33 @@ const ImageExpanded: React.FC<ImageProps> = ({
   data,
   location,
 }) => {
-  console.log(pageContext)
-  const exifData = data.imageSharp.parent.fields.exif.exif as FileFieldsExifExif;
+  const exifData = data.current.parent.fields.exif.exif as FileFieldsExifExif
   return (
     <div className="imagePage-container">
-      <Img
-        fluid={data.imageSharp.fluid}
-        imgStyle={{ objectFit: "contain" }}
-        className="imagePage-container-image"
-      />
+      <div className="imagePage-gallery-section">
+        <Img
+          fluid={data.current.fluid}
+          imgStyle={{ objectFit: "contain" }}
+          className="imagePage-main-image"
+        />
+        <div className="imagePage-previews">
+          <Img
+            fixed={data.previous.fixed}
+            imgStyle={{ objectFit: "contain" }}
+            className="imagePage-preview-image"
+          />
+          <Img
+            fixed={data.current.fixed}
+            imgStyle={{ objectFit: "contain" }}
+            className="imagePage-preview-image"
+          />
+          <Img
+            fixed={data.next.fixed}
+            imgStyle={{ objectFit: "contain" }}
+            className="imagePage-preview-image"
+          />
+        </div>
+      </div>
       <div className="imagePage-imageInfo-Wrapper">
         <ExifDisplay {...exifData} />
       </div>
@@ -52,11 +70,15 @@ const ExifDisplay: React.FC<FileFieldsExifExif> = ({
 export default ImageExpanded
 
 export const imageQuery = graphql`
-  query ImagePageQuery($imageQuery: String) {
-    imageSharp(id: { eq: $imageQuery }) {
+  query ImagePageQuery($imageQuery: String, $nextNode: String, $prevNode: String) {
+    current: imageSharp(id: { eq: $imageQuery }) {
       id
       fluid(maxHeight: 1000) {
+        originalName
         ...GatsbyImageSharpFluid
+      }
+      fixed(width: 200, height: 200) {
+        ...GatsbyImageSharpFixed
       }
       parent {
         ... on File {
@@ -81,6 +103,26 @@ export const imageQuery = graphql`
             }
           }
         }
+      }
+    }
+    next: imageSharp(id: { eq: $nextNode }) {
+      id
+      fluid(maxHeight: 1000) {
+        originalName
+        ...GatsbyImageSharpFluid
+      }
+      fixed(width: 200, height: 200) {
+        ...GatsbyImageSharpFixed
+      }
+    }
+    previous: imageSharp(id: { eq: $prevNode }) {
+      id
+      fluid(maxHeight: 1000) {
+        originalName
+        ...GatsbyImageSharpFluid
+      }
+      fixed(width: 200, height: 200) {
+        ...GatsbyImageSharpFixed
       }
     }
   }

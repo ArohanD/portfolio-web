@@ -1,9 +1,7 @@
 @use '../../pages/global-styles.scss' as *;
 
 .imagePage-container {
-  box-sizing: border-box;
-  padding: 10px;
-  height: 100vh;
+  // padding: 10px;
   overflow: hidden;
 
   display: grid;
@@ -12,13 +10,36 @@
   color: $color-white;
 
   @media (min-width: $desk-break) {
+    height: 100%;
     grid-template-columns: 60% 1fr;
     grid-template-rows: auto;
   }
 
 }
 
-.imagePage-container-image {
+.imagePage-main-image {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+}
+
+.imagePage-gallery-section {
+  box-sizing: border-box;
+  padding: 10px;
+  display: grid;
+  grid-template: auto 20% / 1fr 1fr 1fr;
+  height: 100vh;
+}
+
+.imagePage-previews {
+  box-sizing: border-box;
+  padding: 10px;
+  grid-row: 2;
+  grid-column: 1 / 4;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.imagePage-preview-image {
 
 }
 
