@@ -132,10 +132,10 @@ exports.createPages = ({ actions, graphql }) => {
           context: {
             slug: node.parent.relativePath,
             imageQuery: node.id,
-            nextNode: imageNodes[index + 1]
+            nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
               ? imageNodes[index + 1].id
               : undefined,
-            prevNode: imageNodes[index - 1]
+            prevNode: imageNodes[index - 1] && imageNodes[index - 1].fields.gallery === node.fields.gallery
               ? imageNodes[index - 1].id
               : undefined,
           },

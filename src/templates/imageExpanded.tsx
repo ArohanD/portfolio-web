@@ -30,21 +30,21 @@ const ImageExpanded: React.FC<ImageProps> = ({
           />
         <div className="imagePage-previews">
           <div>⬅️</div>
-          <Img
+          {data.previous?.fixed && <Img
             fixed={data.previous.fixed}
             imgStyle={{ objectFit: "contain" }}
             className="imagePage-preview-image"
-          />
+          />}
           <Img
             fixed={data.current.fixed}
             imgStyle={{ objectFit: "contain" }}
             className="imagePage-preview-image"
           />
-          <Img
+          {data.next?.fixed && <Img
             fixed={data.next.fixed}
             imgStyle={{ objectFit: "contain" }}
             className="imagePage-preview-image"
-          />
+          />}
           <div>➡️</div>
         </div>
       </div>
