@@ -98,7 +98,7 @@ exports.createPages = ({ actions, graphql }) => {
     {
       allImageSharp(
         filter: { fields: { gallery: { glob: "*" } } }
-        sort: { fields: fields___gallery }
+        sort: { fields: [fields___gallery, fields___order] }
       ) {
         nodes {
           id
