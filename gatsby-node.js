@@ -96,7 +96,10 @@ exports.createPages = ({ actions, graphql }) => {
 
   const imagePages = graphql(`
     {
-      allImageSharp {
+      allImageSharp(
+        filter: { fields: { gallery: { glob: "*" } } }
+        sort: { fields: fields___gallery }
+      ) {
         nodes {
           id
           parent {
@@ -104,6 +107,10 @@ exports.createPages = ({ actions, graphql }) => {
               name
               relativePath
             }
+          }
+          fields {
+            gallery
+            order
           }
         }
       }
@@ -115,16 +122,22 @@ exports.createPages = ({ actions, graphql }) => {
     const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
 
     imageNodes.forEach((node, index) => {
-
-      if (node.parent.relativePath.includes("photography/")) {
+      if (
+        node.parent.relativePath.includes("photography/") &&
+        node.fields.gallery
+      ) {
         createPage({
           path: node.parent.relativePath,
           component: imageTemplate,
           context: {
             slug: node.parent.relativePath,
             imageQuery: node.id,
-            nextNode: imageNodes[index + 1] ? imageNodes[index + 1].id : undefined,
-            prevNode: imageNodes[index - 1]? imageNodes[index - 1].id : undefined,
+            nextNode: imageNodes[index + 1]
+              ? imageNodes[index + 1].id
+              : undefined,
+            prevNode: imageNodes[index - 1]
+              ? imageNodes[index - 1].id
+              : undefined,
           },
         })
       }
