@@ -1,7 +1,6 @@
 @use '../../pages/global-styles.scss' as *;
 
 .imagePage-container {
-  // padding: 10px;
   overflow: hidden;
 
   display: grid;
@@ -32,14 +31,23 @@
 
 .imagePage-previews {
   box-sizing: border-box;
-  padding: 10px;
   grid-row: 2;
   grid-column: 1 / 4;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+
+  align-items: center;
+
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  
 }
 
 .imagePage-preview-image {
+  box-sizing: border-box;
+  padding: 0 10px;
+  margin: auto 5px;
+
+
 
 }
 

@@ -27,8 +27,9 @@ const ImageExpanded: React.FC<ImageProps> = ({
           fluid={data.current.fluid}
           imgStyle={{ objectFit: "contain" }}
           className="imagePage-main-image"
-        />
+          />
         <div className="imagePage-previews">
+          <div>⬅️</div>
           <Img
             fixed={data.previous.fixed}
             imgStyle={{ objectFit: "contain" }}
@@ -44,6 +45,7 @@ const ImageExpanded: React.FC<ImageProps> = ({
             imgStyle={{ objectFit: "contain" }}
             className="imagePage-preview-image"
           />
+          <div>➡️</div>
         </div>
       </div>
       <div className="imagePage-imageInfo-Wrapper">
@@ -77,7 +79,7 @@ export const imageQuery = graphql`
         originalName
         ...GatsbyImageSharpFluid
       }
-      fixed(width: 200, height: 200) {
+      fixed(width: 100, height: 100) {
         ...GatsbyImageSharpFixed
       }
       parent {
@@ -107,21 +109,21 @@ export const imageQuery = graphql`
     }
     next: imageSharp(id: { eq: $nextNode }) {
       id
-      fluid(maxHeight: 1000) {
+      fluid(maxHeight: 150) {
         originalName
         ...GatsbyImageSharpFluid
       }
-      fixed(width: 200, height: 200) {
+      fixed(width: 100, height: 100) {
         ...GatsbyImageSharpFixed
       }
     }
     previous: imageSharp(id: { eq: $prevNode }) {
       id
-      fluid(maxHeight: 1000) {
+      fluid(maxHeight: 150) {
         originalName
         ...GatsbyImageSharpFluid
       }
-      fixed(width: 200, height: 200) {
+      fixed(width: 100, height: 100) {
         ...GatsbyImageSharpFixed
       }
     }
