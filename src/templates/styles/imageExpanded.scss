@@ -16,17 +16,19 @@
 
 }
 
-.imagePage-main-image {
-  grid-column: 1 / 4;
-  grid-row: 1 / 2;
-}
-
 .imagePage-gallery-section {
   box-sizing: border-box;
   padding: 10px;
   display: grid;
   grid-template: auto 20% / 1fr 1fr 1fr;
   height: 100vh;
+}
+
+.imagePage-main-image {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  align-items: center;
+  justify-items: center;
 }
 
 .imagePage-previews {
@@ -39,7 +41,6 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  
 }
 
 .imagePage-preview-image {
