@@ -8,25 +8,28 @@
 const path = require("path")
 const { createFilePath, createFileNode } = require("gatsby-source-filesystem")
 const exif = require("fast-exif")
-const { returnImageOrder } = require('./nodeUtils.ts')
+const { returnImageOrder } = require("./nodeUtils.ts")
+const { node } = require("prop-types")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
-  if (node.internal.type === 'ImageSharp') {
+  if (node.internal.type === "ImageSharp") {
     const parent = getNode(node.parent)
-    const category = parent.relativeDirectory.split('/').pop()
+    const category = parent.relativeDirectory.split("/").pop()
 
     createNodeField({
       node,
       name: `gallery`,
-      value: parent.absolutePath.includes('/images/photography/') ? category : ''
+      value: parent.absolutePath.includes("/images/photography/")
+        ? category
+        : "",
     })
 
     // Write order of images to be displayed into a GQL param
     createNodeField({
       node,
-      name: 'order',
-      value: returnImageOrder(node.id, category)
+      name: "order",
+      value: returnImageOrder(node.id, category),
     })
   }
   if (node.sourceInstanceName === "images" && node.extension === "jpg") {
@@ -93,7 +96,10 @@ exports.createPages = ({ actions, graphql }) => {
 
   const imagePages = graphql(`
     {
-      allImageSharp {
+      allImageSharp(
+        filter: { fields: { gallery: { glob: "*" } } }
+        sort: { fields: [fields___gallery, fields___order] }
+      ) {
         nodes {
           id
           parent {
@@ -101,6 +107,10 @@ exports.createPages = ({ actions, graphql }) => {
               name
               relativePath
             }
+          }
+          fields {
+            gallery
+            order
           }
         }
       }
@@ -111,14 +121,23 @@ exports.createPages = ({ actions, graphql }) => {
     const imageNodes = result.data.allImageSharp.nodes
     const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
 
-    imageNodes.forEach(node => {
-      if (node.parent.relativePath.includes("photography/")) {
+    imageNodes.forEach((node, index) => {
+      if (
+        node.parent.relativePath.includes("photography/") &&
+        node.fields.gallery
+      ) {
         createPage({
           path: node.parent.relativePath,
           component: imageTemplate,
           context: {
             slug: node.parent.relativePath,
             imageQuery: node.id,
+            nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
+              ? imageNodes[index + 1].id
+              : undefined,
+            prevNode: imageNodes[index - 1] && imageNodes[index - 1].fields.gallery === node.fields.gallery
+              ? imageNodes[index - 1].id
+              : undefined,
           },
         })
       }

@@ -160,11 +160,12 @@ const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
         <div onClick={() => adjustImageOrder(category, order, order - 1)}>
           ⬅️
         </div>
-        <input
+        {/* <input
           type="text"
           defaultValue={order}
           className={"organizer_text_input"}
-        />
+        /> */}
+        <div>{order}</div>
         <div onClick={() => adjustImageOrder(category, order, order + 1)}>
           ➡️
         </div>

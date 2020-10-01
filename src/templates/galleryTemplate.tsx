@@ -24,7 +24,6 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
   const [width, setWidth] = useState(0)
   let gallery = data.allFile.nodes
   gallery = gallery.sort((NodeA, NodeB) => NodeA.childImageSharp.fields.order - NodeB.childImageSharp.fields.order)
-  console.log(gallery)
 
   const galleryWidth = width * 0.8
   const columnWidth = width > 1680 ? 600 : 300
