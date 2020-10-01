@@ -63,6 +63,14 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-plugin-mdx`,
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: "UA-45913415-1",
+        head: true,
+        respectDNT: true,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
