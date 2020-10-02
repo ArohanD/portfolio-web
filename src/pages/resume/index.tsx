@@ -30,7 +30,7 @@ const Resume: React.FC = (props: PageProps) => {
       <SideBarLayout
         title="Resume Arohan Dutt"
         sideBarString={"resume"}
-        currentPath={location.pathname}
+        currentPath={props.uri}
       >
         <div className={"resume-page-wrapper"}>
           <h1>Resume</h1>

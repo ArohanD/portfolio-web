@@ -11,29 +11,28 @@ import "./styles/imageExpanded.scss"
 interface ImageProps {
   pageContext: SitePageContext
   data: Query
-  location: Location
 }
 
 const ImageExpanded: React.FC<ImageProps> = ({
   pageContext,
   data,
-  location,
 }) => {
-  const preAppendPath = location.pathname.split("/")
+  console.log(pageContext)
+  const preAppendPath = pageContext.slug.split("/")
   preAppendPath.pop()
 
   let nextPath
   if (data.next) {
     nextPath = preAppendPath.slice()
     nextPath.push(data.next.fixed.originalName)
-    nextPath = nextPath.join("/")
+    nextPath = '/' + nextPath.join("/")
   }
 
   let prevPath
   if (data.previous) {
     prevPath = preAppendPath.slice()
     prevPath.push(data.previous.fixed.originalName)
-    prevPath = prevPath.join("/")
+    prevPath = '/' + prevPath.join("/")
   }
 
   const exifData = data.current.parent.fields.exif.exif as FileFieldsExifExif

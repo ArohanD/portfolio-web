@@ -79,3 +79,6 @@ linkedin
 
 # Markdown
 *.md
+
+# Netlify
+.netlify

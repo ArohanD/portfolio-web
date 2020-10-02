@@ -10,11 +10,7 @@ import { Query, ImageSharp, Node } from "../../generated/graphql-types"
 import WritingThumbNail from "../../components/thumbNailGallery/WritingThumbNail"
 import SideBarLayout from "../../components/pageLayout"
 
-interface WritingSplashProps {
-  location: Location
-}
-
-const WritingSplash: React.FC<WritingSplashProps> = ({ location }) => {
+const WritingSplash: React.FC<WritingSplashProps> = () => {
   const writingSplashQuery = useStaticQuery(graphql`
     query {
       allMarkdownRemark {
@@ -63,7 +59,7 @@ const WritingSplash: React.FC<WritingSplashProps> = ({ location }) => {
   }) as Array<thumbNailProps>
 
   return (
-    <SideBarLayout title='Writing' currentPath={location.pathname} >
+    <SideBarLayout title='Writing' currentPath={'/writing/'} >
       <div className="writingSplash-wrapper">
         <h1 className="writingSplash-title">Marketing & Creative Writing</h1>
         <ThumbNailContainer

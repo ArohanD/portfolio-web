@@ -19,7 +19,6 @@ interface GalleryPageProps {
 const GalleryPage: React.FC<GalleryPageProps> = ({
   pageContext,
   data,
-  location,
 }) => {
   const [width, setWidth] = useState(0)
   let gallery = data.allFile.nodes
@@ -51,7 +50,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
     <SideBarLayout
       title={sanitizeTitle(pageContext.title)}
       sideBarString={"photography"}
-      currentPath={location.pathname}
+      currentPath={window ? location.pathname : ''}
     >
       <div className="gallery-column-container">
         {cols.map((column, index) => (
