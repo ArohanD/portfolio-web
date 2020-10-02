@@ -10,7 +10,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import { copy } from "../../../utils"
 import Img from "gatsby-image"
 import "./gallery_organizer.scss"
-import { breakoutCategories, orderImages } from "./galleryUtils"
+import { breakoutCategories, orderImages } from "../../../galleryUtils"
 
 type adjustImageOrderProps = (
   category: string,

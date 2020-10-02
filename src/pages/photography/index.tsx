@@ -11,11 +11,7 @@ import { sanitizeTitle } from "../../../utils"
 import Img from "gatsby-image"
 import SideBarLayout from "../../components/pageLayout"
 
-interface PhotoSplashProps {
-  location: Location
-}
-
-const PhotoSplash: React.FC<PhotoSplashProps> = ({ location }) => {
+const PhotoSplash: React.FC = () => {
   const photoSplashQuery = useStaticQuery(graphql`
     query PhotoSplash {
       allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
@@ -58,7 +54,7 @@ const PhotoSplash: React.FC<PhotoSplashProps> = ({ location }) => {
     <SideBarLayout
       title={"photography"}
       sideBarString={"photography"}
-      currentPath={location.pathname}
+      currentPath={'/photography/'}
     >
       <div className={"photoSplash-body"}>
         <h1 className="photoSplash-title">Photography</h1>

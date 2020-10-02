@@ -5,7 +5,7 @@ import "./mobileNav.scss"
 
 const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
   const [navOpen, setNavOpen] = useState(false)
-  const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState(1001)
 
   useEffect(() => {
     const handleResize = () => {
