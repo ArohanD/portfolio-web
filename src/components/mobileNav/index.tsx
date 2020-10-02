@@ -7,17 +7,17 @@ const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
   const [navOpen, setNavOpen] = useState(false)
   const [width, setWidth] = useState(1001)
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setWidth(window.innerWidth)
-  //   }
+  useEffect(() => {
+    const handleResize = () => {
+      setWidth(window.innerWidth)
+    }
 
-  //   window.addEventListener("resize", handleResize)
-  //   setWidth(window.innerWidth)
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize)
-  //   }
-  // }, [])
+    window.addEventListener("resize", handleResize)
+    setWidth(window.innerWidth)
+    return () => {
+      window.removeEventListener("resize", handleResize)
+    }
+  }, [])
 
   if(width > 1000) return <div></div>
 
