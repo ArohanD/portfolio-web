@@ -11,7 +11,6 @@ interface LayoutProps {
 }
 
 const SideBarLayout: React.FC<LayoutProps> = ({ children, title, sideBarString, currentPath }) => {
-  console.log(currentPath)
   let sanitizedTitle  = sanitizeTitle(currentPath.split("/").pop())
   sanitizedTitle = sanitizedTitle.split(' ').map(word => word.charAt(0).toUpperCase() + word.substr(1)).join(' ')
   

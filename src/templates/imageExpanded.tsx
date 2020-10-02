@@ -17,7 +17,6 @@ const ImageExpanded: React.FC<ImageProps> = ({
   pageContext,
   data,
 }) => {
-  console.log(pageContext)
   const preAppendPath = pageContext.slug.split("/")
   preAppendPath.pop()
 
