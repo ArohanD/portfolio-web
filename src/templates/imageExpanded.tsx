@@ -43,6 +43,7 @@ const ImageExpanded: React.FC<ImageProps> = ({
           imgStyle={{ objectFit: "contain" }}
           className="imagePage-main-image"
         />
+        </div>
         <div className="imagePage-previews">
           {data.previous?.fixed && (
             <React.Fragment>
@@ -78,7 +79,7 @@ const ImageExpanded: React.FC<ImageProps> = ({
             </React.Fragment>
           )}
         </div>
-      </div>
+      
       <div className="imagePage-imageInfo-Wrapper">
         <ExifDisplay {...exifData} />
       </div>
@@ -110,7 +111,7 @@ export const imageQuery = graphql`
   ) {
     current: imageSharp(id: { eq: $imageQuery }) {
       id
-      fluid(maxHeight: 1000) {
+      fluid(maxWidth: 800, quality: 80) {
         originalName
         ...GatsbyImageSharpFluid
       }
