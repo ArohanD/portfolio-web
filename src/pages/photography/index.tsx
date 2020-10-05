@@ -10,6 +10,7 @@ import "./photography.scss"
 import { sanitizeTitle } from "../../../utils"
 import Img from "gatsby-image"
 import SideBarLayout from "../../components/pageLayout"
+import MobileNav from "../../components/mobileNav"
 
 const PhotoSplash: React.FC = () => {
   const photoSplashQuery = useStaticQuery(graphql`
@@ -63,6 +64,7 @@ const PhotoSplash: React.FC = () => {
           ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}
         />
       </div>
+      <MobileNav />
     </SideBarLayout>
   )
 }

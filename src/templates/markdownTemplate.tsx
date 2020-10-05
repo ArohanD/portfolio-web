@@ -30,7 +30,7 @@ const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
           />
         ))}
       </div>
-      <MobileNav URI={"/writing"} />
+      <MobileNav type={"writing"} />
     </div>
   )
 }

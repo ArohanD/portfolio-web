@@ -58,7 +58,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
         ))}
       </div>
 
-      <MobileNav URI={"/photo"} />
+      <MobileNav type='photo' />
     </SideBarLayout>
   )
 }

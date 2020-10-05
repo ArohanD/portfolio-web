@@ -9,6 +9,7 @@ import { graphql, useStaticQuery } from "gatsby"
 import { Query, ImageSharp, Node } from "../../generated/graphql-types"
 import WritingThumbNail from "../../components/thumbNailGallery/WritingThumbNail"
 import SideBarLayout from "../../components/pageLayout"
+import MobileNav from "../../components/mobileNav"
 
 const WritingSplash: React.FC<WritingSplashProps> = () => {
   const writingSplashQuery = useStaticQuery(graphql`
@@ -67,6 +68,7 @@ const WritingSplash: React.FC<WritingSplashProps> = () => {
           thumbNailData={thumbNailData}
         />
       </div>
+      <MobileNav />
     </SideBarLayout>
   )
 }
