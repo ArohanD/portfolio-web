@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react"
 import { Link } from "gatsby"
-import { navLinks } from "../../staticContent"
 import "./mobileNav.scss"
 import { BiChip, BiHomeAlt, BiPen } from "react-icons/bi"
 import { GrGallery } from "react-icons/gr"
