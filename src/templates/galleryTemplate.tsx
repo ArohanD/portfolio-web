@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, createRef } from "react"
 import { graphql, Link } from "gatsby"
 import SEO from "../components/seo"
 import MobileNav from "../components/mobileNav"
@@ -16,13 +16,19 @@ interface GalleryPageProps {
   location: Location
 }
 
-const GalleryPage: React.FC<GalleryPageProps> = ({
-  pageContext,
-  data,
-}) => {
+const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
+  // Display mobile nav on scroll
+  const scrollRef = createRef()
+  const [scrollPos, setScrollPos] = useState(0)
+  const [prevScrollPos, setPrevScrollPos] = useState(0)
+
+  // Render gallery columns
   const [width, setWidth] = useState(0)
   let gallery = data.allFile.nodes
-  gallery = gallery.sort((NodeA, NodeB) => NodeA.childImageSharp.fields.order - NodeB.childImageSharp.fields.order)
+  gallery = gallery.sort(
+    (NodeA, NodeB) =>
+      NodeA.childImageSharp.fields.order - NodeB.childImageSharp.fields.order
+  )
 
   const galleryWidth = width * 0.8
   const columnWidth = width > 1680 ? 600 : 300
@@ -46,19 +52,30 @@ const GalleryPage: React.FC<GalleryPageProps> = ({
 
   if (width === 0) return <div></div>
 
+  const title = sanitizeTitle(pageContext.title)
+
   return (
     <SideBarLayout
-      title={sanitizeTitle(pageContext.title)}
+      title={title}
       sideBarString={"photography"}
-      currentPath={window ? location.pathname : ''}
+      currentPath={window ? location.pathname : ""}
     >
-      <div className="gallery-column-container">
+      <h1 className="gallery-title">
+        {title.charAt(0).toUpperCase() + title.slice(1)}
+      </h1>
+      <div
+        className="gallery-column-container"
+        ref={scrollRef}
+        onScroll={() => {
+          setPrevScrollPos(scrollPos)
+          setScrollPos(scrollRef.current.scrollTop)
+        }}
+      >
         {cols.map((column, index) => (
           <GalleryColumn gallery={column} width={columnWidth} key={index} />
         ))}
       </div>
-
-      <MobileNav URI={"/photo"} />
+      {scrollPos <= prevScrollPos && <MobileNav type="photo" />}
     </SideBarLayout>
   )
 }

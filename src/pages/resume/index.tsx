@@ -60,7 +60,7 @@ const Resume: React.FC = (props: PageProps) => {
           </div>
         </div>
       </SideBarLayout>
-      <MobileNav URI={props.uri} />
+      <MobileNav />
     </React.Fragment>
   )
 }

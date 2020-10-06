@@ -1080,6 +1080,7 @@ export type FileFieldsEnum =
   | 'fields___exif___thumbnail___ResolutionUnit'
   | 'fields___exif___thumbnail___ThumbnailOffset'
   | 'fields___exif___thumbnail___ThumbnailLength'
+  | 'fields___exif___thumbnail___YCbCrPositioning'
   | 'fields___exif___exif____36880'
   | 'fields___exif___exif___ExposureTime'
   | 'fields___exif___exif___FNumber'
@@ -1953,6 +1954,7 @@ export type FileFieldsExifThumbnail = {
   ResolutionUnit?: Maybe<Scalars['Int']>;
   ThumbnailOffset?: Maybe<Scalars['Int']>;
   ThumbnailLength?: Maybe<Scalars['Int']>;
+  YCbCrPositioning?: Maybe<Scalars['Int']>;
 };
 
 export type FileFieldsExifThumbnailFilterInput = {
@@ -1962,6 +1964,7 @@ export type FileFieldsExifThumbnailFilterInput = {
   ResolutionUnit?: Maybe<IntQueryOperatorInput>;
   ThumbnailOffset?: Maybe<IntQueryOperatorInput>;
   ThumbnailLength?: Maybe<IntQueryOperatorInput>;
+  YCbCrPositioning?: Maybe<IntQueryOperatorInput>;
 };
 
 export type FileFieldsFilterInput = {

@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react"
-import { Link } from 'gatsby'
-import { navLinks } from "../../staticContent"
+import { Link } from "gatsby"
 import "./mobileNav.scss"
+import { BiChip, BiHomeAlt, BiPen } from "react-icons/bi"
+import { GrGallery } from "react-icons/gr"
 
-const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
-  const [navOpen, setNavOpen] = useState(false)
+interface MobileNavProps {
+  type?: "photo" | "writing" | "dev"
+}
+
+const MobileNav: React.FC<MobileNavProps> = ({ type }) => {
   const [width, setWidth] = useState(1001)
 
   useEffect(() => {
@@ -19,21 +23,42 @@ const MobileNav: React.FC<{ URI: string }> = ({ URI }) => {
     }
   }, [])
 
-  if(width > 1000) return <div></div>
+  if (width > 1000) return <div></div>
+
+  let iconLink = ""
+  let icon
+
+  switch (type) {
+    case "photo":
+      iconLink = "/photography"
+      icon = GrGallery
+      break
+
+    case "writing":
+      iconLink = "/writing"
+      icon = BiPen
+      break
+
+    case "dev":
+      iconLink = "/dev/applications"
+      icon = BiChip
+      break
+
+    default:
+      iconLink = undefined
+      icon = undefined
+      break
+  }
 
   return (
-    <div
-      className={navOpen ? "navigation-open" : "navigation-closed"}
-      onClick={() => setNavOpen(!navOpen)}
-    >
-      {navOpen && (
-        <div className="nav-content-wrapper">
-          {navLinks.map(link => {
-            return <div className="nav-mobile-link">
-              <Link to={link.path} >{link.title}</Link>
-            </div>
-          })}
-        </div>
+    <div className="mobileNav_container">
+      <Link to="/">
+        <BiHomeAlt className="mobileNav_icon" />
+      </Link>
+      {type && (
+        <Link to={iconLink}>
+          {React.cloneElement(icon(), { className: "mobileNav_icon" })}
+        </Link>
       )}
     </div>
   )
