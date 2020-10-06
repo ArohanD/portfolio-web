@@ -7,6 +7,7 @@ import {
 import Img from "gatsby-image"
 import { graphql, Link } from "gatsby"
 import "./styles/imageExpanded.scss"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 interface ImageProps {
   pageContext: SitePageContext
@@ -47,16 +48,16 @@ const ImageExpanded: React.FC<ImageProps> = ({
         <div className="imagePage-previews">
           {data.previous?.fixed && (
             <React.Fragment>
-              <Link to={prevPath}>
+              <AniLink to={prevPath}>
                 <div>⬅️</div>
-              </Link>
-              <Link to={prevPath}>
+              </AniLink>
+              <AniLink to={prevPath}>
                 <Img
                   fixed={data.previous.fixed}
                   imgStyle={{ objectFit: "contain" }}
                   className="imagePage-preview-image"
                 />
-              </Link>
+              </AniLink>
             </React.Fragment>
           )}
           <Img
@@ -66,16 +67,16 @@ const ImageExpanded: React.FC<ImageProps> = ({
           />
           {data.next?.fixed && (
             <React.Fragment>
-              <Link to={nextPath}>
+              <AniLink to={nextPath}>
                 <Img
                   fixed={data.next.fixed}
                   imgStyle={{ objectFit: "contain" }}
                   className="imagePage-preview-image"
                 />
-              </Link>
-              <Link to={nextPath}>
+              </AniLink>
+              <AniLink to={nextPath}>
                 <div>➡️</div>
-              </Link>
+              </AniLink>
             </React.Fragment>
           )}
         </div>

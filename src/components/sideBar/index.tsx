@@ -5,7 +5,7 @@ import { HomeLink, homeLinks } from "../../staticContent"
 import { Query } from "../../generated/graphql-types"
 import { sanitizeTitle, isNotNavDupe } from "../../../utils"
 import "./sidebar.scss"
-
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 interface SideBarProps {
   pageString?: string
   currentPath: string
@@ -86,12 +86,12 @@ const LinkBlock: React.FC<linkBlockProps> = ({ links, currentPath }) => {
 
         return (
           <React.Fragment key={title}>
-            <Link
+            <AniLink
               className={highlight ? "sidebar-currentPage" : ""}
               to={linkPath}
             >
               {title.toLowerCase()}
-            </Link>
+            </AniLink>
           </React.Fragment>
         )
       })}

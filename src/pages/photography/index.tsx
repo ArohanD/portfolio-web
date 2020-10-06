@@ -11,6 +11,7 @@ import { sanitizeTitle } from "../../../utils"
 import Img from "gatsby-image"
 import SideBarLayout from "../../components/pageLayout"
 import MobileNav from "../../components/mobileNav"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const PhotoSplash: React.FC = () => {
   const photoSplashQuery = useStaticQuery(graphql`
@@ -55,7 +56,7 @@ const PhotoSplash: React.FC = () => {
     <SideBarLayout
       title={"photography"}
       sideBarString={"photography"}
-      currentPath={'/photography/'}
+      currentPath={"/photography/"}
     >
       <div className={"photoSplash-body"}>
         <h1 className="photoSplash-title">Photography</h1>
@@ -71,12 +72,12 @@ const PhotoSplash: React.FC = () => {
 
 const PhotoThumbNail: React.FC<thumbNailProps> = ({ img, title, url }) => {
   return (
-    <Link to={url} className={"photoThumbNail-link"}>
+    <AniLink to={url} className={"photoThumbNail-link"} >
       <div className="photoThumbNail">
         <div className="photoThumbNail-title">{title}</div>
         <Img className="photoThumbNail-image" fixed={img} />
       </div>
-    </Link>
+    </AniLink>
   )
 }
 

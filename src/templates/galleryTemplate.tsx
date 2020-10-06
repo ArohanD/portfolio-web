@@ -6,6 +6,7 @@ import Img from "gatsby-image"
 import { Query, SitePageContext, File } from "../generated/graphql-types"
 import { sanitizeTitle, copy } from "../../utils"
 import GallerySideBar from "../components/sideBar"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 import "./styles/galleryTemplate.scss"
 import SideBarLayout from "../components/pageLayout"
@@ -89,9 +90,9 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
   return (
     <div className="gallery-images-column" style={{ width: width }}>
       {gallery.map(node => (
-        <Link to={"/" + node.relativePath} key={node.childImageSharp.id}>
+        <AniLink to={"/" + node.relativePath} key={node.childImageSharp.id}>
           <Img fluid={node.childImageSharp.fluid} className={"gallery-image"} />
-        </Link>
+        </AniLink>
       ))}
     </div>
   )
