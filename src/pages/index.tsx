@@ -100,7 +100,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
   return (
     <Img
       className={"home-background-image fade-out"}
-      alt="Profile Photo"
+      alt={homeLink.imagePath.fluid.originalName}
       fluid={homeLink.imagePath.fluid}
     />
   )
