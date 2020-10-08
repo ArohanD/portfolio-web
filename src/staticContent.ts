@@ -1,9 +1,12 @@
+import { Dev_SVG, Photo_SVG, Resume_SVG, Write_SVG } from './components/svgLogos'
+
 export interface HomeLink {
   title: string
   path: string
   backgroundImageSlug: string
   textColor: string
   imagePath: any
+  component?: () => any
 }
 
 export let homeLinks: Array<HomeLink> = [
@@ -13,6 +16,7 @@ export let homeLinks: Array<HomeLink> = [
     backgroundImageSlug: `dev`,
     textColor: "#68281B",
     imagePath: "",
+    component: Dev_SVG
   },
   {
     title: "Photo",
@@ -20,6 +24,7 @@ export let homeLinks: Array<HomeLink> = [
     backgroundImageSlug: `photo`,
     textColor: "#EFFFB1",
     imagePath: "",
+    component: Photo_SVG
   },
   {
     title: "Writing",
@@ -27,6 +32,7 @@ export let homeLinks: Array<HomeLink> = [
     backgroundImageSlug: `writing`,
     textColor: "#c44637",
     imagePath: "",
+    component: Write_SVG
   },
   {
     title: "Resume",
@@ -34,6 +40,7 @@ export let homeLinks: Array<HomeLink> = [
     backgroundImageSlug: `resume`,
     textColor: "#edb879",
     imagePath: "",
+    component: Resume_SVG
   },
 ]
 

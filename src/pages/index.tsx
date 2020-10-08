@@ -63,7 +63,7 @@ const IndexPage: React.FC = () => {
                 : {}
             }
           >
-            {linkObj.title}
+            {React.cloneElement(linkObj.component())}
           </Link>
         ))}
       </nav>
@@ -78,7 +78,9 @@ const IndexPage: React.FC = () => {
           )}
           <div className="home-body-content">
             {homeContent.map((block: string) => (
-              <p key={block} className="home-about-paragraph">{block}</p>
+              <p key={block} className="home-about-paragraph">
+                {block}
+              </p>
             ))}
           </div>
         </div>
