@@ -23,8 +23,6 @@
     color: $color-primary;
     font-style: normal;
     font-weight: bold;
-    font-size: 36px;
-    line-height: 48px;
   }
 
   @media (min-width: $desk-break) {
@@ -38,6 +36,8 @@
 
     a::after {
       content: "•";
+      position: relative;
+      bottom: 15px;
     }
 
     a:last-child:after {
@@ -141,10 +141,11 @@
 
 .home-nav-faded-text a {
   color: $color-faded;
-}
-
-.home_title {
   
+  path {
+    fill: $color-faded;
+    stroke: $color-faded;
+  }
 }
 
 @keyframes line-animation {
@@ -159,6 +160,19 @@
   }
   to {
     fill: $color-primary;
+  }
+}
+
+.home_title {
+  transform: scale(1);
+  height: 50px;
+  padding-bottom: 10px;
+}
+
+.home_activeLink {
+  path {
+    stroke: var(--active-color) !important;
+    fill: var(--active-color) !important;
   }
 }
 

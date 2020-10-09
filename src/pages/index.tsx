@@ -57,11 +57,12 @@ const IndexPage: React.FC = () => {
             key={linkObj.title}
             onMouseOver={() => handleMouseOver(linkObj)}
             onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
-            style={
+            className={
               activeHomeLink.backgroundImageSlug === linkObj.backgroundImageSlug
-                ? { color: linkObj.textColor }
-                : {}
+                ? "home_activeLink"
+                : ""
             }
+            style={{ "--active-color": linkObj.textColor }}
           >
             {React.cloneElement(linkObj.component())}
           </Link>

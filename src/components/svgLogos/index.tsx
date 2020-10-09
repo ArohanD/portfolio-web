@@ -3,8 +3,7 @@ import React from "react"
 export const Dev_SVG = () => (
   <svg
     className="home_title home_dev"
-    width="77"
-    height="29"
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 77 29"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -27,8 +26,7 @@ export const Dev_SVG = () => (
 export const Photo_SVG = () => (
   <svg
     className="home_title home_photo"
-    width="137"
-    height="31"
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 137 31"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
@@ -59,9 +57,8 @@ export const Photo_SVG = () => (
 export const Write_SVG = () => (
   <svg
     className="home_title home_write"
-    width="119"
-    height="29"
     viewBox="0 0 119 29"
+    preserveAspectRatio="xMidYMid meet"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
@@ -88,8 +85,7 @@ export const Write_SVG = () => (
 export const Resume_SVG = () => (
   <svg
     className="home_title home_resume"
-    width="153"
-    height="31"
+    preserveAspectRatio="xMidYMid meet"
     viewBox="0 0 153 31"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
