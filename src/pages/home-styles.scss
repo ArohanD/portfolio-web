@@ -141,7 +141,7 @@
 
 .home-nav-faded-text a {
   color: $color-faded;
-  
+
   path {
     fill: $color-faded;
     stroke: $color-faded;
@@ -169,10 +169,10 @@
   padding-bottom: 10px;
 }
 
-.home_activeLink {
+.home_activeLink svg {
   path {
-    stroke: var(--active-color) !important;
-    fill: var(--active-color) !important;
+    stroke: var(--active-color);
+    fill: var(--active-color);
   }
 }
 
