@@ -61,9 +61,9 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
       sideBarString={"photography"}
       currentPath={window ? location.pathname : ""}
     >
-      <h1 className="gallery-title">
+      {window && window.innerWidth < 900 && <h1 className="gallery-title">
         {title.charAt(0).toUpperCase() + title.slice(1)}
-      </h1>
+      </h1>}
       <div
         className="gallery-column-container"
         ref={scrollRef}
