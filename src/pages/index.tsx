@@ -9,6 +9,7 @@ import {
   blankHomeLink,
   homeContent,
 } from "../staticContent"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 const IndexPage: React.FC = () => {
   const handleMouseOver = (homeLink: HomeLink) => {
@@ -17,13 +18,14 @@ const IndexPage: React.FC = () => {
 
   const [activeHomeLink, setActiveHomeLink] = useState(blankHomeLink)
   const [profilePhoto, setProfilePhoto] = useState("")
+  const [navigatingAway, setNavigatingAway] = useState(false)
 
   const photoQuery = useStaticQuery(graphql`
     query homeData {
       homeImages: allFile(filter: { relativeDirectory: { eq: "home" } }) {
         nodes {
           childImageSharp {
-            fluid {
+            fluid(quality: 50) {
               ...GatsbyImageSharpFluid
             }
             fixed(width: 330) {
@@ -52,11 +54,15 @@ const IndexPage: React.FC = () => {
       <SEO title="Home" />
       <nav className={homeNavClasses}>
         {homeLinks.map((linkObj: HomeLink) => (
-          <Link
+          <AniLink
+            fade
             to={linkObj.path}
             key={linkObj.title}
             onMouseOver={() => handleMouseOver(linkObj)}
-            onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
+            onMouseLeave={() => {
+              if (!navigatingAway) setActiveHomeLink(blankHomeLink)
+            }}
+            onClick={() => setNavigatingAway(true)}
             style={
               activeHomeLink.backgroundImageSlug === linkObj.backgroundImageSlug
                 ? { color: linkObj.textColor }
@@ -64,7 +70,7 @@ const IndexPage: React.FC = () => {
             }
           >
             {linkObj.title}
-          </Link>
+          </AniLink>
         ))}
       </nav>
       {!activeHomeLink.imagePath && (
@@ -78,12 +84,14 @@ const IndexPage: React.FC = () => {
           )}
           <div className="home-body-content">
             {homeContent.map((block: string) => (
-              <p key={block} className="home-about-paragraph">{block}</p>
+              <p key={block} className="home-about-paragraph">
+                {block}
+              </p>
             ))}
           </div>
         </div>
       )}
-      {activeHomeLink.title && <BackgroundImage homeLink={activeHomeLink} />}
+      {activeHomeLink.title && window.innerWidth > 900 && <BackgroundImage homeLink={activeHomeLink} />}
     </div>
   )
 }
@@ -100,7 +108,7 @@ const BackgroundImage: React.FC<BackgroundImageProps> = ({
   return (
     <Img
       className={"home-background-image fade-out"}
-      alt="Profile Photo"
+      alt={homeLink.imagePath.fluid.originalName}
       fluid={homeLink.imagePath.fluid}
     />
   )

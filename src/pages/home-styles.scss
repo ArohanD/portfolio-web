@@ -1,8 +1,10 @@
 @use 'global-styles' as *;
 
 .home-container {
+  box-sizing: border-box;
   padding: 0 30px;
   padding-top: 50px;
+  height: 100vh;
 
   @media (min-width: $desk-break) {
     padding: 0 30px;
@@ -103,15 +105,15 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 140vh;
+  height: 100vh;
   overflow: hidden;
 
-  -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 0.5s; /* Firefox < 16 */
-  animation: fadein 0.5s;
+  -webkit-animation: homefadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: homefadein 0.5s; /* Firefox < 16 */
+  animation: homefadein 0.5s;
 }
 
-@keyframes fadein {
+@keyframes homefadein {
   from {
     opacity: 0.5;
   }
@@ -121,7 +123,7 @@
 }
 
 /* Firefox < 16 */
-@-moz-keyframes fadein {
+@-moz-keyframes homefadein {
   from {
     opacity: 0.5;
   }
@@ -131,7 +133,7 @@
 }
 
 /* Safari, Chrome and Opera > 12.1 */
-@-webkit-keyframes fadein {
+@-webkit-keyframes homefadein {
   from {
     opacity: 0.5;
   }

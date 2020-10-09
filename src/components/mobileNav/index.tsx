@@ -3,6 +3,7 @@ import { Link } from "gatsby"
 import "./mobileNav.scss"
 import { BiChip, BiHomeAlt, BiPen } from "react-icons/bi"
 import { GrGallery } from "react-icons/gr"
+import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 interface MobileNavProps {
   type?: "photo" | "writing" | "dev"
@@ -52,13 +53,13 @@ const MobileNav: React.FC<MobileNavProps> = ({ type }) => {
 
   return (
     <div className="mobileNav_container">
-      <Link to="/">
+      <AniLink to="/">
         <BiHomeAlt className="mobileNav_icon" />
-      </Link>
+      </AniLink>
       {type && (
-        <Link to={iconLink}>
+        <AniLink to={iconLink} fade duration={1}>
           {React.cloneElement(icon(), { className: "mobileNav_icon" })}
-        </Link>
+        </AniLink>
       )}
     </div>
   )
