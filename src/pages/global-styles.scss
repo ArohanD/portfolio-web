@@ -1,10 +1,11 @@
 $font-default: "Futura";
-$color-primary: #0092c7;
+$color-primary: #ad8059;
 $color-off-primary: #3073c5;
 $color-faded: rgba(196, 196, 196, 0.83);
 $color-black: #000000;
 $color-off-black: #272727;
 $color-white: #fff;
+$color-background: #f1f1f1;
 
 $desk-break: 1000px;
 $break-HiDPI: 1800px;
@@ -16,6 +17,7 @@ html {
 body {
   margin: 0;
   padding: 0;
+  background-color: $color-background;
 }
 
 button {
@@ -31,8 +33,7 @@ button {
   font-size: 1rem;
   cursor: pointer;
   text-align: center;
-  transition: background 250ms ease-in-out, 
-              transform 150ms ease;
+  transition: background 250ms ease-in-out, transform 150ms ease;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -53,4 +54,19 @@ button:active {
 
 a {
   color: $color-black;
+}
+
+.fade-in {
+  animation: fadeIn ease 0.5s;
+}
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  25% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
