@@ -4,7 +4,7 @@
   box-sizing: border-box;
   padding: 0 30px;
   padding-top: 50px;
-  height: 100vh;
+  height: 140vh;
 
   @media (min-width: $desk-break) {
     padding: 0 30px;
@@ -104,12 +104,8 @@
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 140vh;
   overflow: hidden;
-
-  -webkit-animation: homefadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: homefadein 0.5s; /* Firefox < 16 */
-  animation: homefadein 0.5s;
 }
 
 @keyframes homefadein {
@@ -169,6 +165,9 @@
   transform: scale(1);
   height: 50px;
   padding-bottom: 10px;
+  path {
+    stroke: $color-primary;
+  }
 }
 
 .home_activeLink svg {

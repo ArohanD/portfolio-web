@@ -68,11 +68,11 @@ const IndexPage: React.FC = () => {
             style={{ "--active-color": linkObj.textColor }}
           >
             {React.cloneElement(linkObj.component())}
-          </Link>
+          </AniLink>
         ))}
       </nav>
       {!activeHomeLink.imagePath && (
-        <div className="home-section-intro">
+        <div className="home-section-intro fade-in">
           {profilePhoto && (
             <Img
               className="home-profile-photo"
