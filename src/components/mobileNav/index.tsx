@@ -7,9 +7,10 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 interface MobileNavProps {
   type?: "photo" | "writing" | "dev"
+  alt?: boolean
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ type }) => {
+const MobileNav: React.FC<MobileNavProps> = ({ type, alt }) => {
   const [width, setWidth] = useState(1001)
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const MobileNav: React.FC<MobileNavProps> = ({ type }) => {
   }
 
   return (
-    <div className="mobileNav_container">
+    <div className={alt ? "mobileNav_container mobileNav_container_alt" : "mobileNav_container"}>
       <AniLink to="/">
         <BiHomeAlt className="mobileNav_icon" />
       </AniLink>

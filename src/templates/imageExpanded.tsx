@@ -8,16 +8,14 @@ import Img from "gatsby-image"
 import { graphql, Link } from "gatsby"
 import "./styles/imageExpanded.scss"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
+import MobileNav from "../components/mobileNav"
 
 interface ImageProps {
   pageContext: SitePageContext
   data: Query
 }
 
-const ImageExpanded: React.FC<ImageProps> = ({
-  pageContext,
-  data,
-}) => {
+const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
   const preAppendPath = pageContext.slug.split("/")
   preAppendPath.pop()
 
@@ -25,14 +23,14 @@ const ImageExpanded: React.FC<ImageProps> = ({
   if (data.next) {
     nextPath = preAppendPath.slice()
     nextPath.push(data.next.fixed.originalName)
-    nextPath = '/' + nextPath.join("/")
+    nextPath = "/" + nextPath.join("/")
   }
 
   let prevPath
   if (data.previous) {
     prevPath = preAppendPath.slice()
     prevPath.push(data.previous.fixed.originalName)
-    prevPath = '/' + prevPath.join("/")
+    prevPath = "/" + prevPath.join("/")
   }
 
   const exifData = data.current.parent.fields.exif.exif as FileFieldsExifExif
@@ -44,46 +42,47 @@ const ImageExpanded: React.FC<ImageProps> = ({
           imgStyle={{ objectFit: "contain" }}
           className="imagePage-main-image"
         />
-        </div>
-        <div className="imagePage-previews">
-          {data.previous?.fixed && (
-            <React.Fragment>
-              <AniLink to={prevPath}>
-                <div>⬅️</div>
-              </AniLink>
-              <AniLink to={prevPath}>
-                <Img
-                  fixed={data.previous.fixed}
-                  imgStyle={{ objectFit: "contain" }}
-                  className="imagePage-preview-image"
-                />
-              </AniLink>
-            </React.Fragment>
-          )}
-          <Img
-            fixed={data.current.fixed}
-            imgStyle={{ objectFit: "contain" }}
-            className="imagePage-preview-image"
-          />
-          {data.next?.fixed && (
-            <React.Fragment>
-              <AniLink to={nextPath}>
-                <Img
-                  fixed={data.next.fixed}
-                  imgStyle={{ objectFit: "contain" }}
-                  className="imagePage-preview-image"
-                />
-              </AniLink>
-              <AniLink to={nextPath}>
-                <div>➡️</div>
-              </AniLink>
-            </React.Fragment>
-          )}
-        </div>
-      
+      </div>
+      <div className="imagePage-previews">
+        {data.previous?.fixed && (
+          <React.Fragment>
+            <AniLink to={prevPath}>
+              <div>⬅️</div>
+            </AniLink>
+            <AniLink to={prevPath}>
+              <Img
+                fixed={data.previous.fixed}
+                imgStyle={{ objectFit: "contain" }}
+                className="imagePage-preview-image"
+              />
+            </AniLink>
+          </React.Fragment>
+        )}
+        <Img
+          fixed={data.current.fixed}
+          imgStyle={{ objectFit: "contain" }}
+          className="imagePage-preview-image"
+        />
+        {data.next?.fixed && (
+          <React.Fragment>
+            <AniLink to={nextPath}>
+              <Img
+                fixed={data.next.fixed}
+                imgStyle={{ objectFit: "contain" }}
+                className="imagePage-preview-image"
+              />
+            </AniLink>
+            <AniLink to={nextPath}>
+              <div>➡️</div>
+            </AniLink>
+          </React.Fragment>
+        )}
+      </div>
+
       <div className="imagePage-imageInfo-Wrapper">
         <ExifDisplay {...exifData} />
       </div>
+      <MobileNav type={"photo"} alt />
     </div>
   )
 }
