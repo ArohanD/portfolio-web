@@ -59,18 +59,16 @@ const IndexPage: React.FC = () => {
             to={linkObj.path}
             key={linkObj.title}
             onMouseOver={() => handleMouseOver(linkObj)}
-            onMouseLeave={() => {
-              if (!navigatingAway) setActiveHomeLink(blankHomeLink)
-            }}
-            onClick={() => setNavigatingAway(true)}
-            style={
+            onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
+            className={
               activeHomeLink.backgroundImageSlug === linkObj.backgroundImageSlug
-                ? { color: linkObj.textColor }
-                : {}
+                ? "home_activeLink"
+                : ""
             }
+            style={{ "--active-color": linkObj.textColor }}
           >
-            {linkObj.title}
-          </AniLink>
+            {React.cloneElement(linkObj.component())}
+          </Link>
         ))}
       </nav>
       {!activeHomeLink.imagePath && (

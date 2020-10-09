@@ -922,6 +922,10 @@ export type File = Node & {
   childCertificationsCsv?: Maybe<CertificationsCsv>;
   childrenEducationCsv?: Maybe<Array<Maybe<EducationCsv>>>;
   childrenConnectionsCsv?: Maybe<Array<Maybe<ConnectionsCsv>>>;
+  childrenOrganizationsCsv?: Maybe<Array<Maybe<OrganizationsCsv>>>;
+  childProfileCsv?: Maybe<ProfileCsv>;
+  childrenRecommendationsReceivedCsv?: Maybe<Array<Maybe<RecommendationsReceivedCsv>>>;
+  childrenPositionsCsv?: Maybe<Array<Maybe<PositionsCsv>>>;
   childrenPositionsCsv?: Maybe<Array<Maybe<PositionsCsv>>>;
   childProfileCsv?: Maybe<ProfileCsv>;
   childrenOrganizationsCsv?: Maybe<Array<Maybe<OrganizationsCsv>>>;
@@ -1439,6 +1443,147 @@ export type FileFieldsEnum =
   | 'childrenConnectionsCsv___Company'
   | 'childrenConnectionsCsv___Position'
   | 'childrenConnectionsCsv___Connected_On'
+  | 'childrenOrganizationsCsv'
+  | 'childrenOrganizationsCsv___id'
+  | 'childrenOrganizationsCsv___parent___id'
+  | 'childrenOrganizationsCsv___parent___parent___id'
+  | 'childrenOrganizationsCsv___parent___parent___children'
+  | 'childrenOrganizationsCsv___parent___children'
+  | 'childrenOrganizationsCsv___parent___children___id'
+  | 'childrenOrganizationsCsv___parent___children___children'
+  | 'childrenOrganizationsCsv___parent___internal___content'
+  | 'childrenOrganizationsCsv___parent___internal___contentDigest'
+  | 'childrenOrganizationsCsv___parent___internal___description'
+  | 'childrenOrganizationsCsv___parent___internal___fieldOwners'
+  | 'childrenOrganizationsCsv___parent___internal___ignoreType'
+  | 'childrenOrganizationsCsv___parent___internal___mediaType'
+  | 'childrenOrganizationsCsv___parent___internal___owner'
+  | 'childrenOrganizationsCsv___parent___internal___type'
+  | 'childrenOrganizationsCsv___children'
+  | 'childrenOrganizationsCsv___children___id'
+  | 'childrenOrganizationsCsv___children___parent___id'
+  | 'childrenOrganizationsCsv___children___parent___children'
+  | 'childrenOrganizationsCsv___children___children'
+  | 'childrenOrganizationsCsv___children___children___id'
+  | 'childrenOrganizationsCsv___children___children___children'
+  | 'childrenOrganizationsCsv___children___internal___content'
+  | 'childrenOrganizationsCsv___children___internal___contentDigest'
+  | 'childrenOrganizationsCsv___children___internal___description'
+  | 'childrenOrganizationsCsv___children___internal___fieldOwners'
+  | 'childrenOrganizationsCsv___children___internal___ignoreType'
+  | 'childrenOrganizationsCsv___children___internal___mediaType'
+  | 'childrenOrganizationsCsv___children___internal___owner'
+  | 'childrenOrganizationsCsv___children___internal___type'
+  | 'childrenOrganizationsCsv___internal___content'
+  | 'childrenOrganizationsCsv___internal___contentDigest'
+  | 'childrenOrganizationsCsv___internal___description'
+  | 'childrenOrganizationsCsv___internal___fieldOwners'
+  | 'childrenOrganizationsCsv___internal___ignoreType'
+  | 'childrenOrganizationsCsv___internal___mediaType'
+  | 'childrenOrganizationsCsv___internal___owner'
+  | 'childrenOrganizationsCsv___internal___type'
+  | 'childrenOrganizationsCsv___Name'
+  | 'childrenOrganizationsCsv___Description'
+  | 'childrenOrganizationsCsv___Position'
+  | 'childrenOrganizationsCsv___Started_On'
+  | 'childrenOrganizationsCsv___Finished_On'
+  | 'childProfileCsv___id'
+  | 'childProfileCsv___parent___id'
+  | 'childProfileCsv___parent___parent___id'
+  | 'childProfileCsv___parent___parent___children'
+  | 'childProfileCsv___parent___children'
+  | 'childProfileCsv___parent___children___id'
+  | 'childProfileCsv___parent___children___children'
+  | 'childProfileCsv___parent___internal___content'
+  | 'childProfileCsv___parent___internal___contentDigest'
+  | 'childProfileCsv___parent___internal___description'
+  | 'childProfileCsv___parent___internal___fieldOwners'
+  | 'childProfileCsv___parent___internal___ignoreType'
+  | 'childProfileCsv___parent___internal___mediaType'
+  | 'childProfileCsv___parent___internal___owner'
+  | 'childProfileCsv___parent___internal___type'
+  | 'childProfileCsv___children'
+  | 'childProfileCsv___children___id'
+  | 'childProfileCsv___children___parent___id'
+  | 'childProfileCsv___children___parent___children'
+  | 'childProfileCsv___children___children'
+  | 'childProfileCsv___children___children___id'
+  | 'childProfileCsv___children___children___children'
+  | 'childProfileCsv___children___internal___content'
+  | 'childProfileCsv___children___internal___contentDigest'
+  | 'childProfileCsv___children___internal___description'
+  | 'childProfileCsv___children___internal___fieldOwners'
+  | 'childProfileCsv___children___internal___ignoreType'
+  | 'childProfileCsv___children___internal___mediaType'
+  | 'childProfileCsv___children___internal___owner'
+  | 'childProfileCsv___children___internal___type'
+  | 'childProfileCsv___internal___content'
+  | 'childProfileCsv___internal___contentDigest'
+  | 'childProfileCsv___internal___description'
+  | 'childProfileCsv___internal___fieldOwners'
+  | 'childProfileCsv___internal___ignoreType'
+  | 'childProfileCsv___internal___mediaType'
+  | 'childProfileCsv___internal___owner'
+  | 'childProfileCsv___internal___type'
+  | 'childProfileCsv___First_Name'
+  | 'childProfileCsv___Last_Name'
+  | 'childProfileCsv___Maiden_Name'
+  | 'childProfileCsv___Address'
+  | 'childProfileCsv___Birth_Date'
+  | 'childProfileCsv___Headline'
+  | 'childProfileCsv___Summary'
+  | 'childProfileCsv___Industry'
+  | 'childProfileCsv___Zip_Code'
+  | 'childProfileCsv___Geo_Location'
+  | 'childProfileCsv___Twitter_Handles'
+  | 'childProfileCsv___Websites'
+  | 'childProfileCsv___Instant_Messengers'
+  | 'childrenRecommendationsReceivedCsv'
+  | 'childrenRecommendationsReceivedCsv___id'
+  | 'childrenRecommendationsReceivedCsv___parent___id'
+  | 'childrenRecommendationsReceivedCsv___parent___parent___id'
+  | 'childrenRecommendationsReceivedCsv___parent___parent___children'
+  | 'childrenRecommendationsReceivedCsv___parent___children'
+  | 'childrenRecommendationsReceivedCsv___parent___children___id'
+  | 'childrenRecommendationsReceivedCsv___parent___children___children'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___content'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___contentDigest'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___description'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___fieldOwners'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___ignoreType'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___mediaType'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___owner'
+  | 'childrenRecommendationsReceivedCsv___parent___internal___type'
+  | 'childrenRecommendationsReceivedCsv___children'
+  | 'childrenRecommendationsReceivedCsv___children___id'
+  | 'childrenRecommendationsReceivedCsv___children___parent___id'
+  | 'childrenRecommendationsReceivedCsv___children___parent___children'
+  | 'childrenRecommendationsReceivedCsv___children___children'
+  | 'childrenRecommendationsReceivedCsv___children___children___id'
+  | 'childrenRecommendationsReceivedCsv___children___children___children'
+  | 'childrenRecommendationsReceivedCsv___children___internal___content'
+  | 'childrenRecommendationsReceivedCsv___children___internal___contentDigest'
+  | 'childrenRecommendationsReceivedCsv___children___internal___description'
+  | 'childrenRecommendationsReceivedCsv___children___internal___fieldOwners'
+  | 'childrenRecommendationsReceivedCsv___children___internal___ignoreType'
+  | 'childrenRecommendationsReceivedCsv___children___internal___mediaType'
+  | 'childrenRecommendationsReceivedCsv___children___internal___owner'
+  | 'childrenRecommendationsReceivedCsv___children___internal___type'
+  | 'childrenRecommendationsReceivedCsv___internal___content'
+  | 'childrenRecommendationsReceivedCsv___internal___contentDigest'
+  | 'childrenRecommendationsReceivedCsv___internal___description'
+  | 'childrenRecommendationsReceivedCsv___internal___fieldOwners'
+  | 'childrenRecommendationsReceivedCsv___internal___ignoreType'
+  | 'childrenRecommendationsReceivedCsv___internal___mediaType'
+  | 'childrenRecommendationsReceivedCsv___internal___owner'
+  | 'childrenRecommendationsReceivedCsv___internal___type'
+  | 'childrenRecommendationsReceivedCsv___First_Name'
+  | 'childrenRecommendationsReceivedCsv___Last_Name'
+  | 'childrenRecommendationsReceivedCsv___Company'
+  | 'childrenRecommendationsReceivedCsv___Job_Title'
+  | 'childrenRecommendationsReceivedCsv___Text'
+  | 'childrenRecommendationsReceivedCsv___Creation_Date'
+  | 'childrenRecommendationsReceivedCsv___Status'
   | 'childrenPositionsCsv'
   | 'childrenPositionsCsv___id'
   | 'childrenPositionsCsv___parent___id'
@@ -2016,6 +2161,10 @@ export type FileFilterInput = {
   childCertificationsCsv?: Maybe<CertificationsCsvFilterInput>;
   childrenEducationCsv?: Maybe<EducationCsvFilterListInput>;
   childrenConnectionsCsv?: Maybe<ConnectionsCsvFilterListInput>;
+  childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
+  childProfileCsv?: Maybe<ProfileCsvFilterInput>;
+  childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
+  childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
@@ -3894,6 +4043,10 @@ export type Query = {
   allSkillsCsv: SkillsCsvConnection;
   recommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsv>;
   allRecommendationsReceivedCsv: RecommendationsReceivedCsvConnection;
+  profileCsv?: Maybe<ProfileCsv>;
+  allProfileCsv: ProfileCsvConnection;
+  organizationsCsv?: Maybe<OrganizationsCsv>;
+  allOrganizationsCsv: OrganizationsCsvConnection;
   languagesCsv?: Maybe<LanguagesCsv>;
   allLanguagesCsv: LanguagesCsvConnection;
   organizationsCsv?: Maybe<OrganizationsCsv>;
@@ -3955,6 +4108,10 @@ export type QueryFileArgs = {
   childCertificationsCsv?: Maybe<CertificationsCsvFilterInput>;
   childrenEducationCsv?: Maybe<EducationCsvFilterListInput>;
   childrenConnectionsCsv?: Maybe<ConnectionsCsvFilterListInput>;
+  childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
+  childProfileCsv?: Maybe<ProfileCsvFilterInput>;
+  childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
+  childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
@@ -4107,7 +4264,7 @@ export type QueryMarkdownRemarkArgs = {
   tableOfContents?: Maybe<StringQueryOperatorInput>;
   wordCount?: Maybe<MarkdownWordCountFilterInput>;
   parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
+       children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
 };
 
@@ -4231,6 +4388,28 @@ export type QueryAllRecommendationsReceivedCsvArgs = {
 };
 
 
+export type QueryProfileCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  First_Name?: Maybe<StringQueryOperatorInput>;
+  Last_Name?: Maybe<StringQueryOperatorInput>;
+  Company?: Maybe<StringQueryOperatorInput>;
+  Job_Title?: Maybe<StringQueryOperatorInput>;
+  Text?: Maybe<StringQueryOperatorInput>;
+  Creation_Date?: Maybe<StringQueryOperatorInput>;
+  Status?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllRecommendationsReceivedCsvArgs = {
+  filter?: Maybe<RecommendationsReceivedCsvFilterInput>;
+  sort?: Maybe<RecommendationsReceivedCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
 export type QueryLanguagesCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4247,7 +4426,6 @@ export type QueryAllLanguagesCsvArgs = {
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
-
 
 export type QueryOrganizationsCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
