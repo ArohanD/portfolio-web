@@ -1,8 +1,9 @@
 module.exports = {
   siteMetadata: {
     title: `Arohan Dutt`,
-    description: `Kick off your next, great Gatsby project with this default starter. This barebones starter ships with the main Gatsby configuration files you might need.`,
-    author: `@ArohanD`,
+    description: `Software engineering & design, photography and thoughts`,
+    author: `@Arohawk`,
+    url: 'https://hungry-wiles-7c6cde.netlify.app',
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
