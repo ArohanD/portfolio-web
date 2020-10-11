@@ -60,6 +60,7 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
       title={title}
       sideBarString={"photography"}
       currentPath={window ? location.pathname : ""}
+      metaImage={cols[0][0].childImageSharp.fixed.src}
     >
       {window && window.innerWidth < 900 && <h1 className="gallery-title">
         {title.charAt(0).toUpperCase() + title.slice(1)}
@@ -90,7 +91,7 @@ const GalleryColumn: React.FC<GalleryColumnProps> = ({ gallery, width }) => {
   return (
     <div className="gallery-images-column" style={{ width: width }}>
       {gallery.map(node => (
-        <AniLink to={"/" + node.relativePath} key={node.childImageSharp.id}>
+        <AniLink to={"/" + node.relativePath.split('.jpg')[0].split(' ').join('-')} key={node.childImageSharp.id}>
           <Img fluid={node.childImageSharp.fluid} className={"gallery-image"} />
         </AniLink>
       ))}
@@ -152,6 +153,9 @@ export const galleryPageQuery = graphql`
           }
           fluid(maxWidth: 350, quality: 50) {
             ...GatsbyImageSharpFluid
+          }
+          fixed(width: 700) {
+            src
           }
         }
         relativePath

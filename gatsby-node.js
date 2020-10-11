@@ -126,11 +126,12 @@ exports.createPages = ({ actions, graphql }) => {
         node.parent.relativePath.includes("photography/") &&
         node.fields.gallery
       ) {
+        const pathNoExtension = node.parent.relativePath.split('.jpg')[0].split(' ').join('-')
         createPage({
-          path: node.parent.relativePath,
+          path: pathNoExtension,
           component: imageTemplate,
           context: {
-            slug: node.parent.relativePath,
+            slug: pathNoExtension,
             imageQuery: node.id,
             nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
               ? imageNodes[index + 1].id

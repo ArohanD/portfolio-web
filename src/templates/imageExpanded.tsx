@@ -9,6 +9,7 @@ import { graphql, Link } from "gatsby"
 import "./styles/imageExpanded.scss"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import MobileNav from "../components/mobileNav"
+import SEO from "../components/seo"
 
 interface ImageProps {
   pageContext: SitePageContext
@@ -22,20 +23,21 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
   let nextPath
   if (data.next) {
     nextPath = preAppendPath.slice()
-    nextPath.push(data.next.fixed.originalName)
+    nextPath.push(data.next.fixed.originalName.split('.jpg')[0].split(' ').join('-'))
     nextPath = "/" + nextPath.join("/")
   }
 
   let prevPath
   if (data.previous) {
     prevPath = preAppendPath.slice()
-    prevPath.push(data.previous.fixed.originalName)
+    prevPath.push(data.previous.fixed.originalName.split('.jpg')[0].split(' ').join('-'))
     prevPath = "/" + prevPath.join("/")
   }
 
   const exifData = data.current.parent.fields.exif.exif as FileFieldsExifExif
   return (
     <div className="imagePage-container">
+      <SEO title={data.current.fluid.originalName} image={data.current.metaImage.src}/>
       <div className="imagePage-gallery-section">
         <Img
           fluid={data.current.fluid}
@@ -117,6 +119,9 @@ export const imageQuery = graphql`
       }
       fixed(width: 100, height: 100) {
         ...GatsbyImageSharpFixed
+      }
+      metaImage: fixed(width: 700) {
+        src
       }
       parent {
         ... on File {
