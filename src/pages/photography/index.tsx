@@ -33,6 +33,10 @@ const PhotoSplash: React.FC = () => {
           fixed(height: 350, width: 350) {
             ...GatsbyImageSharpFixed
           }
+          fields {
+            gallery
+            order
+          }
         }
       }
     }
@@ -75,7 +79,7 @@ const PhotoThumbNail: React.FC<thumbNailProps> = ({ img, title, url }) => {
     <AniLink to={url} className={"photoThumbNail-link"} >
       <div className="photoThumbNail">
         <div className="photoThumbNail-title">{title}</div>
-        <Img className="photoThumbNail-image" fixed={img} />
+        {img && <Img className="photoThumbNail-image" fixed={img} />}
       </div>
     </AniLink>
   )
@@ -87,9 +91,20 @@ const matchImageNodeToPhoto = (
 ) => {
   let returnImage
   imageNodes.forEach(image => {
-    if (image.parent.relativePath.includes(relativePath))
+    console.log(image.fields.order)
+    if (image.parent.relativePath.includes(relativePath) && image.fields.order === 0) {
       returnImage = image.fixed
+    }
   })
+  // Allow an image to be returned if order has not been set yet in gallery_organizer
+  if (!returnImage) {
+    imageNodes.forEach(image => {
+      console.log(image.fields.order)
+      if (image.parent.relativePath.includes(relativePath)) {
+        returnImage = image.fixed
+      }
+    })
+  }
   return returnImage
 }
 
