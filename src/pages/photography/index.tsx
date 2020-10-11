@@ -91,7 +91,6 @@ const matchImageNodeToPhoto = (
 ) => {
   let returnImage
   imageNodes.forEach(image => {
-    console.log(image.fields.order)
     if (image.parent.relativePath.includes(relativePath) && image.fields.order === 0) {
       returnImage = image.fixed
     }
@@ -99,7 +98,6 @@ const matchImageNodeToPhoto = (
   // Allow an image to be returned if order has not been set yet in gallery_organizer
   if (!returnImage) {
     imageNodes.forEach(image => {
-      console.log(image.fields.order)
       if (image.parent.relativePath.includes(relativePath)) {
         returnImage = image.fixed
       }
