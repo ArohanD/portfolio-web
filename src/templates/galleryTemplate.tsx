@@ -32,10 +32,30 @@ const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   )
 
   const galleryWidth = width * 0.8
-  const columnWidth = width > 1680 ? 600 : 300
+  // let columnWidth = width > 1400 ? 500 : 300
+  let columnWidth;
+
+  switch(true) {
+
+    case (width > 2000): 
+      columnWidth = 800
+      break;
+
+    case (width > 1400): 
+      columnWidth = 500
+      break;
+
+    case (width > 1200): 
+      columnWidth = 400
+      break;
+
+    default: 
+      columnWidth = 300
+  }
+
   let numCols = Math.floor(galleryWidth / columnWidth)
 
-  if (width < 1000) numCols = 2
+  if (width <= 1500) numCols = 2
 
   let cols = getCols(numCols, gallery, columnWidth)
 
@@ -151,7 +171,7 @@ export const galleryPageQuery = graphql`
           fields {
             order
           }
-          fluid(maxWidth: 350, quality: 50) {
+          fluid(maxWidth: 800, quality: 75) {
             ...GatsbyImageSharpFluid
           }
           fixed(width: 700) {
