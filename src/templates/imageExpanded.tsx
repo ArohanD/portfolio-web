@@ -83,6 +83,11 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
 
       <div className="imagePage-imageInfo-Wrapper">
         <ExifDisplay {...exifData} />
+        <AniLink to={`/photography/${data.current.fields.gallery}`}>
+          <p className='imagePage-imageInfo-back'>
+            ⬅️ Back to Gallery
+          </p>
+        </AniLink>
       </div>
       <MobileNav type={"photo"} alt />
     </div>
@@ -100,7 +105,7 @@ const ExifDisplay: React.FC<FileFieldsExifExif> = ({
   ApertureValue,
 }) => {
   console.log(ISO)
-  return <div>EXIF</div>
+  return <div>EXIF (coming soon)</div>
 }
 
 export default ImageExpanded
@@ -113,6 +118,9 @@ export const imageQuery = graphql`
   ) {
     current: imageSharp(id: { eq: $imageQuery }) {
       id
+      fields {
+        gallery
+      }
       fluid(maxWidth: 800, quality: 80) {
         originalName
         ...GatsbyImageSharpFluid
