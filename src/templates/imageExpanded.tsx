@@ -34,7 +34,8 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
     prevPath = "/" + prevPath.join("/")
   }
 
-  const exifData = data.current.parent.fields.exif.exif as FileFieldsExifExif
+  let exifData;
+  exifData = data.current.parent.fields.exif ? data.current.parent.fields.exif.exif as FileFieldsExifExif : undefined
   return (
     <div className="imagePage-container">
       <SEO title={data.current.fluid.originalName} image={data.current.metaImage.src}/>
@@ -82,7 +83,7 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
       </div>
 
       <div className="imagePage-imageInfo-Wrapper">
-        <ExifDisplay {...exifData} />
+        {exifData && <ExifDisplay {...exifData} />}
         <AniLink to={`/photography/${data.current.fields.gallery}`}>
           <p className='imagePage-imageInfo-back'>
             ⬅️ Back to Gallery
@@ -104,7 +105,6 @@ const ExifDisplay: React.FC<FileFieldsExifExif> = ({
   ShutterSpeedValue,
   ApertureValue,
 }) => {
-  console.log(ISO)
   return <div>EXIF (coming soon)</div>
 }
 
