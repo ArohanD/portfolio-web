@@ -926,8 +926,8 @@ export type File = Node & {
   childrenOrganizationsCsv?: Maybe<Array<Maybe<OrganizationsCsv>>>;
   childrenRecommendationsReceivedCsv?: Maybe<Array<Maybe<RecommendationsReceivedCsv>>>;
   childrenPositionsCsv?: Maybe<Array<Maybe<PositionsCsv>>>;
-  childrenSkillsCsv?: Maybe<Array<Maybe<SkillsCsv>>>;
   childProfileCsv?: Maybe<ProfileCsv>;
+  childrenSkillsCsv?: Maybe<Array<Maybe<SkillsCsv>>>;
   childMarkdownRemark?: Maybe<MarkdownRemark>;
 };
 
@@ -1615,46 +1615,6 @@ export type FileFieldsEnum =
   | 'childrenPositionsCsv___Location'
   | 'childrenPositionsCsv___Started_On'
   | 'childrenPositionsCsv___Finished_On'
-  | 'childrenSkillsCsv'
-  | 'childrenSkillsCsv___id'
-  | 'childrenSkillsCsv___parent___id'
-  | 'childrenSkillsCsv___parent___parent___id'
-  | 'childrenSkillsCsv___parent___parent___children'
-  | 'childrenSkillsCsv___parent___children'
-  | 'childrenSkillsCsv___parent___children___id'
-  | 'childrenSkillsCsv___parent___children___children'
-  | 'childrenSkillsCsv___parent___internal___content'
-  | 'childrenSkillsCsv___parent___internal___contentDigest'
-  | 'childrenSkillsCsv___parent___internal___description'
-  | 'childrenSkillsCsv___parent___internal___fieldOwners'
-  | 'childrenSkillsCsv___parent___internal___ignoreType'
-  | 'childrenSkillsCsv___parent___internal___mediaType'
-  | 'childrenSkillsCsv___parent___internal___owner'
-  | 'childrenSkillsCsv___parent___internal___type'
-  | 'childrenSkillsCsv___children'
-  | 'childrenSkillsCsv___children___id'
-  | 'childrenSkillsCsv___children___parent___id'
-  | 'childrenSkillsCsv___children___parent___children'
-  | 'childrenSkillsCsv___children___children'
-  | 'childrenSkillsCsv___children___children___id'
-  | 'childrenSkillsCsv___children___children___children'
-  | 'childrenSkillsCsv___children___internal___content'
-  | 'childrenSkillsCsv___children___internal___contentDigest'
-  | 'childrenSkillsCsv___children___internal___description'
-  | 'childrenSkillsCsv___children___internal___fieldOwners'
-  | 'childrenSkillsCsv___children___internal___ignoreType'
-  | 'childrenSkillsCsv___children___internal___mediaType'
-  | 'childrenSkillsCsv___children___internal___owner'
-  | 'childrenSkillsCsv___children___internal___type'
-  | 'childrenSkillsCsv___internal___content'
-  | 'childrenSkillsCsv___internal___contentDigest'
-  | 'childrenSkillsCsv___internal___description'
-  | 'childrenSkillsCsv___internal___fieldOwners'
-  | 'childrenSkillsCsv___internal___ignoreType'
-  | 'childrenSkillsCsv___internal___mediaType'
-  | 'childrenSkillsCsv___internal___owner'
-  | 'childrenSkillsCsv___internal___type'
-  | 'childrenSkillsCsv___Name'
   | 'childProfileCsv___id'
   | 'childProfileCsv___parent___id'
   | 'childProfileCsv___parent___parent___id'
@@ -1706,6 +1666,46 @@ export type FileFieldsEnum =
   | 'childProfileCsv___Twitter_Handles'
   | 'childProfileCsv___Websites'
   | 'childProfileCsv___Instant_Messengers'
+  | 'childrenSkillsCsv'
+  | 'childrenSkillsCsv___id'
+  | 'childrenSkillsCsv___parent___id'
+  | 'childrenSkillsCsv___parent___parent___id'
+  | 'childrenSkillsCsv___parent___parent___children'
+  | 'childrenSkillsCsv___parent___children'
+  | 'childrenSkillsCsv___parent___children___id'
+  | 'childrenSkillsCsv___parent___children___children'
+  | 'childrenSkillsCsv___parent___internal___content'
+  | 'childrenSkillsCsv___parent___internal___contentDigest'
+  | 'childrenSkillsCsv___parent___internal___description'
+  | 'childrenSkillsCsv___parent___internal___fieldOwners'
+  | 'childrenSkillsCsv___parent___internal___ignoreType'
+  | 'childrenSkillsCsv___parent___internal___mediaType'
+  | 'childrenSkillsCsv___parent___internal___owner'
+  | 'childrenSkillsCsv___parent___internal___type'
+  | 'childrenSkillsCsv___children'
+  | 'childrenSkillsCsv___children___id'
+  | 'childrenSkillsCsv___children___parent___id'
+  | 'childrenSkillsCsv___children___parent___children'
+  | 'childrenSkillsCsv___children___children'
+  | 'childrenSkillsCsv___children___children___id'
+  | 'childrenSkillsCsv___children___children___children'
+  | 'childrenSkillsCsv___children___internal___content'
+  | 'childrenSkillsCsv___children___internal___contentDigest'
+  | 'childrenSkillsCsv___children___internal___description'
+  | 'childrenSkillsCsv___children___internal___fieldOwners'
+  | 'childrenSkillsCsv___children___internal___ignoreType'
+  | 'childrenSkillsCsv___children___internal___mediaType'
+  | 'childrenSkillsCsv___children___internal___owner'
+  | 'childrenSkillsCsv___children___internal___type'
+  | 'childrenSkillsCsv___internal___content'
+  | 'childrenSkillsCsv___internal___contentDigest'
+  | 'childrenSkillsCsv___internal___description'
+  | 'childrenSkillsCsv___internal___fieldOwners'
+  | 'childrenSkillsCsv___internal___ignoreType'
+  | 'childrenSkillsCsv___internal___mediaType'
+  | 'childrenSkillsCsv___internal___owner'
+  | 'childrenSkillsCsv___internal___type'
+  | 'childrenSkillsCsv___Name'
   | 'childMarkdownRemark___id'
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___date'
@@ -2020,8 +2020,8 @@ export type FileFilterInput = {
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
   childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
-  childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
+  childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
   childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
 
@@ -3876,10 +3876,10 @@ export type Query = {
   allFile: FileConnection;
   directory?: Maybe<Directory>;
   allDirectory: DirectoryConnection;
-  sitePage?: Maybe<SitePage>;
-  allSitePage: SitePageConnection;
   site?: Maybe<Site>;
   allSite: SiteConnection;
+  sitePage?: Maybe<SitePage>;
+  allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
   markdownRemark?: Maybe<MarkdownRemark>;
@@ -3888,12 +3888,12 @@ export type Query = {
   allMdx: MdxConnection;
   connectionsCsv?: Maybe<ConnectionsCsv>;
   allConnectionsCsv: ConnectionsCsvConnection;
-  profileCsv?: Maybe<ProfileCsv>;
-  allProfileCsv: ProfileCsvConnection;
   skillsCsv?: Maybe<SkillsCsv>;
   allSkillsCsv: SkillsCsvConnection;
   positionsCsv?: Maybe<PositionsCsv>;
   allPositionsCsv: PositionsCsvConnection;
+  profileCsv?: Maybe<ProfileCsv>;
+  allProfileCsv: ProfileCsvConnection;
   recommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsv>;
   allRecommendationsReceivedCsv: RecommendationsReceivedCsvConnection;
   organizationsCsv?: Maybe<OrganizationsCsv>;
@@ -3959,8 +3959,8 @@ export type QueryFileArgs = {
   childrenOrganizationsCsv?: Maybe<OrganizationsCsvFilterListInput>;
   childrenRecommendationsReceivedCsv?: Maybe<RecommendationsReceivedCsvFilterListInput>;
   childrenPositionsCsv?: Maybe<PositionsCsvFilterListInput>;
-  childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
   childProfileCsv?: Maybe<ProfileCsvFilterInput>;
+  childrenSkillsCsv?: Maybe<SkillsCsvFilterListInput>;
   childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
 
@@ -4022,6 +4022,26 @@ export type QueryAllDirectoryArgs = {
 };
 
 
+export type QuerySiteArgs = {
+  buildTime?: Maybe<DateQueryOperatorInput>;
+  siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  polyfill?: Maybe<BooleanQueryOperatorInput>;
+  pathPrefix?: Maybe<StringQueryOperatorInput>;
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+};
+
+
+export type QueryAllSiteArgs = {
+  filter?: Maybe<SiteFilterInput>;
+  sort?: Maybe<SiteSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
 export type QuerySitePageArgs = {
   path?: Maybe<StringQueryOperatorInput>;
   component?: Maybe<StringQueryOperatorInput>;
@@ -4043,26 +4063,6 @@ export type QuerySitePageArgs = {
 export type QueryAllSitePageArgs = {
   filter?: Maybe<SitePageFilterInput>;
   sort?: Maybe<SitePageSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
-export type QuerySiteArgs = {
-  buildTime?: Maybe<DateQueryOperatorInput>;
-  siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  polyfill?: Maybe<BooleanQueryOperatorInput>;
-  pathPrefix?: Maybe<StringQueryOperatorInput>;
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-};
-
-
-export type QueryAllSiteArgs = {
-  filter?: Maybe<SiteFilterInput>;
-  sort?: Maybe<SiteSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -4167,35 +4167,6 @@ export type QueryAllConnectionsCsvArgs = {
 };
 
 
-export type QueryProfileCsvArgs = {
-  id?: Maybe<StringQueryOperatorInput>;
-  parent?: Maybe<NodeFilterInput>;
-  children?: Maybe<NodeFilterListInput>;
-  internal?: Maybe<InternalFilterInput>;
-  First_Name?: Maybe<StringQueryOperatorInput>;
-  Last_Name?: Maybe<StringQueryOperatorInput>;
-  Maiden_Name?: Maybe<StringQueryOperatorInput>;
-  Address?: Maybe<StringQueryOperatorInput>;
-  Birth_Date?: Maybe<StringQueryOperatorInput>;
-  Headline?: Maybe<StringQueryOperatorInput>;
-  Summary?: Maybe<StringQueryOperatorInput>;
-  Industry?: Maybe<StringQueryOperatorInput>;
-  Zip_Code?: Maybe<StringQueryOperatorInput>;
-  Geo_Location?: Maybe<StringQueryOperatorInput>;
-  Twitter_Handles?: Maybe<StringQueryOperatorInput>;
-  Websites?: Maybe<StringQueryOperatorInput>;
-  Instant_Messengers?: Maybe<StringQueryOperatorInput>;
-};
-
-
-export type QueryAllProfileCsvArgs = {
-  filter?: Maybe<ProfileCsvFilterInput>;
-  sort?: Maybe<ProfileCsvSortInput>;
-  skip?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-};
-
-
 export type QuerySkillsCsvArgs = {
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
@@ -4230,6 +4201,35 @@ export type QueryPositionsCsvArgs = {
 export type QueryAllPositionsCsvArgs = {
   filter?: Maybe<PositionsCsvFilterInput>;
   sort?: Maybe<PositionsCsvSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryProfileCsvArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  First_Name?: Maybe<StringQueryOperatorInput>;
+  Last_Name?: Maybe<StringQueryOperatorInput>;
+  Maiden_Name?: Maybe<StringQueryOperatorInput>;
+  Address?: Maybe<StringQueryOperatorInput>;
+  Birth_Date?: Maybe<StringQueryOperatorInput>;
+  Headline?: Maybe<StringQueryOperatorInput>;
+  Summary?: Maybe<StringQueryOperatorInput>;
+  Industry?: Maybe<StringQueryOperatorInput>;
+  Zip_Code?: Maybe<StringQueryOperatorInput>;
+  Geo_Location?: Maybe<StringQueryOperatorInput>;
+  Twitter_Handles?: Maybe<StringQueryOperatorInput>;
+  Websites?: Maybe<StringQueryOperatorInput>;
+  Instant_Messengers?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllProfileCsvArgs = {
+  filter?: Maybe<ProfileCsvFilterInput>;
+  sort?: Maybe<ProfileCsvSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -5152,10 +5152,15 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___theme_color_in_head'
   | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___implementation___info'
+  | 'pluginCreator___pluginOptions___isTSX'
+  | 'pluginCreator___pluginOptions___jsxPragma'
+  | 'pluginCreator___pluginOptions___allExtensions'
   | 'pluginCreator___pluginOptions___dest'
   | 'pluginCreator___pluginOptions___trackingId'
   | 'pluginCreator___pluginOptions___head'
   | 'pluginCreator___pluginOptions___respectDNT'
+  | 'pluginCreator___pluginOptions___anonymize'
+  | 'pluginCreator___pluginOptions___pageTransitionDelay'
   | 'pluginCreator___pluginOptions___pathCheck'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
@@ -5363,10 +5368,15 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___theme_color_in_head'
   | 'pluginOptions___cacheDigest'
   | 'pluginOptions___implementation___info'
+  | 'pluginOptions___isTSX'
+  | 'pluginOptions___jsxPragma'
+  | 'pluginOptions___allExtensions'
   | 'pluginOptions___dest'
   | 'pluginOptions___trackingId'
   | 'pluginOptions___head'
   | 'pluginOptions___respectDNT'
+  | 'pluginOptions___anonymize'
+  | 'pluginOptions___pageTransitionDelay'
   | 'pluginOptions___pathCheck'
   | 'nodeAPIs'
   | 'browserAPIs'
@@ -5504,10 +5514,15 @@ export type SitePluginPluginOptions = {
   theme_color_in_head?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
   implementation?: Maybe<SitePluginPluginOptionsImplementation>;
+  isTSX?: Maybe<Scalars['Boolean']>;
+  jsxPragma?: Maybe<Scalars['String']>;
+  allExtensions?: Maybe<Scalars['Boolean']>;
   dest?: Maybe<Scalars['String']>;
   trackingId?: Maybe<Scalars['String']>;
   head?: Maybe<Scalars['Boolean']>;
   respectDNT?: Maybe<Scalars['Boolean']>;
+  anonymize?: Maybe<Scalars['Boolean']>;
+  pageTransitionDelay?: Maybe<Scalars['Int']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
 };
 
@@ -5527,10 +5542,15 @@ export type SitePluginPluginOptionsFilterInput = {
   theme_color_in_head?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   implementation?: Maybe<SitePluginPluginOptionsImplementationFilterInput>;
+  isTSX?: Maybe<BooleanQueryOperatorInput>;
+  jsxPragma?: Maybe<StringQueryOperatorInput>;
+  allExtensions?: Maybe<BooleanQueryOperatorInput>;
   dest?: Maybe<StringQueryOperatorInput>;
   trackingId?: Maybe<StringQueryOperatorInput>;
   head?: Maybe<BooleanQueryOperatorInput>;
   respectDNT?: Maybe<BooleanQueryOperatorInput>;
+  anonymize?: Maybe<BooleanQueryOperatorInput>;
+  pageTransitionDelay?: Maybe<IntQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
 };
 
