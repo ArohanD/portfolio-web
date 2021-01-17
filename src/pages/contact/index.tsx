@@ -13,7 +13,8 @@ const Contact: React.FC<any> = (props: PageProps) => {
         currentPath={props.uri}
       >
         <div className="contact-container">
-          <form name="contact" method="POST" data-netlify="true">
+          <form name="contact" method="POST" data-netlify="true" action='/contact/success'>
+            <input type="hidden" name="form-name" value="contact" />
             <p>
               <label>
                 <p>Name</p>
