@@ -1,7 +1,8 @@
 import React from "react"
 import "./contact-styles.scss"
 import MobileNav from "../../components/mobileNav/"
-import { navigate, PageProps } from "gatsby"
+import { PageProps } from "gatsby"
+import { navigate } from 'gatsby-link'
 import SideBarLayout from "../../components/pageLayout"
 
 function encode(data) {
