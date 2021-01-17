@@ -1,7 +1,7 @@
 import React from "react"
 import "./contact-styles.scss"
 import MobileNav from "../../components/mobileNav/"
-import { PageProps } from "gatsby"
+import { navigate, PageProps } from "gatsby"
 import SideBarLayout from "../../components/pageLayout"
 
 function encode(data) {
