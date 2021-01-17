@@ -1,13 +1,12 @@
 import React from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
 import "./resume-styles.scss"
-import SEO from "../../components/seo"
 import { Query } from "../../generated/graphql-types"
 import MobileNav from "../../components/mobileNav/"
 import { PageProps } from "gatsby"
 import SideBarLayout from "../../components/pageLayout"
 
-const Resume: React.FC = (props: PageProps) => {
+const Resume: React.FC<any> = (props:PageProps) => {
   const resumeQuery = useStaticQuery(graphql`
     query ResumeQuery {
       allPositionsCsv {

@@ -10,6 +10,8 @@ import {
   homeContent,
 } from "../staticContent"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
+import { RiMailFill } from "react-icons/ri"
+import { SiLinkedin, SiGithub } from "react-icons/si"
 
 const IndexPage: React.FC = () => {
   const handleMouseOver = (homeLink: HomeLink) => {
@@ -73,23 +75,38 @@ const IndexPage: React.FC = () => {
       </nav>
       {!activeHomeLink.imagePath && (
         <div className="home-section-intro fade-in">
-          {profilePhoto && (
-            <Img
-              className="home-profile-photo"
-              alt="Profile Photo"
-              fixed={profilePhoto.fixed}
-            />
-          )}
+          <div className="home-profile-photo">
+            {profilePhoto && (
+              <Img
+                className="home-profile-photo"
+                alt="Profile Photo"
+                fixed={profilePhoto.fixed}
+              />
+            )}
+            <div className="home-body-social-links">
+              <a href="https://www.linkedin.com/in/arohan/">
+                <SiLinkedin size="1.5em" className="contact-icon" />
+              </a>
+              <a href="https://github.com/ArohanD">
+                <SiGithub size="1.5em" className="contact-icon" />
+              </a>
+              <AniLink fade to={"/contact"}>
+                <RiMailFill size="1.5em" className="contact-icon" />
+              </AniLink>
+            </div>
+          </div>
           <div className="home-body-content">
-            {homeContent.map((block: string) => (
-              <p key={block} className="home-about-paragraph">
+            {homeContent.map((block: String) => (
+              <p key={block as string} className="home-about-paragraph">
                 {block}
               </p>
             ))}
           </div>
         </div>
       )}
-      {activeHomeLink.title && window.innerWidth > 900 && <BackgroundImage homeLink={activeHomeLink} />}
+      {activeHomeLink.title && window.innerWidth > 900 && (
+        <BackgroundImage homeLink={activeHomeLink} />
+      )}
     </div>
   )
 }

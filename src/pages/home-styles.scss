@@ -75,7 +75,7 @@
 }
 
 .home-body-content {
-  margin-top: 35px;
+  margin-top: 50px;
   padding-right: 8%;
 
   font-style: normal;
@@ -211,4 +211,12 @@
     stroke-dashoffset: 190;
     animation: line-animation 2s ease forwards 1s;
   }
+}
+
+.home-body-social-links {
+  
+  .contact-icon {
+    padding: 10px 20px 0px 0px;
+  }
+
 }
