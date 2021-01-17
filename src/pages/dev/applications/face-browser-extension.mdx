@@ -1,0 +1,29 @@
+import "../dev-styles.scss"
+import { ButtonContainer } from "../../../components/mdx/mdx-button-container/index.tsx"
+import {
+  SkillStack,
+  addColorToSkills,
+} from "../../../components/skillStack/index.tsx"
+export const buttons = [
+  { text: "git repo", url: "https://github.com/ArohanD/face-browser-extension" },
+]
+export const tags = ["Chrome Extension", "TensorFlow", "Augmented Reality", "Accessibility", "WebGL", "WASM"]
+
+<div class='mdx-default-wrapper'>
+
+# Face-Browser Chrome Extension
+
+A chrome extension that allows users to navigate the web using only face movements as an accessibility feature. The app uses a face-landmark ai model in a TensorFlow backend to achieve the pointer movement.
+
+<ButtonContainer buttons={buttons} />
+<SkillStack skills={addColorToSkills(tags)} />
+
+<iframe
+  class="mdx-video mdx-iframe"
+  src="https://www.youtube.com/embed/Hvl9UqmbOEM"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+</div>

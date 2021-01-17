@@ -1,0 +1,31 @@
+import "../dev-styles.scss"
+import { ButtonContainer } from "../../../components/mdx/mdx-button-container/index.tsx"
+import {
+  SkillStack,
+  addColorToSkills,
+} from "../../../components/skillStack/index.tsx"
+export const buttons = [
+  { text: "live site", url: "https://colorgenerator.arohandutt.com/" },
+]
+export const tags = ["React", "Vercel", "SCSS"]
+
+<div class='mdx-default-wrapper'>
+
+# Was Not The Impostor
+
+Based on the popular game Among Us, I used DNS wildcarding along with other network configurations to create a site where users could generate their own "eject screens". Simply head to [name].wasnottheimpostor.com to generate a new site.
+
+This project statyed on the front page of the webdev subreddit for about a day, and has been one of my highest trafficked sites.
+
+<ButtonContainer buttons={buttons} />
+<SkillStack skills={addColorToSkills(tags)} />
+
+<iframe
+  class="mdx-video mdx-iframe"
+  src="https://www.youtube.com/embed/7rhAApBO2oY"
+  frameborder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowfullscreen
+></iframe>
+
+</div>
