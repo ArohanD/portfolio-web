@@ -15,7 +15,7 @@ const Contact: React.FC<any> = (props: PageProps) => {
         <div className="contact-container">
           <form name="contact" method="POST" data-netlify="true">
             <p>
-              <label> 
+              <label>
                 <p>Name</p>
                 <input type="text" name="name" />
               </label>
