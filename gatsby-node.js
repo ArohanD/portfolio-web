@@ -58,134 +58,134 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
-exports.createPages = ({ actions, graphql }) => {
-  const { createPage } = actions
+// exports.createPages = ({ actions, graphql }) => {
+//   const { createPage } = actions
 
-  // PHOTO GALLERY PAGES
-  const galleryPages = graphql(`
-    {
-      allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
-        nodes {
-          relativePath
-        }
-      }
-    }
-  `).then(result => {
-    if (result.errors) console.log(result.errors)
+//   // PHOTO GALLERY PAGES
+//   const galleryPages = graphql(`
+//     {
+//       allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
+//         nodes {
+//           relativePath
+//         }
+//       }
+//     }
+//   `).then(result => {
+//     if (result.errors) console.log(result.errors)
 
-    let galleryPageNodes = result.data.allDirectory.nodes
-    const imagePageTemplate = path.resolve(
-      "./src/templates/galleryTemplate.tsx"
-    )
+//     let galleryPageNodes = result.data.allDirectory.nodes
+//     const imagePageTemplate = path.resolve(
+//       "./src/templates/galleryTemplate.tsx"
+//     )
 
-    galleryPageNodes.forEach(node => {
-      const leaf = node.relativePath.split("/")[1]
-      const pageQuery = `/${leaf}/`
+//     galleryPageNodes.forEach(node => {
+//       const leaf = node.relativePath.split("/")[1]
+//       const pageQuery = `/${leaf}/`
 
-      createPage({
-        path: node.relativePath,
-        component: imagePageTemplate,
-        context: {
-          slug: node.relativePath,
-          queryRegex: pageQuery,
-          title: leaf,
-        },
-      })
-    })
-  })
+//       createPage({
+//         path: node.relativePath,
+//         component: imagePageTemplate,
+//         context: {
+//           slug: node.relativePath,
+//           queryRegex: pageQuery,
+//           title: leaf,
+//         },
+//       })
+//     })
+//   })
 
-  const imagePages = graphql(`
-    {
-      allImageSharp(
-        filter: { fields: { gallery: { glob: "*" } } }
-        sort: { fields: [fields___gallery, fields___order] }
-      ) {
-        nodes {
-          id
-          parent {
-            ... on File {
-              name
-              relativePath
-            }
-          }
-          fields {
-            gallery
-            order
-          }
-        }
-      }
-    }
-  `).then(result => {
-    if (result.errors) console.log(result.errors)
+//   const imagePages = graphql(`
+//     {
+//       allImageSharp(
+//         filter: { fields: { gallery: { glob: "*" } } }
+//         sort: { fields: [fields___gallery, fields___order] }
+//       ) {
+//         nodes {
+//           id
+//           parent {
+//             ... on File {
+//               name
+//               relativePath
+//             }
+//           }
+//           fields {
+//             gallery
+//             order
+//           }
+//         }
+//       }
+//     }
+//   `).then(result => {
+//     if (result.errors) console.log(result.errors)
 
-    const imageNodes = result.data.allImageSharp.nodes
-    const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
+//     const imageNodes = result.data.allImageSharp.nodes
+//     const imageTemplate = path.resolve("./src/templates/imageExpanded.tsx")
 
-    imageNodes.forEach((node, index) => {
-      if (
-        node.parent.relativePath.includes("photography/") &&
-        node.fields.gallery
-      ) {
-        const pathNoExtension = node.parent.relativePath.split('.jpg')[0].split(' ').join('-')
-        createPage({
-          path: pathNoExtension,
-          component: imageTemplate,
-          context: {
-            slug: pathNoExtension,
-            imageQuery: node.id,
-            nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
-              ? imageNodes[index + 1].id
-              : undefined,
-            prevNode: imageNodes[index - 1] && imageNodes[index - 1].fields.gallery === node.fields.gallery
-              ? imageNodes[index - 1].id
-              : undefined,
-          },
-        })
-      }
-    })
-  })
+//     imageNodes.forEach((node, index) => {
+//       if (
+//         node.parent.relativePath.includes("photography/") &&
+//         node.fields.gallery
+//       ) {
+//         const pathNoExtension = node.parent.relativePath.split('.jpg')[0].split(' ').join('-')
+//         createPage({
+//           path: pathNoExtension,
+//           component: imageTemplate,
+//           context: {
+//             slug: pathNoExtension,
+//             imageQuery: node.id,
+//             nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
+//               ? imageNodes[index + 1].id
+//               : undefined,
+//             prevNode: imageNodes[index - 1] && imageNodes[index - 1].fields.gallery === node.fields.gallery
+//               ? imageNodes[index - 1].id
+//               : undefined,
+//           },
+//         })
+//       }
+//     })
+//   })
 
-  // MARKDOWN PAGES
-  const markdownPages = graphql(`
-    {
-      allMarkdownRemark {
-        nodes {
-          html
-          parent {
-            ... on File {
-              id
-              name
-              relativeDirectory
-              relativePath
-            }
-          }
-          frontmatter {
-            title
-            date
-            images
-            imageJustification
-          }
-        }
-      }
-    }
-  `).then(result => {
-    if (result.errors) console.log(result.errors)
+//   // MARKDOWN PAGES
+//   // const markdownPages = graphql(`
+//   //   {
+//   //     allMarkdownRemark {
+//   //       nodes {
+//   //         html
+//   //         parent {
+//   //           ... on File {
+//   //             id
+//   //             name
+//   //             relativeDirectory
+//   //             relativePath
+//   //           }
+//   //         }
+//   //         frontmatter {
+//   //           title
+//   //           date
+//   //           images
+//   //           imageJustification
+//   //         }
+//   //       }
+//   //     }
+//   //   }
+//   // `).then(result => {
+//   //   if (result.errors) console.log(result.errors)
 
-    const mdPageNodes = result.data.allMarkdownRemark.nodes
-    const mdPageTemplate = path.resolve("./src/templates/markdownTemplate.tsx")
+//   //   const mdPageNodes = result.data.allMarkdownRemark.nodes
+//   //   const mdPageTemplate = path.resolve("./src/templates/markdownTemplate.tsx")
 
-    mdPageNodes.forEach(node => {
-      createPage({
-        path: node.parent.relativePath,
-        component: mdPageTemplate,
-        context: {
-          slug: node.parent.relativePath,
-          content: node,
-          imageQuery: node.parent.relativePath.split(".")[0],
-        },
-      })
-    })
-  })
+//   //   mdPageNodes.forEach(node => {
+//   //     // createPage({
+//   //     //   path: node.parent.relativePath,
+//   //     //   component: mdPageTemplate,
+//   //     //   context: {
+//   //     //     slug: node.parent.relativePath,
+//   //     //     content: node,
+//   //     //     imageQuery: node.parent.relativePath.split(".")[0],
+//   //     //   },
+//   //     // })
+//   //   })
+//   // })
 
-  return Promise.all([galleryPages, markdownPages, imagePages])
-}
+//   return Promise.all([galleryPages, imagePages])
+// }
