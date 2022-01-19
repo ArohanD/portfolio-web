@@ -6,18 +6,17 @@ import MobileNav from "../components/mobileNav"
 import { Query, SitePageContext, File } from "../generated/graphql-types"
 import "./styles/markdownTemplate.scss"
 
-interface MarkdownPageProps {
+interface NotionPageProps {
   pageContext: SitePageContext
   data: Query
 }
 
-const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
+const NotionPage: React.FC<NotionPageProps> = ({ pageContext, data }) => {
   // const images = data.allFile.nodes
 
   return (
     <div className="markdown-page-wrapper">
       <SEO title={pageContext.content.frontmatter.title} />
-      <h1>{pageContext.content.frontmatter.title}</h1>
       <div
         className={"markdown-wrapper"}
         dangerouslySetInnerHTML={{ __html: pageContext.content.html }}
@@ -36,7 +35,7 @@ const MarkdownPage: React.FC<MarkdownPageProps> = ({ pageContext, data }) => {
   )
 }
 
-export default MarkdownPage
+export default NotionPage
 
 // export const markdownPageQuery = graphql`
 //   query mdImages($imageQuery: String) {

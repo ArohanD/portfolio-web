@@ -53,7 +53,7 @@ const WritingSplash: React.FC<WritingSplashProps> = () => {
     return {
       img: thumbImage,
       title: node.frontmatter.title,
-      url: node.parent.relativePath,
+      url: node.parent.relativePath || `writing/dev/` + node.frontmatter.title.split(' ').join("-").toLowerCase(),
       description: node.excerpt,
       tags: [],
     } as thumbNailProps
