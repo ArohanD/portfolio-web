@@ -1,9 +1,9 @@
-@use '../../pages/global-styles.scss' as *;
+@use "../../pages/global-styles.scss" as *;
 
 .markdown-page-wrapper {
   display: flex;
   flex-direction: column;
-  width: 100vw;
+  width: 100%;
   align-items: center;
   margin-top: 50px;
   margin-bottom: 100px;
@@ -11,6 +11,7 @@
 
 .markdown-wrapper {
   width: 80%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
 

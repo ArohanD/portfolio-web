@@ -1,27 +1,38 @@
 import React from "react"
-import { graphql, Link } from "gatsby"
-import Img from "gatsby-image"
 import SEO from "../components/seo"
 import MobileNav from "../components/mobileNav"
-import { Query, SitePageContext, File } from "../generated/graphql-types"
+import { MarkdownRemark, Query } from "../../graphql-types"
+import SideBarLayout from "../components/pageLayout"
 import "./styles/markdownTemplate.scss"
 
-interface NotionPageProps {
-  pageContext: SitePageContext
+interface PageContext {
+  content: MarkdownRemark
+}
+interface NotionProps {
+  pageContext: PageContext
   data: Query
 }
 
-const NotionPage: React.FC<NotionPageProps> = ({ pageContext, data }) => {
+const NotionPage: React.FC<NotionProps> = ({ pageContext }) => {
   // const images = data.allFile.nodes
+  console.log(pageContext)
 
   return (
-    <div className="markdown-page-wrapper">
-      <SEO title={pageContext.content.frontmatter.title} />
-      <div
-        className={"markdown-wrapper"}
-        dangerouslySetInnerHTML={{ __html: pageContext.content.html }}
-      ></div>
-      <div className="markdown-images">
+    <SideBarLayout
+      currentPath={pageContext.content.frontmatter.title
+        .split(" ")
+        .join("-")
+        .toLowerCase()}
+      sideBarString="dev"
+    >
+      <article className="markdown-page-wrapper">
+        <SEO title={pageContext.content.frontmatter.title} />
+        <h1>{pageContext.content.frontmatter.title}</h1>
+        <div
+          className={"markdown-wrapper"}
+          dangerouslySetInnerHTML={{ __html: pageContext.content.html }}
+        ></div>
+        {/* <article className="markdown-images">
         {/* {images.map(node => (
           <Img
             key={node.id}
@@ -29,28 +40,10 @@ const NotionPage: React.FC<NotionPageProps> = ({ pageContext, data }) => {
             className={"markdown-image"}
           />
         ))} */}
-      </div>
-      <MobileNav type={"writing"} />
-    </div>
+        <MobileNav type={"writing"} />
+      </article>
+    </SideBarLayout>
   )
 }
 
 export default NotionPage
-
-// export const markdownPageQuery = graphql`
-//   query mdImages($imageQuery: String) {
-//     allFile(filter: { relativeDirectory: { eq: $imageQuery } }) {
-//       nodes {
-//         childImageSharp {
-//           fixed(height: 300) {
-//             ...GatsbyImageSharpFixed
-//           }
-//           fluid {
-//             ...GatsbyImageSharpFluid
-//           }
-//         }
-//         id
-//       }
-//     }
-//   }
-// `

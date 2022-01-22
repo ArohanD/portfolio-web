@@ -10,6 +10,7 @@ const { createFilePath, createFileNode } = require("gatsby-source-filesystem")
 const exif = require("fast-exif")
 const { returnImageOrder } = require("./nodeUtils.ts")
 const { node } = require("prop-types")
+const { convertToSlug } = require("./utils.js")
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
@@ -126,71 +127,78 @@ exports.createPages = ({ actions, graphql }) => {
         node.parent.relativePath.includes("photography/") &&
         node.fields.gallery
       ) {
-        const pathNoExtension = node.parent.relativePath.split('.jpg')[0].split(' ').join('-')
+        const pathNoExtension = node.parent.relativePath
+          .split(".jpg")[0]
+          .split(" ")
+          .join("-")
         createPage({
           path: pathNoExtension,
           component: imageTemplate,
           context: {
             slug: pathNoExtension,
             imageQuery: node.id,
-            nextNode: imageNodes[index + 1] && imageNodes[index + 1].fields.gallery === node.fields.gallery
-              ? imageNodes[index + 1].id
-              : undefined,
-            prevNode: imageNodes[index - 1] && imageNodes[index - 1].fields.gallery === node.fields.gallery
-              ? imageNodes[index - 1].id
-              : undefined,
+            nextNode:
+              imageNodes[index + 1] &&
+              imageNodes[index + 1].fields.gallery === node.fields.gallery
+                ? imageNodes[index + 1].id
+                : undefined,
+            prevNode:
+              imageNodes[index - 1] &&
+              imageNodes[index - 1].fields.gallery === node.fields.gallery
+                ? imageNodes[index - 1].id
+                : undefined,
           },
         })
       }
     })
   })
 
-  // MARKDOWN PAGES
-  const markdownPages = graphql(`
-    {
-      allMarkdownRemark {
+  // NOTION
+  const notionPages = graphql(`
+    query AllNotionQuery {
+      allNotion {
         nodes {
-          html
-          parent {
-            ... on File {
-              id
-              name
-              relativeDirectory
-              relativePath
+          childMarkdownRemark {
+            html
+            frontmatter {
+              title
+              Tags {
+                id
+                name
+              }
+              Grouping
+            }
+            wordCount {
+              words
             }
           }
-          frontmatter {
-            title
-            date
-            images
-            imageJustification
-          }
+          updatedAt
+          createdAt
         }
       }
     }
   `).then(result => {
-    if (result.errors) console.log(result.errors)
+    if (result.error) console.log(error)
+    const notionPageTemplate = path.resolve(
+      "./src/templates/notionTemplate.tsx"
+    )
 
-    const mdPageNodes = result.data.allMarkdownRemark.nodes
-    const mdPageTemplate = path.resolve("./src/templates/markdownTemplate.tsx")
-    const notionPageTemplate = path.resolve("./src/templates/notionTemplate.tsx")
-    mdPageNodes.forEach(node => {
-      const isNotionPage = "relativePath" in node.parent
-      console.log(node.parent)
-      const nodePath = node.parent.relativePath || `/writing/dev/` + node.frontmatter.title.split(' ').join("-").toLowerCase();
-      if(nodePath === "" || !nodePath) return
-      console.log(nodePath)
-      createPage({
-        path: nodePath,
-        component: isNotionPage ? notionPageTemplate : mdPageTemplate,
-        context: {
-          slug: node.parent.relativePath,
-          content: node,
-          // imageQuery: node.parent.relativePath.split(".")[0],
-        },
-      })
+    result.data.allNotion.nodes.forEach(node => {
+      const { childMarkdownRemark } = node
+      if (childMarkdownRemark.frontmatter.title !== "") {
+        createPage({
+          path: `/writing/${
+            childMarkdownRemark.frontmatter.Grouping
+          }/${convertToSlug(childMarkdownRemark.frontmatter.title)}`,
+          component: notionPageTemplate,
+          context: {
+            slug: convertToSlug(childMarkdownRemark.frontmatter.title),
+            content: childMarkdownRemark,
+          },
+        })
+      }
     })
   })
 
-  return Promise.all([galleryPages, imagePages])
+  return Promise.all([galleryPages, imagePages, notionPages])
 }

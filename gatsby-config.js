@@ -47,6 +47,7 @@ module.exports = {
     //     dest: './src/generated/graphql-types.d.ts',
     //   },
     // },
+    `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
