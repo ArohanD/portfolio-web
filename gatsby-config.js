@@ -40,13 +40,14 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    {
-      // automatically generate typings from graphql schema
-      resolve: 'gatsby-plugin-generate-typings',
-      options: {
-        dest: './src/generated/graphql-types.d.ts',
-      },
-    },
+    // {
+    //   // automatically generate typings from graphql schema
+    //   resolve: 'gatsby-plugin-generate-typings',
+    //   options: {
+    //     dest: './src/generated/graphql-types.d.ts',
+    //   },
+    // },
+    `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -73,6 +74,15 @@ module.exports = {
       },
     },
     `gatsby-plugin-transition-link`,
+    {
+      resolve: `gatsby-source-notion-api`,
+      options: {
+        token: `${process.env.GATSBY_NOTION_TOKEN}`,
+        databaseId: `${process.env.GATSBY_NOTION_DATABASE}`,
+        propsToFrontmatter: true,
+        lowerTitleLevel: true,
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

@@ -1,6 +1,6 @@
-import React from 'react';
-import './thumbNailGallery.scss';
-import { ImageSharp } from '../../generated/graphql-types';
+import React from "react"
+import "./thumbNailGallery.scss"
+import { ImageSharp } from "../../generated/graphql-types"
 
 export interface ThumbNailContainerProps {
   ThumbNailComponent?: React.ReactElement
@@ -13,6 +13,8 @@ export interface thumbNailProps {
   url: string
   description?: string
   tags?: Array<string>
+  updated?: string
+  timeToRead?: number
 }
 
 export const ThumbNailContainer: React.FC<ThumbNailContainerProps> = ({
