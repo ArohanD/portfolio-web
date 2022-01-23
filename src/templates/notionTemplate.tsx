@@ -15,9 +15,6 @@ interface NotionProps {
 }
 
 const NotionPage: React.FC<NotionProps> = ({ pageContext }) => {
-  // const images = data.allFile.nodes
-  console.log(pageContext)
-
   return (
     <SideBarLayout
       currentPath={convertToSlug(pageContext.content.frontmatter.title)}
