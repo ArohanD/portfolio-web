@@ -3,7 +3,7 @@ module.exports = {
     title: `Arohan Dutt`,
     description: `Software engineering & design, photography and thoughts`,
     author: `@Arohawk`,
-    url: 'https://hungry-wiles-7c6cde.netlify.app',
+    url: "https://hungry-wiles-7c6cde.netlify.app",
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
@@ -40,13 +40,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    // {
-    //   // automatically generate typings from graphql schema
-    //   resolve: 'gatsby-plugin-generate-typings',
-    //   options: {
-    //     dest: './src/generated/graphql-types.d.ts',
-    //   },
-    // },
     `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-source-filesystem`,
