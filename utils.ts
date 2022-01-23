@@ -17,4 +17,31 @@ const convertToSlug = (string: String) => {
   return string.split(" ").join("-").toLowerCase()
 }
 
-export { sanitizeTitle, allocateArray, copy, isNotNavDupe, convertToSlug }
+const months = [
+  "Jan",
+  "Feb",
+  "Mar",
+  "Apr",
+  "May",
+  "Jun",
+  "Jul",
+  "Aug",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dec",
+]
+
+const convertStringToDate = (string: string): string => {
+  const date = new Date(string)
+  return `${months[date.getMonth()]} ${date.getDate()}, ${date.getFullYear()}`
+}
+
+export {
+  sanitizeTitle,
+  allocateArray,
+  copy,
+  isNotNavDupe,
+  convertToSlug,
+  convertStringToDate,
+}

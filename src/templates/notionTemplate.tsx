@@ -4,6 +4,7 @@ import MobileNav from "../components/mobileNav"
 import { MarkdownRemark, Query } from "../../graphql-types"
 import SideBarLayout from "../components/pageLayout"
 import "./styles/markdownTemplate.scss"
+import { convertToSlug } from "../../utils"
 
 interface PageContext {
   content: MarkdownRemark
@@ -19,11 +20,7 @@ const NotionPage: React.FC<NotionProps> = ({ pageContext }) => {
 
   return (
     <SideBarLayout
-      currentPath={pageContext.content.frontmatter.title
-        .split(" ")
-        .join("-")
-        .toLowerCase()}
-      sideBarString="dev"
+      currentPath={convertToSlug(pageContext.content.frontmatter.title)}
     >
       <article className="markdown-page-wrapper">
         <SEO title={pageContext.content.frontmatter.title} />

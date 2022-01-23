@@ -8525,11 +8525,6 @@ export type NotionPagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type NotionPagesQuery = { allNotion: { totalCount: number, nodes: Array<{ childMarkdownRemark?: { excerpt?: string | null | undefined, html?: string | null | undefined, timeToRead?: number | null | undefined, frontmatter?: { Updated?: any | null | undefined, Created?: any | null | undefined, title?: string | null | undefined, Grouping?: string | null | undefined, Tags?: Array<{ color?: string | null | undefined, name?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined }> } };
 
-export type Unnamed_2_QueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type Unnamed_2_Query = { allMarkdownRemark: { nodes: Array<{ rawMarkdownBody?: string | null | undefined, excerpt?: string | null | undefined, frontmatter?: { title?: string | null | undefined } | null | undefined, parent?: { name: string, relativePath: string } | {} | null | undefined }> }, allFile: { nodes: Array<{ relativePath: string, relativeDirectory: string, publicURL?: string | null | undefined, childImageSharp?: { fixed?: { base64?: string | null | undefined, width: number, height: number, src: string, srcSet: string } | null | undefined } | null | undefined }> } };
-
 export type GalleryDataQueryVariables = Exact<{
   queryRegex?: InputMaybe<Scalars['String']>;
 }>;

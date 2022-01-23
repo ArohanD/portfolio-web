@@ -1,4 +1,4 @@
-@use '../global-styles.scss' as *;
+@use "../global-styles.scss" as *;
 
 .writingSplash-wrapper {
   box-sizing: border-box;
@@ -7,6 +7,10 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
+
+  .thumbNailContainer {
+    padding-top: 10px;
+  }
 }
 
 .writingSplash-card {
@@ -16,13 +20,13 @@
   -webkit-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
   -moz-box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
   box-shadow: 9px 16px 48px -9px rgba(115, 115, 115, 1);
-  
+
   @media (min-width: $desk-break) {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     // Update when tags are added
-    height: 500px;
+    height: 400px;
   }
 }
 
@@ -43,8 +47,18 @@
 }
 
 .writingSplash-card-title,
-.writingSplash-card-description {
+.writingSplash-card-description,
+.writingSplash-card-meta {
   padding: 0px 10px;
+}
+
+.writingSplash-card-description {
+  margin-top: 10px;
+}
+
+.writingSplash-card-meta {
+  margin: 5px 0px;
+  font-size: 0.8rem;
 }
 
 .writingSplash-card-title {
@@ -55,4 +69,25 @@
   width: 100%;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+}
+
+.articlePicker {
+  list-style: none;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding-left: 10px;
+
+  @media (min-width: $desk-break) {
+    padding-left: 16px;
+  }
+
+  .articleCategory {
+    margin-right: 20px;
+    text-transform: uppercase;
+  }
+
+  .articleHighlight {
+    color: $color-primary;
+  }
 }

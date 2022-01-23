@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import "./writingSplash.scss"
 import {
   ThumbNailContainer,
@@ -12,6 +12,15 @@ import WritingThumbNail from "../../components/thumbNailGallery/WritingThumbNail
 import SideBarLayout from "../../components/pageLayout"
 import MobileNav from "../../components/mobileNav"
 import { convertToSlug } from "../../../utils"
+
+interface ArticleDictionary {
+  [key: string]: Array<thumbNailProps>
+}
+interface ArticlePickerProps {
+  articleDictionary: ArticleDictionary
+  currentCategory: string
+  changeCategory: (category: string) => void
+}
 
 const WritingSplash: React.FC = () => {
   const writingSplashQuery = useStaticQuery(graphql`
@@ -49,44 +58,50 @@ const WritingSplash: React.FC = () => {
     const { excerpt, html, timeToRead } = childMarkdownRemark
 
     if (Tags.some(tag => tag.name === "Live")) {
-      console.log(title)
       const article = {
         img: undefined,
         title: title,
         url: `writing/${Grouping}/${convertToSlug(title)}`,
         description: excerpt,
         tags: Tags.filter(tag => tag.name !== "Live"),
+        timeToRead,
+        updated: Updated,
       } as thumbNailProps
       if (!articleDictionary[Grouping]) articleDictionary[Grouping] = []
       articleDictionary[Grouping].push(article)
     }
   })
 
-  console.log(articleDictionary)
-  // rawQueryData.forEach(node => {
-  //   if (node.frontmatter.title === "") return
-  //   // let thumbImage = matchImageNodeToMD(node.parent.name, rawQueryImages)
+  const [articles, setArticles] = useState<Array<thumbNailProps>>(
+    articleDictionary.dev
+  )
+  const [currentCategory, setCurrentCategory] = useState("dev")
 
-  //   const toPush = {
-  //     img: undefined,
-  //     title: node.frontmatter.title,
-  //     url:
-  //       node.parent.relativePath ||
-  //       `writing/dev/` +
-  //         node.frontmatter.title.split(" ").join("-").toLowerCase(),
-  //     description: node.excerpt,
-  //     tags: [],
-  //   } as thumbNailProps
-  //   thumbNailData.push(toPush)
-  // })
+  const changeCategory = (category: string) => {
+    setCurrentCategory(category)
+    setArticles(articleDictionary[category])
+  }
 
   return (
     <SideBarLayout title="Writing" currentPath={"/writing/"}>
       <div className="writingSplash-wrapper">
-        <h1 className="writingSplash-title">Marketing & Creative Writing</h1>
+        <ArticlePicker
+          articleDictionary={articleDictionary}
+          changeCategory={changeCategory}
+          currentCategory={currentCategory}
+        />
         <ThumbNailContainer
-          ThumbNailComponent={<WritingThumbNail title={""} img={""} url={""} />}
-          thumbNailData={articleDictionary.marketing}
+          ThumbNailComponent={
+            <WritingThumbNail
+              title={""}
+              img={""}
+              url={""}
+              tags={[]}
+              timeToRead={0}
+              updated=""
+            />
+          }
+          thumbNailData={articles}
         />
       </div>
       <MobileNav />
@@ -94,14 +109,27 @@ const WritingSplash: React.FC = () => {
   )
 }
 
-// const matchImageNodeToMD = (fileName: string, imageNodes: Array<File>) => {
-//   let returnImage
-//   imageNodes.forEach(image => {
-//     let imagePath = image.relativeDirectory.split("/")
-//     if (imagePath[imagePath.length - 1] === fileName)
-//       returnImage = image.childImageSharp.fixed
-//   })
-//   return returnImage
-// }
+const ArticlePicker: React.FC<ArticlePickerProps> = ({
+  articleDictionary,
+  currentCategory,
+  changeCategory,
+}) => {
+  const categories = Object.keys(articleDictionary).reverse()
+  return (
+    <ul className="articlePicker">
+      {categories.map(category => (
+        <li
+          className={`articleCategory ${
+            currentCategory === category ? "articleHighlight" : ""
+          }`}
+          key={category}
+          onClick={() => changeCategory(category)}
+        >
+          <h2>{category}</h2>
+        </li>
+      ))}
+    </ul>
+  )
+}
 
 export default WritingSplash
