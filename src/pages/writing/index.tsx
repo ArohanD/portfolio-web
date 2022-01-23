@@ -61,7 +61,7 @@ const WritingSplash: React.FC = () => {
       const article = {
         img: undefined,
         title: title,
-        url: `writing/${Grouping}/${convertToSlug(title)}`,
+        url: `writing/${convertToSlug(title)}`,
         description: excerpt,
         tags: Tags.filter(tag => tag.name !== "Live"),
         timeToRead,

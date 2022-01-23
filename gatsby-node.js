@@ -187,9 +187,9 @@ exports.createPages = ({ actions, graphql }) => {
       const { childMarkdownRemark } = node
       if (childMarkdownRemark.frontmatter.title !== "") {
         createPage({
-          path: `/writing/${
-            childMarkdownRemark.frontmatter.Grouping
-          }/${convertToSlug(childMarkdownRemark.frontmatter.title)}`,
+          path: `/writing/${convertToSlug(
+            childMarkdownRemark.frontmatter.title
+          )}`,
           component: notionPageTemplate,
           context: {
             slug: convertToSlug(childMarkdownRemark.frontmatter.title),
