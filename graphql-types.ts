@@ -396,8 +396,6 @@ export type DirectoryCtimeArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   jsxRuntime?: Maybe<Scalars['String']>;
@@ -808,6 +806,7 @@ export type MarkdownRemarkTableOfContentsArgs = {
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   Notes?: Maybe<Scalars['String']>;
+  heroImage?: Maybe<Array<Maybe<MarkdownRemarkFrontmatterHeroImage>>>;
   Grouping?: Maybe<Scalars['String']>;
   Created?: Maybe<Scalars['Date']>;
   Updated?: Maybe<Scalars['Date']>;
@@ -830,6 +829,25 @@ export type MarkdownRemarkFrontmatterUpdatedArgs = {
   locale?: InputMaybe<Scalars['String']>;
 };
 
+export type MarkdownRemarkFrontmatterHeroImage = {
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  file?: Maybe<MarkdownRemarkFrontmatterHeroImageFile>;
+};
+
+export type MarkdownRemarkFrontmatterHeroImageFile = {
+  url?: Maybe<Scalars['String']>;
+  expiry_time?: Maybe<Scalars['Date']>;
+};
+
+
+export type MarkdownRemarkFrontmatterHeroImageFileExpiry_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
 export type MarkdownRemarkFrontmatterTags = {
   id?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
@@ -839,6 +857,7 @@ export type MarkdownRemarkFrontmatterTags = {
 export type MdxFrontmatter = {
   title: Scalars['String'];
   Notes?: Maybe<Scalars['String']>;
+  heroImage?: Maybe<Array<Maybe<MdxFrontmatterHeroImage>>>;
   Grouping?: Maybe<Scalars['String']>;
   Created?: Maybe<Scalars['Date']>;
   Updated?: Maybe<Scalars['Date']>;
@@ -855,6 +874,25 @@ export type MdxFrontmatterCreatedArgs = {
 
 
 export type MdxFrontmatterUpdatedArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
+};
+
+export type MdxFrontmatterHeroImage = {
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  file?: Maybe<MdxFrontmatterHeroImageFile>;
+};
+
+export type MdxFrontmatterHeroImageFile = {
+  url?: Maybe<Scalars['String']>;
+  expiry_time?: Maybe<Scalars['Date']>;
+};
+
+
+export type MdxFrontmatterHeroImageFileExpiry_TimeArgs = {
   formatString?: InputMaybe<Scalars['String']>;
   fromNow?: InputMaybe<Scalars['Boolean']>;
   difference?: InputMaybe<Scalars['String']>;
@@ -1029,6 +1067,7 @@ export type NotionUpdatedAtArgs = {
 
 export type NotionProperties = {
   Notes?: Maybe<NotionPropertiesNotes>;
+  heroImage?: Maybe<NotionPropertiesHeroImage>;
   Grouping?: Maybe<NotionPropertiesGrouping>;
   Created?: Maybe<NotionPropertiesCreated>;
   Updated?: Maybe<NotionPropertiesUpdated>;
@@ -1040,6 +1079,32 @@ export type NotionPropertiesNotes = {
   key?: Maybe<Scalars['String']>;
   value?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+};
+
+export type NotionPropertiesHeroImage = {
+  id?: Maybe<Scalars['String']>;
+  key?: Maybe<Scalars['String']>;
+  value?: Maybe<Array<Maybe<NotionPropertiesHeroImageValue>>>;
+  type?: Maybe<Scalars['String']>;
+};
+
+export type NotionPropertiesHeroImageValue = {
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  file?: Maybe<NotionPropertiesHeroImageValueFile>;
+};
+
+export type NotionPropertiesHeroImageValueFile = {
+  url?: Maybe<Scalars['String']>;
+  expiry_time?: Maybe<Scalars['Date']>;
+};
+
+
+export type NotionPropertiesHeroImageValueFileExpiry_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type NotionPropertiesGrouping = {
@@ -1127,6 +1192,7 @@ export type NotionRawParent = {
 
 export type NotionRawProperties = {
   Notes?: Maybe<NotionRawPropertiesNotes>;
+  heroImage?: Maybe<NotionRawPropertiesHeroImage>;
   Grouping?: Maybe<NotionRawPropertiesGrouping>;
   Name?: Maybe<NotionRawPropertiesName>;
   Created?: Maybe<NotionRawPropertiesCreated>;
@@ -1138,6 +1204,31 @@ export type NotionRawPropertiesNotes = {
   id?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
   rich_text?: Maybe<Scalars['String']>;
+};
+
+export type NotionRawPropertiesHeroImage = {
+  id?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  files?: Maybe<Array<Maybe<NotionRawPropertiesHeroImageFiles>>>;
+};
+
+export type NotionRawPropertiesHeroImageFiles = {
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  file?: Maybe<NotionRawPropertiesHeroImageFilesFile>;
+};
+
+export type NotionRawPropertiesHeroImageFilesFile = {
+  url?: Maybe<Scalars['String']>;
+  expiry_time?: Maybe<Scalars['Date']>;
+};
+
+
+export type NotionRawPropertiesHeroImageFilesFileExpiry_TimeArgs = {
+  formatString?: InputMaybe<Scalars['String']>;
+  fromNow?: InputMaybe<Scalars['Boolean']>;
+  difference?: InputMaybe<Scalars['String']>;
+  locale?: InputMaybe<Scalars['String']>;
 };
 
 export type NotionRawPropertiesGrouping = {
@@ -1736,8 +1827,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -4137,8 +4226,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___description'
   | 'siteMetadata___author'
   | 'siteMetadata___url'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'jsxRuntime'
@@ -4273,8 +4360,6 @@ export type SiteGroupConnectionGroupArgs = {
 export type SiteFilterInput = {
   buildTime?: InputMaybe<DateQueryOperatorInput>;
   siteMetadata?: InputMaybe<SiteSiteMetadataFilterInput>;
-  port?: InputMaybe<IntQueryOperatorInput>;
-  host?: InputMaybe<StringQueryOperatorInput>;
   polyfill?: InputMaybe<BooleanQueryOperatorInput>;
   pathPrefix?: InputMaybe<StringQueryOperatorInput>;
   jsxRuntime?: InputMaybe<StringQueryOperatorInput>;
@@ -5343,10 +5428,26 @@ export type ImageSharpSortInput = {
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: InputMaybe<StringQueryOperatorInput>;
   Notes?: InputMaybe<StringQueryOperatorInput>;
+  heroImage?: InputMaybe<MarkdownRemarkFrontmatterHeroImageFilterListInput>;
   Grouping?: InputMaybe<StringQueryOperatorInput>;
   Created?: InputMaybe<DateQueryOperatorInput>;
   Updated?: InputMaybe<DateQueryOperatorInput>;
   Tags?: InputMaybe<MarkdownRemarkFrontmatterTagsFilterListInput>;
+};
+
+export type MarkdownRemarkFrontmatterHeroImageFilterListInput = {
+  elemMatch?: InputMaybe<MarkdownRemarkFrontmatterHeroImageFilterInput>;
+};
+
+export type MarkdownRemarkFrontmatterHeroImageFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  file?: InputMaybe<MarkdownRemarkFrontmatterHeroImageFileFilterInput>;
+};
+
+export type MarkdownRemarkFrontmatterHeroImageFileFilterInput = {
+  url?: InputMaybe<StringQueryOperatorInput>;
+  expiry_time?: InputMaybe<DateQueryOperatorInput>;
 };
 
 export type MarkdownRemarkFrontmatterTagsFilterListInput = {
@@ -5424,6 +5525,11 @@ export type MarkdownRemarkFieldsEnum =
   | 'id'
   | 'frontmatter___title'
   | 'frontmatter___Notes'
+  | 'frontmatter___heroImage'
+  | 'frontmatter___heroImage___name'
+  | 'frontmatter___heroImage___type'
+  | 'frontmatter___heroImage___file___url'
+  | 'frontmatter___heroImage___file___expiry_time'
   | 'frontmatter___Grouping'
   | 'frontmatter___Created'
   | 'frontmatter___Updated'
@@ -5597,10 +5703,26 @@ export type MarkdownRemarkSortInput = {
 export type MdxFrontmatterFilterInput = {
   title?: InputMaybe<StringQueryOperatorInput>;
   Notes?: InputMaybe<StringQueryOperatorInput>;
+  heroImage?: InputMaybe<MdxFrontmatterHeroImageFilterListInput>;
   Grouping?: InputMaybe<StringQueryOperatorInput>;
   Created?: InputMaybe<DateQueryOperatorInput>;
   Updated?: InputMaybe<DateQueryOperatorInput>;
   Tags?: InputMaybe<MdxFrontmatterTagsFilterListInput>;
+};
+
+export type MdxFrontmatterHeroImageFilterListInput = {
+  elemMatch?: InputMaybe<MdxFrontmatterHeroImageFilterInput>;
+};
+
+export type MdxFrontmatterHeroImageFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  file?: InputMaybe<MdxFrontmatterHeroImageFileFilterInput>;
+};
+
+export type MdxFrontmatterHeroImageFileFilterInput = {
+  url?: InputMaybe<StringQueryOperatorInput>;
+  expiry_time?: InputMaybe<DateQueryOperatorInput>;
 };
 
 export type MdxFrontmatterTagsFilterListInput = {
@@ -5678,6 +5800,11 @@ export type MdxFieldsEnum =
   | 'fileAbsolutePath'
   | 'frontmatter___title'
   | 'frontmatter___Notes'
+  | 'frontmatter___heroImage'
+  | 'frontmatter___heroImage___name'
+  | 'frontmatter___heroImage___type'
+  | 'frontmatter___heroImage___file___url'
+  | 'frontmatter___heroImage___file___expiry_time'
   | 'frontmatter___Grouping'
   | 'frontmatter___Created'
   | 'frontmatter___Updated'
@@ -6779,6 +6906,7 @@ export type OrganizationsCsvSortInput = {
 
 export type NotionPropertiesFilterInput = {
   Notes?: InputMaybe<NotionPropertiesNotesFilterInput>;
+  heroImage?: InputMaybe<NotionPropertiesHeroImageFilterInput>;
   Grouping?: InputMaybe<NotionPropertiesGroupingFilterInput>;
   Created?: InputMaybe<NotionPropertiesCreatedFilterInput>;
   Updated?: InputMaybe<NotionPropertiesUpdatedFilterInput>;
@@ -6790,6 +6918,28 @@ export type NotionPropertiesNotesFilterInput = {
   key?: InputMaybe<StringQueryOperatorInput>;
   value?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type NotionPropertiesHeroImageFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  key?: InputMaybe<StringQueryOperatorInput>;
+  value?: InputMaybe<NotionPropertiesHeroImageValueFilterListInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type NotionPropertiesHeroImageValueFilterListInput = {
+  elemMatch?: InputMaybe<NotionPropertiesHeroImageValueFilterInput>;
+};
+
+export type NotionPropertiesHeroImageValueFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  file?: InputMaybe<NotionPropertiesHeroImageValueFileFilterInput>;
+};
+
+export type NotionPropertiesHeroImageValueFileFilterInput = {
+  url?: InputMaybe<StringQueryOperatorInput>;
+  expiry_time?: InputMaybe<DateQueryOperatorInput>;
 };
 
 export type NotionPropertiesGroupingFilterInput = {
@@ -6849,6 +6999,7 @@ export type NotionRawParentFilterInput = {
 
 export type NotionRawPropertiesFilterInput = {
   Notes?: InputMaybe<NotionRawPropertiesNotesFilterInput>;
+  heroImage?: InputMaybe<NotionRawPropertiesHeroImageFilterInput>;
   Grouping?: InputMaybe<NotionRawPropertiesGroupingFilterInput>;
   Name?: InputMaybe<NotionRawPropertiesNameFilterInput>;
   Created?: InputMaybe<NotionRawPropertiesCreatedFilterInput>;
@@ -6860,6 +7011,27 @@ export type NotionRawPropertiesNotesFilterInput = {
   id?: InputMaybe<StringQueryOperatorInput>;
   type?: InputMaybe<StringQueryOperatorInput>;
   rich_text?: InputMaybe<StringQueryOperatorInput>;
+};
+
+export type NotionRawPropertiesHeroImageFilterInput = {
+  id?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  files?: InputMaybe<NotionRawPropertiesHeroImageFilesFilterListInput>;
+};
+
+export type NotionRawPropertiesHeroImageFilesFilterListInput = {
+  elemMatch?: InputMaybe<NotionRawPropertiesHeroImageFilesFilterInput>;
+};
+
+export type NotionRawPropertiesHeroImageFilesFilterInput = {
+  name?: InputMaybe<StringQueryOperatorInput>;
+  type?: InputMaybe<StringQueryOperatorInput>;
+  file?: InputMaybe<NotionRawPropertiesHeroImageFilesFileFilterInput>;
+};
+
+export type NotionRawPropertiesHeroImageFilesFileFilterInput = {
+  url?: InputMaybe<StringQueryOperatorInput>;
+  expiry_time?: InputMaybe<DateQueryOperatorInput>;
 };
 
 export type NotionRawPropertiesGroupingFilterInput = {
@@ -7366,6 +7538,12 @@ export type NotionFieldsEnum =
   | 'properties___Notes___key'
   | 'properties___Notes___value'
   | 'properties___Notes___type'
+  | 'properties___heroImage___id'
+  | 'properties___heroImage___key'
+  | 'properties___heroImage___value'
+  | 'properties___heroImage___value___name'
+  | 'properties___heroImage___value___type'
+  | 'properties___heroImage___type'
   | 'properties___Grouping___id'
   | 'properties___Grouping___key'
   | 'properties___Grouping___value'
@@ -7399,6 +7577,9 @@ export type NotionFieldsEnum =
   | 'raw___properties___Notes___id'
   | 'raw___properties___Notes___type'
   | 'raw___properties___Notes___rich_text'
+  | 'raw___properties___heroImage___id'
+  | 'raw___properties___heroImage___type'
+  | 'raw___properties___heroImage___files'
   | 'raw___properties___Grouping___id'
   | 'raw___properties___Grouping___type'
   | 'raw___properties___Grouping___rich_text'
@@ -7444,6 +7625,9 @@ export type NotionFieldsEnum =
   | 'childrenMarkdownRemark___id'
   | 'childrenMarkdownRemark___frontmatter___title'
   | 'childrenMarkdownRemark___frontmatter___Notes'
+  | 'childrenMarkdownRemark___frontmatter___heroImage'
+  | 'childrenMarkdownRemark___frontmatter___heroImage___name'
+  | 'childrenMarkdownRemark___frontmatter___heroImage___type'
   | 'childrenMarkdownRemark___frontmatter___Grouping'
   | 'childrenMarkdownRemark___frontmatter___Created'
   | 'childrenMarkdownRemark___frontmatter___Updated'
@@ -7505,6 +7689,9 @@ export type NotionFieldsEnum =
   | 'childMarkdownRemark___id'
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___Notes'
+  | 'childMarkdownRemark___frontmatter___heroImage'
+  | 'childMarkdownRemark___frontmatter___heroImage___name'
+  | 'childMarkdownRemark___frontmatter___heroImage___type'
   | 'childMarkdownRemark___frontmatter___Grouping'
   | 'childMarkdownRemark___frontmatter___Created'
   | 'childMarkdownRemark___frontmatter___Updated'
@@ -7568,6 +7755,9 @@ export type NotionFieldsEnum =
   | 'childrenMdx___fileAbsolutePath'
   | 'childrenMdx___frontmatter___title'
   | 'childrenMdx___frontmatter___Notes'
+  | 'childrenMdx___frontmatter___heroImage'
+  | 'childrenMdx___frontmatter___heroImage___name'
+  | 'childrenMdx___frontmatter___heroImage___type'
   | 'childrenMdx___frontmatter___Grouping'
   | 'childrenMdx___frontmatter___Created'
   | 'childrenMdx___frontmatter___Updated'
@@ -7630,6 +7820,9 @@ export type NotionFieldsEnum =
   | 'childMdx___fileAbsolutePath'
   | 'childMdx___frontmatter___title'
   | 'childMdx___frontmatter___Notes'
+  | 'childMdx___frontmatter___heroImage'
+  | 'childMdx___frontmatter___heroImage___name'
+  | 'childMdx___frontmatter___heroImage___type'
   | 'childMdx___frontmatter___Grouping'
   | 'childMdx___frontmatter___Created'
   | 'childMdx___frontmatter___Updated'

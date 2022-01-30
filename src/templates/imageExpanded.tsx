@@ -23,22 +23,33 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
   let nextPath
   if (data.next) {
     nextPath = preAppendPath.slice()
-    nextPath.push(data.next.fixed.originalName.split('.jpg')[0].split(' ').join('-'))
+    nextPath.push(
+      data.next.fixed.originalName.split(".jpg")[0].split(" ").join("-")
+    )
     nextPath = "/" + nextPath.join("/")
   }
 
   let prevPath
   if (data.previous) {
     prevPath = preAppendPath.slice()
-    prevPath.push(data.previous.fixed.originalName.split('.jpg')[0].split(' ').join('-'))
+    prevPath.push(
+      data.previous.fixed.originalName.split(".jpg")[0].split(" ").join("-")
+    )
     prevPath = "/" + prevPath.join("/")
   }
+  console.log(data.previous)
+  console.log(prevPath)
 
-  let exifData;
-  exifData = data.current.parent.fields.exif ? data.current.parent.fields.exif.exif as FileFieldsExifExif : undefined
+  let exifData
+  exifData = data.current.parent.fields.exif
+    ? (data.current.parent.fields.exif.exif as FileFieldsExifExif)
+    : undefined
   return (
     <div className="imagePage-container">
-      <SEO title={data.current.fluid.originalName} image={data.current.metaImage.src}/>
+      <SEO
+        title={data.current.fluid.originalName}
+        image={data.current.metaImage.src}
+      />
       <div className="imagePage-gallery-section">
         <Img
           fluid={data.current.fluid}
@@ -85,9 +96,7 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
       <div className="imagePage-imageInfo-Wrapper">
         {exifData && <ExifDisplay {...exifData} />}
         <AniLink to={`/photography/${data.current.fields.gallery}`}>
-          <p className='imagePage-imageInfo-back'>
-            ⬅️ Back to Gallery
-          </p>
+          <p className="imagePage-imageInfo-back">⬅️ Back to Gallery</p>
         </AniLink>
       </div>
       <MobileNav type={"photo"} alt />

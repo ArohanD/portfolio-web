@@ -15,16 +15,20 @@ interface NotionProps {
 }
 
 const NotionPage: React.FC<NotionProps> = ({ pageContext }) => {
+  const { frontmatter, html, excerpt } = pageContext.content
+  const { title, heroImage } = frontmatter
   return (
-    <SideBarLayout
-      currentPath={convertToSlug(pageContext.content.frontmatter.title)}
-    >
+    <SideBarLayout currentPath={convertToSlug(title)}>
       <article className="markdown-page-wrapper">
-        <SEO title={pageContext.content.frontmatter.title} />
-        <h1>{pageContext.content.frontmatter.title}</h1>
+        <SEO
+          title={title}
+          description={excerpt}
+          externalImage={heroImage.length ? heroImage[0].file.url : undefined}
+        />
+        <h1>{title}</h1>
         <div
           className={"markdown-wrapper"}
-          dangerouslySetInnerHTML={{ __html: pageContext.content.html }}
+          dangerouslySetInnerHTML={{ __html: html }}
         ></div>
         {/* <article className="markdown-images">
         {/* {images.map(node => (

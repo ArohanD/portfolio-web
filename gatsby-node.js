@@ -138,12 +138,12 @@ exports.createPages = ({ actions, graphql }) => {
             slug: pathNoExtension,
             imageQuery: node.id,
             nextNode:
-              imageNodes[index + 1] &&
+              index + 1 < imageNodes.length &&
               imageNodes[index + 1].fields.gallery === node.fields.gallery
                 ? imageNodes[index + 1].id
                 : undefined,
             prevNode:
-              imageNodes[index - 1] &&
+              index - 1 >= 0 &&
               imageNodes[index - 1].fields.gallery === node.fields.gallery
                 ? imageNodes[index - 1].id
                 : undefined,
@@ -167,10 +167,16 @@ exports.createPages = ({ actions, graphql }) => {
                 name
               }
               Grouping
+              heroImage {
+                file {
+                  url
+                }
+              }
             }
             wordCount {
               words
             }
+            excerpt
           }
           updatedAt
           createdAt
