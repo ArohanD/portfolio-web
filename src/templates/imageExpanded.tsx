@@ -37,8 +37,21 @@ const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
     )
     prevPath = "/" + prevPath.join("/")
   }
-  console.log(data.previous)
-  console.log(prevPath)
+
+  // short circuits between swapping to flickr
+  if (
+    data.previous != null &&
+    (data.previous?.fixed.originalName === "profile.jpg" ||
+      data.previous?.fixed.originalName === "favicon-512x512.png")
+  )
+    data.previous = null
+
+  if (
+    data.next != null &&
+    (data.next?.fixed.originalName === "profile.jpg" ||
+      data.next?.fixed.originalName === "favicon-512x512.png")
+  )
+    data.next = null
 
   let exifData
   exifData = data.current.parent.fields.exif

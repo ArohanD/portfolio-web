@@ -1316,7 +1316,7 @@ export type NotionRawChildren = {
   bulleted_list_item?: Maybe<NotionRawChildrenBulleted_List_Item>;
   children?: Maybe<Array<Maybe<NotionRawChildrenChildren>>>;
   numbered_list_item?: Maybe<NotionRawChildrenNumbered_List_Item>;
-  callout?: Maybe<NotionRawChildrenCallout>;
+  quote?: Maybe<NotionRawChildrenQuote>;
   image?: Maybe<NotionRawChildrenImage>;
   heading_1?: Maybe<NotionRawChildrenHeading_1>;
   heading_3?: Maybe<NotionRawChildrenHeading_3>;
@@ -1497,34 +1497,28 @@ export type NotionRawChildrenNumbered_List_ItemTextAnnotations = {
   color?: Maybe<Scalars['String']>;
 };
 
-export type NotionRawChildrenCallout = {
-  text?: Maybe<Array<Maybe<NotionRawChildrenCalloutText>>>;
-  icon?: Maybe<NotionRawChildrenCalloutIcon>;
+export type NotionRawChildrenQuote = {
+  text?: Maybe<Array<Maybe<NotionRawChildrenQuoteText>>>;
 };
 
-export type NotionRawChildrenCalloutText = {
+export type NotionRawChildrenQuoteText = {
   type?: Maybe<Scalars['String']>;
-  text?: Maybe<NotionRawChildrenCalloutTextText>;
-  annotations?: Maybe<NotionRawChildrenCalloutTextAnnotations>;
+  text?: Maybe<NotionRawChildrenQuoteTextText>;
+  annotations?: Maybe<NotionRawChildrenQuoteTextAnnotations>;
   plain_text?: Maybe<Scalars['String']>;
 };
 
-export type NotionRawChildrenCalloutTextText = {
+export type NotionRawChildrenQuoteTextText = {
   content?: Maybe<Scalars['String']>;
 };
 
-export type NotionRawChildrenCalloutTextAnnotations = {
+export type NotionRawChildrenQuoteTextAnnotations = {
   bold?: Maybe<Scalars['Boolean']>;
   italic?: Maybe<Scalars['Boolean']>;
   strikethrough?: Maybe<Scalars['Boolean']>;
   underline?: Maybe<Scalars['Boolean']>;
   code?: Maybe<Scalars['Boolean']>;
   color?: Maybe<Scalars['String']>;
-};
-
-export type NotionRawChildrenCalloutIcon = {
-  type?: Maybe<Scalars['String']>;
-  emoji?: Maybe<Scalars['String']>;
 };
 
 export type NotionRawChildrenImage = {
@@ -7115,7 +7109,7 @@ export type NotionRawChildrenFilterInput = {
   bulleted_list_item?: InputMaybe<NotionRawChildrenBulleted_List_ItemFilterInput>;
   children?: InputMaybe<NotionRawChildrenChildrenFilterListInput>;
   numbered_list_item?: InputMaybe<NotionRawChildrenNumbered_List_ItemFilterInput>;
-  callout?: InputMaybe<NotionRawChildrenCalloutFilterInput>;
+  quote?: InputMaybe<NotionRawChildrenQuoteFilterInput>;
   image?: InputMaybe<NotionRawChildrenImageFilterInput>;
   heading_1?: InputMaybe<NotionRawChildrenHeading_1FilterInput>;
   heading_3?: InputMaybe<NotionRawChildrenHeading_3FilterInput>;
@@ -7288,38 +7282,32 @@ export type NotionRawChildrenNumbered_List_ItemTextAnnotationsFilterInput = {
   color?: InputMaybe<StringQueryOperatorInput>;
 };
 
-export type NotionRawChildrenCalloutFilterInput = {
-  text?: InputMaybe<NotionRawChildrenCalloutTextFilterListInput>;
-  icon?: InputMaybe<NotionRawChildrenCalloutIconFilterInput>;
+export type NotionRawChildrenQuoteFilterInput = {
+  text?: InputMaybe<NotionRawChildrenQuoteTextFilterListInput>;
 };
 
-export type NotionRawChildrenCalloutTextFilterListInput = {
-  elemMatch?: InputMaybe<NotionRawChildrenCalloutTextFilterInput>;
+export type NotionRawChildrenQuoteTextFilterListInput = {
+  elemMatch?: InputMaybe<NotionRawChildrenQuoteTextFilterInput>;
 };
 
-export type NotionRawChildrenCalloutTextFilterInput = {
+export type NotionRawChildrenQuoteTextFilterInput = {
   type?: InputMaybe<StringQueryOperatorInput>;
-  text?: InputMaybe<NotionRawChildrenCalloutTextTextFilterInput>;
-  annotations?: InputMaybe<NotionRawChildrenCalloutTextAnnotationsFilterInput>;
+  text?: InputMaybe<NotionRawChildrenQuoteTextTextFilterInput>;
+  annotations?: InputMaybe<NotionRawChildrenQuoteTextAnnotationsFilterInput>;
   plain_text?: InputMaybe<StringQueryOperatorInput>;
 };
 
-export type NotionRawChildrenCalloutTextTextFilterInput = {
+export type NotionRawChildrenQuoteTextTextFilterInput = {
   content?: InputMaybe<StringQueryOperatorInput>;
 };
 
-export type NotionRawChildrenCalloutTextAnnotationsFilterInput = {
+export type NotionRawChildrenQuoteTextAnnotationsFilterInput = {
   bold?: InputMaybe<BooleanQueryOperatorInput>;
   italic?: InputMaybe<BooleanQueryOperatorInput>;
   strikethrough?: InputMaybe<BooleanQueryOperatorInput>;
   underline?: InputMaybe<BooleanQueryOperatorInput>;
   code?: InputMaybe<BooleanQueryOperatorInput>;
   color?: InputMaybe<StringQueryOperatorInput>;
-};
-
-export type NotionRawChildrenCalloutIconFilterInput = {
-  type?: InputMaybe<StringQueryOperatorInput>;
-  emoji?: InputMaybe<StringQueryOperatorInput>;
 };
 
 export type NotionRawChildrenImageFilterInput = {
@@ -7616,7 +7604,7 @@ export type NotionFieldsEnum =
   | 'raw___children___children___archived'
   | 'raw___children___children___type'
   | 'raw___children___numbered_list_item___text'
-  | 'raw___children___callout___text'
+  | 'raw___children___quote___text'
   | 'raw___children___image___type'
   | 'raw___children___heading_1___text'
   | 'raw___children___heading_3___text'

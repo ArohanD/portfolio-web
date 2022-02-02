@@ -1,4 +1,5 @@
 @use "../../pages/global-styles.scss" as *;
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,700;1,100&display=swap");
 
 .markdown-page-wrapper {
   display: flex;
@@ -14,6 +15,27 @@
   max-width: 800px;
   display: flex;
   flex-direction: column;
+
+  p,
+  li {
+    font-family: "Roboto", sans-serif;
+    font-weight: 300;
+  }
+
+  blockquote {
+    margin: 0;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: $color-blockquote;
+
+    p {
+      margin: 0;
+    }
+  }
+
+  strong {
+    font-weight: 700;
+  }
 
   @media (min-width: $break-HiDPI) {
     max-width: 60%;
