@@ -9,7 +9,7 @@
     "@mdx-js/react": "^1.6.13",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
-    "express": "^4.17.2",
+    "express": "^4.17.3",
     "gatsby": "^4.5.3",
     "gatsby-cli": "^4.5.2",
     "gatsby-image": "^3.11.0",
