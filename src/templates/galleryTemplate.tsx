@@ -1,11 +1,8 @@
 import React, { useEffect, useState, createRef } from "react"
-import { graphql, Link } from "gatsby"
-import SEO from "../components/seo"
 import MobileNav from "../components/mobileNav"
-import Img from "gatsby-image"
+const Img: React.FC<any> = () => null
 import { Query, SitePageContext, File } from "../generated/graphql-types"
 import { sanitizeTitle, copy } from "../../utils"
-import GallerySideBar from "../components/sideBar"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
 import "./styles/galleryTemplate.scss"
@@ -19,7 +16,7 @@ interface GalleryPageProps {
 
 const GalleryPage: React.FC<GalleryPageProps> = ({ pageContext, data }) => {
   // Display mobile nav on scroll
-  const scrollRef = createRef()
+  const scrollRef = createRef<HTMLDivElement>()
   const [scrollPos, setScrollPos] = useState(0)
   const [prevScrollPos, setPrevScrollPos] = useState(0)
 
@@ -159,27 +156,24 @@ const returnShortestCol = (columns: Array<columnWithTracking>) => {
 
 export default GalleryPage
 
-export const galleryPageQuery = graphql`
-  query galleryData($queryRegex: String) {
-    allFile(filter: { fields: { slug: { regex: $queryRegex } } }) {
-      nodes {
-        fields {
-          slug
-        }
-        childImageSharp {
-          id
-          fields {
-            order
-          }
-          fluid(maxWidth: 800, quality: 75) {
-            ...GatsbyImageSharpFluid
-          }
-          fixed(width: 700) {
-            src
-          }
-        }
-        relativePath
-      }
-    }
-  }
-`
+// Page query commented out — gallery pages are not created when there are no
+// local images, so Gatsby flags an exported query on a template that no page
+// references. Re-introduce when images are present (Phase 3 rewrites this).
+// export const galleryPageQuery = graphql`
+//   query galleryData($queryRegex: String) {
+//     allFile(filter: { fields: { slug: { regex: $queryRegex } } }) {
+//       nodes {
+//         fields {
+//           slug
+//         }
+//         childImageSharp {
+//           id
+//           fields {
+//             order
+//           }
+//         }
+//         relativePath
+//       }
+//     }
+//   }
+// `

@@ -8,8 +8,9 @@ import {
 } from "../../generated/graphql-types"
 import { useStaticQuery, graphql } from "gatsby"
 import { copy } from "../../../utils"
-import Img from "gatsby-image"
+const Img: React.FC<any> = () => null
 import "./gallery_organizer.scss"
+import SEO from "../../components/seo"
 import { breakoutCategories, orderImages } from "../../../galleryUtils"
 
 type adjustImageOrderProps = (
@@ -39,7 +40,7 @@ const GalleryOrganizer: React.FC = () => {
       .then(data => setImageOrder(data))
       .then(() => {
         const categorizedImages = breakoutCategories(
-          photoOrderToolQuery.allImageSharp.nodes
+          photoOrderToolQuery.allImageSharp.nodes as any
         )
         const orderedImages = orderImages(categorizedImages)
         setImageOrder(orderedImages)
@@ -48,16 +49,13 @@ const GalleryOrganizer: React.FC = () => {
 
   const photoOrderToolQuery = useStaticQuery(graphql`
     query photoOrderToolQuery {
-      allImageSharp(sort: { fields: fields___order }) {
+      allImageSharp(sort: { fields: { order: ASC } }) {
         nodes {
           fields {
             gallery
             order
           }
           id
-          fixed(height: 150) {
-            ...GatsbyImageSharpFixed
-          }
         }
       }
     }
@@ -68,7 +66,7 @@ const GalleryOrganizer: React.FC = () => {
   const saveOrder = () => {
     const strippedData = {}
     Object.keys(imageOrder).forEach(category => {
-      const row = imageOrder[category] as Array<ImageSharpFixed>
+      const row = imageOrder[category] as Array<any>
       const newRow = row.map(imageNode => {
         const { fields, id } = imageNode
         return {
@@ -175,3 +173,5 @@ const ImageOrgCard: React.FC<ImageOrgCardProps> = ({
 }
 
 export default GalleryOrganizer
+
+export const Head = () => <SEO title="Gallery Organizer" />

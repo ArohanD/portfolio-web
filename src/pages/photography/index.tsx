@@ -5,11 +5,12 @@ import {
   thumbNailProps,
 } from "../../components/thumbNailGallery"
 import { graphql, useStaticQuery, Link } from "gatsby"
-import { Query, ImageSharp, Node } from "../../generated/graphql-types"
+import { Query } from "../../generated/graphql-types"
 import "./photography.scss"
 import { sanitizeTitle } from "../../../utils"
-import Img from "gatsby-image"
+const Img: React.FC<any> = () => null
 import SideBarLayout from "../../components/pageLayout"
+import SEO from "../../components/seo"
 import MobileNav from "../../components/mobileNav"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 
@@ -23,15 +24,13 @@ const PhotoSplash: React.FC = () => {
       }
       allImageSharp {
         nodes {
+          id
           parent {
             ... on File {
               id
               name
               relativePath
             }
-          }
-          fixed(height: 350, width: 350) {
-            ...GatsbyImageSharpFixed
           }
           fields {
             gallery
@@ -87,7 +86,7 @@ const PhotoThumbNail: React.FC<thumbNailProps> = ({ img, title, url }) => {
 
 const matchImageNodeToPhoto = (
   relativePath: string,
-  imageNodes: Array<Node>
+  imageNodes: Array<any>
 ) => {
   let returnImage
   imageNodes.forEach(image => {
@@ -107,3 +106,5 @@ const matchImageNodeToPhoto = (
 }
 
 export default PhotoSplash
+
+export const Head = () => <SEO title="Photography" />

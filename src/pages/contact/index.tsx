@@ -4,6 +4,7 @@ import MobileNav from "../../components/mobileNav/"
 import { PageProps } from "gatsby"
 import { navigate } from 'gatsby-link'
 import SideBarLayout from "../../components/pageLayout"
+import SEO from "../../components/seo"
 
 function encode(data) {
   return Object.keys(data)
@@ -79,3 +80,5 @@ const Contact: React.FC<any> = (props: PageProps) => {
 }
 
 export default Contact
+
+export const Head = () => <SEO title="Contact" />

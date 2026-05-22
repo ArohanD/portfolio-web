@@ -1,5 +1,6 @@
 import React from "react"
 import { navigate } from "gatsby"
+import SEO from "../../components/seo"
 
 const SuccessSubmit: React.FC = () => {
   setTimeout(() => {
@@ -14,3 +15,5 @@ const SuccessSubmit: React.FC = () => {
 }
 
 export default SuccessSubmit
+
+export const Head = () => <SEO title="Message Sent" />

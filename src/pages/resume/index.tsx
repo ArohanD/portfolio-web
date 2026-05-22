@@ -5,6 +5,7 @@ import { Query } from "../../generated/graphql-types"
 import MobileNav from "../../components/mobileNav/"
 import { PageProps } from "gatsby"
 import SideBarLayout from "../../components/pageLayout"
+import SEO from "../../components/seo"
 
 const Resume: React.FC<any> = (props:PageProps) => {
   const resumeQuery = useStaticQuery(graphql`
@@ -65,3 +66,5 @@ const Resume: React.FC<any> = (props:PageProps) => {
 }
 
 export default Resume
+
+export const Head = () => <SEO title="Resume" />

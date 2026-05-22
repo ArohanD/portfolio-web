@@ -1,123 +1,61 @@
 /**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
+ * SEO component for Gatsby 5's Head API.
+ * Returns a fragment of <title>/<meta> tags directly — no react-helmet.
  *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
+ * Usage: each page module exports
+ *   export const Head = () => <SEO title="..." />
  */
 
 import React from "react"
-import PropTypes from "prop-types"
-import { Helmet } from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title, image, externalImage }) {
-  const { site, homeImages } = useStaticQuery(
-    graphql`
-      query {
-        site {
-          siteMetadata {
-            title
-            description
-            author
-            url
-          }
-        }
-        homeImages: allFile(
-          filter: { relativeDirectory: { eq: "home" }, name: { eq: "photo" } }
-        ) {
-          nodes {
-            childImageSharp {
-              fixed(width: 700) {
-                src
-              }
-            }
-            name
-          }
+const SEO = ({
+  title,
+  description = undefined,
+  lang = "en",
+  image = undefined,
+  externalImage = undefined,
+  meta = [],
+}) => {
+  const { site } = useStaticQuery(graphql`
+    query {
+      site {
+        siteMetadata {
+          title
+          description
+          author
+          url
         }
       }
-    `
-  )
-
-  const metaDescription = description || site.siteMetadata.description
-  const imageURL =
-    externalImage ||
-    (image && site.siteMetadata.url + image) ||
-    site.siteMetadata.url + homeImages.nodes[0].childImageSharp.fixed.src
-
-  let metaArray = [
-    {
-      name: `description`,
-      content: metaDescription,
-    },
-    {
-      property: `og:title`,
-      content: title,
-    },
-    {
-      property: `og:description`,
-      content: metaDescription,
-    },
-    {
-      property: `og:type`,
-      content: `website`,
-    },
-    {
-      property: `twitter:card`,
-      content: `summary`,
-    },
-    {
-      property: `twitter:creator`,
-      content: site.siteMetadata.author,
-    },
-    {
-      property: `twitter:title`,
-      content: title,
-    },
-    {
-      property: `twitter:description`,
-      content: metaDescription,
-    },
-  ]
-
-  metaArray.push(
-    {
-      property: `og:image`,
-      content: imageURL,
-    },
-    {
-      property: `twitter:image`,
-      content: imageURL,
     }
-  )
+  `)
 
-  metaArray = metaArray.concat(meta)
+  const siteMeta = site.siteMetadata
+  const metaDescription = description || siteMeta.description
+  const fullTitle = title ? `${title} | ${siteMeta.title}` : siteMeta.title
+
+  const imageURL =
+    externalImage || (image ? siteMeta.url + image : undefined)
 
   return (
-    <Helmet
-      htmlAttributes={{
-        lang,
-      }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
-      meta={metaArray}
-    />
+    <>
+      <html lang={lang} />
+      <title>{fullTitle}</title>
+      <meta name="description" content={metaDescription} />
+      <meta property="og:title" content={title || siteMeta.title} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:type" content="website" />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:creator" content={siteMeta.author} />
+      <meta name="twitter:title" content={title || siteMeta.title} />
+      <meta name="twitter:description" content={metaDescription} />
+      {imageURL && <meta property="og:image" content={imageURL} />}
+      {imageURL && <meta name="twitter:image" content={imageURL} />}
+      {meta.map((m, i) => (
+        <meta key={i} {...m} />
+      ))}
+    </>
   )
-}
-
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description: ``,
-  image: ``,
-}
-
-SEO.propTypes = {
-  description: PropTypes.string,
-  lang: PropTypes.string,
-  meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
-  image: PropTypes.string,
-  externalImage: PropTypes.string,
 }
 
 export default SEO

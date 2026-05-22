@@ -1,5 +1,13 @@
-const breakoutCategories = (imageNodes: Array<Node>) => {
-  const imageDictionary = {}
+interface GalleryImageNode {
+  id: string
+  fields: {
+    gallery?: string
+    order: number
+  }
+}
+
+const breakoutCategories = (imageNodes: Array<GalleryImageNode>) => {
+  const imageDictionary: Record<string, Array<GalleryImageNode>> = {}
   imageNodes.forEach(imageNode => {
     const category = imageNode.fields.gallery
     if (category) {
@@ -10,8 +18,10 @@ const breakoutCategories = (imageNodes: Array<Node>) => {
   return imageDictionary
 }
 
-const orderImages = categorizedImages => {
-  const newState = {}
+const orderImages = (
+  categorizedImages: Record<string, Array<GalleryImageNode>>
+) => {
+  const newState: Record<string, Array<GalleryImageNode>> = {}
   const categories = Object.keys(categorizedImages)
   categories.forEach(category => {
     if (!newState[category]) {
@@ -19,13 +29,13 @@ const orderImages = categorizedImages => {
     }
     const IDMap = categorizedImages[category].map(imageNode => imageNode.id)
     const organizedCategory = categorizedImages[category].sort(
-      (imageA: Node, imageB: Node) => {
+      (imageA, imageB) => {
         if (!IDMap.includes(imageA.id)) {
           return -1
         } else if (!IDMap.includes(imageB.id)) {
           return 1
         } else {
-          imageA.fields.order - imageB.fields.order
+          return imageA.fields.order - imageB.fields.order
         }
       }
     )

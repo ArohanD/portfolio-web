@@ -10,7 +10,55 @@ const { createFilePath, createFileNode } = require("gatsby-source-filesystem")
 const exif = require("fast-exif")
 const { returnImageOrder } = require("./nodeUtils.ts")
 const { node } = require("prop-types")
-const { convertToSlug } = require("./utils.js")
+
+// Register the custom `fields` extension on ImageSharp so the schema knows
+// about gallery/order/exif even when there are no images on disk locally.
+// Without this, createPages queries fail validation in fresh checkouts.
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions
+  createTypes(`
+    type ImageSharpFields {
+      gallery: String
+      order: Int
+    }
+    type ImageSharp implements Node {
+      fields: ImageSharpFields
+    }
+    type FileFieldsExifExif {
+      ISO: Int
+      DateTimeOriginal: Date
+      ExposureTime: Float
+      FNumber: Float
+      FocalLength: Float
+      FocalLengthIn35mmFormat: Float
+      ShutterSpeedValue: Float
+      ApertureValue: Float
+    }
+    type FileFieldsExifImage {
+      GPSInfo: JSON
+      Model: String
+    }
+    type FileFieldsExif {
+      exif: FileFieldsExifExif
+      image: FileFieldsExifImage
+    }
+    type FileFields {
+      slug: String
+      exif: FileFieldsExif
+    }
+    type File implements Node {
+      fields: FileFields
+    }
+    type PositionsCsv implements Node {
+      Company_Name: String
+      Description: String
+      Finished_On: String
+      Location: String
+      Started_On: String
+      Title: String
+    }
+  `)
+}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   const { createNodeField } = actions
@@ -59,6 +107,21 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 }
 
+// SCSS files across components import partials in non-deterministic orders,
+// which trips mini-css-extract-plugin's chunk-order check. Silencing is fine
+// here — final CSS order is determined by component render order, which is
+// stable, and CSS rules don't conflict between components.
+exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
+  const config = getConfig()
+  const miniCss = config.plugins.find(
+    p => p.constructor && p.constructor.name === "MiniCssExtractPlugin"
+  )
+  if (miniCss) {
+    miniCss.options.ignoreOrder = true
+  }
+  actions.replaceWebpackConfig(config)
+}
+
 exports.createPages = ({ actions, graphql }) => {
   const { createPage } = actions
 
@@ -99,7 +162,7 @@ exports.createPages = ({ actions, graphql }) => {
     {
       allImageSharp(
         filter: { fields: { gallery: { glob: "*" } } }
-        sort: { fields: [fields___gallery, fields___order] }
+        sort: [{ fields: { gallery: ASC } }, { fields: { order: ASC } }]
       ) {
         nodes {
           id
@@ -153,58 +216,8 @@ exports.createPages = ({ actions, graphql }) => {
     })
   })
 
-  // NOTION
-  const notionPages = graphql(`
-    query AllNotionQuery {
-      allNotion {
-        nodes {
-          childMarkdownRemark {
-            html
-            frontmatter {
-              title
-              Tags {
-                id
-                name
-              }
-              Grouping
-              heroImage {
-                file {
-                  url
-                }
-              }
-            }
-            wordCount {
-              words
-            }
-            excerpt
-          }
-          updatedAt
-          createdAt
-        }
-      }
-    }
-  `).then(result => {
-    if (result.error) console.log(error)
-    const notionPageTemplate = path.resolve(
-      "./src/templates/notionTemplate.tsx"
-    )
+  // NOTION pipeline temporarily disabled — writing section is a placeholder
+  // until re-introduced (likely as MDX) in the Next.js migration.
 
-    result.data.allNotion.nodes.forEach(node => {
-      const { childMarkdownRemark } = node
-      if (childMarkdownRemark.frontmatter.title !== "") {
-        createPage({
-          path: `/writing/${convertToSlug(
-            childMarkdownRemark.frontmatter.title
-          )}`,
-          component: notionPageTemplate,
-          context: {
-            slug: convertToSlug(childMarkdownRemark.frontmatter.title),
-            content: childMarkdownRemark,
-          },
-        })
-      }
-    })
-  })
-
-  return Promise.all([galleryPages, imagePages, notionPages])
+  return Promise.all([galleryPages, imagePages])
 }

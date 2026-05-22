@@ -1,11 +1,9 @@
 import React from "react"
 import {
   SitePageContext,
-  Query,
   FileFieldsExifExif,
 } from "../generated/graphql-types"
-import Img from "gatsby-image"
-import { graphql, Link } from "gatsby"
+const Img: React.FC<any> = () => null
 import "./styles/imageExpanded.scss"
 import AniLink from "gatsby-plugin-transition-link/AniLink"
 import MobileNav from "../components/mobileNav"
@@ -13,7 +11,7 @@ import SEO from "../components/seo"
 
 interface ImageProps {
   pageContext: SitePageContext
-  data: Query
+  data: any
 }
 
 const ImageExpanded: React.FC<ImageProps> = ({ pageContext, data }) => {
@@ -132,73 +130,50 @@ const ExifDisplay: React.FC<FileFieldsExifExif> = ({
 
 export default ImageExpanded
 
-export const imageQuery = graphql`
-  query ImagePageQuery(
-    $imageQuery: String
-    $nextNode: String
-    $prevNode: String
-  ) {
-    current: imageSharp(id: { eq: $imageQuery }) {
-      id
-      fields {
-        gallery
-      }
-      fluid(maxWidth: 800, quality: 80) {
-        originalName
-        ...GatsbyImageSharpFluid
-      }
-      fixed(width: 100, height: 100) {
-        ...GatsbyImageSharpFixed
-      }
-      metaImage: fixed(width: 700) {
-        src
-      }
-      parent {
-        ... on File {
-          id
-          name
-          fields {
-            exif {
-              exif {
-                ISO
-                DateTimeOriginal
-                ExposureTime
-                FNumber
-                FocalLength
-                FocalLengthIn35mmFormat
-                ShutterSpeedValue
-                ApertureValue
-              }
-              image {
-                GPSInfo
-                Model
-              }
-            }
-          }
-        }
-      }
-    }
-    next: imageSharp(id: { eq: $nextNode }) {
-      id
-      fluid(maxHeight: 150) {
-        originalName
-        ...GatsbyImageSharpFluid
-      }
-      fixed(width: 100, height: 100) {
-        originalName
-        ...GatsbyImageSharpFixed
-      }
-    }
-    previous: imageSharp(id: { eq: $prevNode }) {
-      id
-      fluid(maxHeight: 150) {
-        originalName
-        ...GatsbyImageSharpFluid
-      }
-      fixed(width: 100, height: 100) {
-        originalName
-        ...GatsbyImageSharpFixed
-      }
-    }
-  }
-`
+// Page query commented out — image-detail pages are not created when there
+// are no local images, so Gatsby flags an exported query on a template that
+// no page references. Re-introduce when images are present (Phase 3 rewrites this).
+// export const imageQuery = graphql`
+//   query ImagePageQuery(
+//     $imageQuery: String
+//     $nextNode: String
+//     $prevNode: String
+//   ) {
+//     current: imageSharp(id: { eq: $imageQuery }) {
+//       id
+//       fields {
+//         gallery
+//       }
+//       parent {
+//         ... on File {
+//           id
+//           name
+//           fields {
+//             exif {
+//               exif {
+//                 ISO
+//                 DateTimeOriginal
+//                 ExposureTime
+//                 FNumber
+//                 FocalLength
+//                 FocalLengthIn35mmFormat
+//                 ShutterSpeedValue
+//                 ApertureValue
+//               }
+//               image {
+//                 GPSInfo
+//                 Model
+//               }
+//             }
+//           }
+//         }
+//       }
+//     }
+//     next: imageSharp(id: { eq: $nextNode }) {
+//       id
+//     }
+//     previous: imageSharp(id: { eq: $prevNode }) {
+//       id
+//     }
+//   }
+// `

@@ -14,7 +14,7 @@ interface SideBarProps {
 const SideBar: React.FC<SideBarProps> = ({ pageString, currentPath }) => {
   const pageQuery = graphql`
     query pagesQuery {
-      allSitePage(sort: { fields: path }) {
+      allSitePage(sort: { path: ASC }) {
         nodes {
           path
         }

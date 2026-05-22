@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react"
 import { Link, useStaticQuery, graphql } from "gatsby"
-import Img from "gatsby-image"
 import "./home-styles.scss"
+
+// gatsby-image stub: removed in Gatsby 5, will be replaced by next/image
+// during the Next.js migration. Rendering nothing is acceptable in the interim.
+const Img: React.FC<any> = () => null
 import SEO from "../components/seo"
 import {
   HomeLink,
@@ -26,14 +29,7 @@ const IndexPage: React.FC = () => {
     query homeData {
       homeImages: allFile(filter: { relativeDirectory: { eq: "home" } }) {
         nodes {
-          childImageSharp {
-            fluid(quality: 50) {
-              ...GatsbyImageSharpFluid
-            }
-            fixed(width: 330) {
-              ...GatsbyImageSharpFixed
-            }
-          }
+          id
           name
         }
       }
@@ -53,7 +49,6 @@ const IndexPage: React.FC = () => {
 
   return (
     <div className={"home-container"}>
-      <SEO title="Home" />
       <nav className={homeNavClasses}>
         {homeLinks.map((linkObj: HomeLink) => (
           <AniLink
@@ -139,3 +134,5 @@ const addSrcLinks = (linkArray: Array<HomeLink>, imageArray: Array<any>) => {
 }
 
 export default IndexPage
+
+export const Head = () => <SEO title="Home" />

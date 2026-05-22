@@ -6,12 +6,21 @@ module.exports = {
     url: "https://hungry-wiles-7c6cde.netlify.app",
   },
   plugins: [
-    `gatsby-plugin-react-helmet`,
+    // gatsby-plugin-react-helmet removed — using Gatsby 5's built-in Head API
+    // via <SEO> components exported as `Head` from each page module.
     {
       resolve: `gatsby-source-filesystem`,
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      // gatsby-plugin-mdx@5 requires .mdx files to be sourced via filesystem.
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `mdx-pages`,
+        path: `${__dirname}/src/pages`,
       },
     },
     `gatsby-transformer-sharp`,
@@ -21,18 +30,22 @@ module.exports = {
         defaultQuality: 100,
       },
     },
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/favicon-512x512.png`, // This path is relative to the root of the site.
-      },
-    },
+    // gatsby-plugin-manifest disabled — requires a local icon asset
+    // (src/images/favicon-512x512.png) which isn't present on this checkout.
+    // Re-enable once assets are sourced, or replace via Next.js `app/manifest.ts`
+    // during the migration.
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `gatsby-starter-default`,
+    //     short_name: `starter`,
+    //     start_url: `/`,
+    //     background_color: `#663399`,
+    //     theme_color: `#663399`,
+    //     display: `minimal-ui`,
+    //     icon: `src/images/favicon-512x512.png`,
+    //   },
+    // },
     {
       resolve: `gatsby-plugin-sass`,
       options: {
@@ -40,7 +53,6 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-graphql-codegen`,
     {
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -67,15 +79,17 @@ module.exports = {
       },
     },
     `gatsby-plugin-transition-link`,
-    {
-      resolve: `gatsby-source-notion-api`,
-      options: {
-        token: `${process.env.GATSBY_NOTION_TOKEN}`,
-        databaseId: `${process.env.GATSBY_NOTION_DATABASE}`,
-        propsToFrontmatter: true,
-        lowerTitleLevel: true,
-      },
-    },
+    // Notion source temporarily disabled — writing section is a placeholder
+    // until we re-introduce content (likely via MDX) in the Next.js migration.
+    // {
+    //   resolve: `gatsby-source-notion-api`,
+    //   options: {
+    //     token: `${process.env.GATSBY_NOTION_TOKEN}`,
+    //     databaseId: `${process.env.GATSBY_NOTION_DATABASE}`,
+    //     propsToFrontmatter: true,
+    //     lowerTitleLevel: true,
+    //   },
+    // },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
