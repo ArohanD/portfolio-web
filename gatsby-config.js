@@ -50,6 +50,9 @@ module.exports = {
       resolve: `gatsby-plugin-sass`,
       options: {
         implementation: require("sass"),
+        // gatsby-plugin-sass@6 ships sass-loader@10 (legacy Dart Sass JS API).
+        // A yarn `resolutions` entry forces sass-loader@17, which defaults to
+        // the modern Sass API — clearing the legacy-js-api deprecation for real.
       },
     },
     `gatsby-plugin-typescript`,

@@ -36,7 +36,11 @@
     "fast-exif": "^1.0.1",
     "prettier": "2.5.1",
     "sass": "^1.49.0",
+    "sass-loader": "^17.0.0",
     "typescript": "^6.0.3"
+  },
+  "resolutions": {
+    "sass-loader": "^17.0.0"
   },
   "keywords": [
     "gatsby"
