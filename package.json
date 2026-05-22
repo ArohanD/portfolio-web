@@ -1,0 +1,32 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monorepo: Gatsby web app (web/) + Sanity Studio (studio/)",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "web",
+      "studio"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react-dom",
+      "**/@types/react",
+      "**/@types/react-dom",
+      "studio/**"
+    ]
+  },
+  "scripts": {
+    "dev": "concurrently -n web,studio -c blue,magenta \"yarn workspace web develop\" \"yarn workspace studio dev\"",
+    "develop": "yarn workspace web develop",
+    "build": "yarn workspace web build",
+    "studio": "yarn workspace studio dev"
+  },
+  "resolutions": {
+    "sass-loader": "^17.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  }
+}

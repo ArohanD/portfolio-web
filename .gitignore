@@ -59,6 +59,10 @@ typings/
 .cache/
 public
 
+# Sanity Studio
+dist/
+.sanity/
+
 # Mac files
 .DS_Store
 

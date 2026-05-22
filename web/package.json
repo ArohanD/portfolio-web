@@ -1,5 +1,5 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "web",
   "private": true,
   "description": "A simple starter to get up and developing quickly with Gatsby",
   "version": "0.1.0",
@@ -37,9 +37,6 @@
     "sass": "^1.49.0",
     "sass-loader": "^17.0.0",
     "typescript": "^6.0.3"
-  },
-  "resolutions": {
-    "sass-loader": "^17.0.0"
   },
   "keywords": [
     "gatsby"
