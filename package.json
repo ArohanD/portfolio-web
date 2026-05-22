@@ -11,7 +11,6 @@
     "express": "^4.17.2",
     "gatsby": "^5.16.1",
     "gatsby-cli": "^5.16.0",
-    "gatsby-plugin-google-analytics": "^5.16.0",
     "gatsby-plugin-image": "^3.16.0",
     "gatsby-plugin-manifest": "^5.16.0",
     "gatsby-plugin-mdx": "^5.16.0",

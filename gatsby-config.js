@@ -73,14 +73,6 @@ module.exports = {
     },
     `gatsby-transformer-remark`,
     `gatsby-plugin-mdx`,
-    {
-      resolve: `gatsby-plugin-google-analytics`,
-      options: {
-        trackingId: "UA-45913415-1",
-        head: true,
-        respectDNT: true,
-      },
-    },
     `gatsby-plugin-transition-link`,
     // Notion source temporarily disabled — writing section is a placeholder
     // until we re-introduce content (likely via MDX) in the Next.js migration.
