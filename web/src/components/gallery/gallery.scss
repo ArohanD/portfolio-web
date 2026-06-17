@@ -99,3 +99,86 @@ ul.tag-list {
 .gallery__state--error {
   color: #e20612;
 }
+
+// ---------------------------------------------------------------------------
+// Photo detail page — ported from cms astro-app/pages/gallery/photo/[slug].astro
+// ---------------------------------------------------------------------------
+
+.photo__page__container {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding-bottom: 5rem;
+}
+
+.photo__title {
+  margin: 0;
+}
+
+.photo__container {
+  margin: 0 auto;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  max-width: 90vw;
+}
+
+.photo__details {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 2rem;
+}
+
+.photo__details__description {
+  margin: 0 0 1rem;
+}
+
+.photo__details__exif__item {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (min-width: 575px) {
+  .photo__page__container {
+    height: 100dvh;
+    max-width: 90vw;
+    margin: 0 auto;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr minmax(0, 35%);
+    grid-template-rows: minmax(0, 45%) 1fr;
+    column-gap: 2rem;
+    grid-template-areas:
+      "photo title"
+      "photo details";
+  }
+
+  .photo__container {
+    grid-area: photo;
+  }
+
+  .photo__title {
+    margin: 0 0 0.5rem;
+    height: 100%;
+    grid-area: title;
+    display: flex;
+    align-items: flex-end;
+  }
+
+  .photo__details {
+    padding: 0;
+    height: 100%;
+    grid-area: details;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    max-width: 400px;
+  }
+
+  .photo__details__exif {
+    width: 100%;
+  }
+}
