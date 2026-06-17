@@ -1,33 +1,43 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useMemo, useRef, useState } from "react"
 import type { CSSProperties } from "react"
 import { Link } from "gatsby"
-import type { ImageAsset } from "@sanity/types"
 import { urlFor } from "../../lib/sanity/image"
-import type { Exif } from "../../lib/sanity/types"
-import { useIsMobile } from "../../lib/sanity/hooks"
+import type { Exif, GalleryImage as GalleryImageType } from "../../lib/sanity/types"
+import { useColumnCount, useIsMobile } from "../../lib/sanity/hooks"
 
 interface Props {
-  images: ImageAsset[]
+  images: GalleryImageType[]
+  /** Override the viewport-derived column count. */
   columns?: number
   tag?: string
 }
 
 interface ColumnItem {
-  image: ImageAsset
-  height: number
+  image: GalleryImageType
   aspectRatio: number
 }
 
 interface GalleryImageProps {
-  image: ImageAsset
+  image: GalleryImageType
   itemIndex?: number
   highlight?: boolean
-  onClick?: (image: ImageAsset) => void
+  onClick?: (image: GalleryImageType) => void
   imgStyle?: CSSProperties
+  /** width / height — preserves layout while the image streams in. */
   aspectRatio?: number
 }
 
-const DEFAULT_MAX_WIDTH = 1200
+// Responsive widths tuned for masonry column slots (~250-700px wide).
+const SRCSET_WIDTHS = [400, 600, 900, 1200, 1600]
+
+const buildSrcSet = (image: GalleryImageType, format?: "webp") =>
+  SRCSET_WIDTHS.map(w => {
+    const u = urlFor(image).width(w)
+    return `${(format ? u.format(format) : u.auto("format")).url()} ${w}w`
+  }).join(", ")
+
+const DEFAULT_SIZES =
+  "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
 
 export const GalleryImage = ({
   image,
@@ -37,18 +47,30 @@ export const GalleryImage = ({
   imgStyle = {},
   aspectRatio,
 }: GalleryImageProps) => {
-  const imageContainerStyle: CSSProperties = {
+  const resolvedAspect = aspectRatio ?? image.metadata?.dimensions?.aspectRatio
+  const lqip = image.metadata?.lqip
+
+  const containerStyle: CSSProperties = {
     position: "relative",
     width: "100%",
-    aspectRatio: aspectRatio ? `${aspectRatio}` : undefined,
+    aspectRatio: resolvedAspect ? `${resolvedAspect}` : undefined,
+    // LQIP blur-up — visible immediately, sits behind the real image until it loads
+    backgroundImage: lqip ? `url(${lqip})` : undefined,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    overflow: "hidden",
   }
+
+  const [loaded, setLoaded] = useState(false)
+  const [readyForHighlight, setReadyForHighlight] = useState(false)
 
   const imageStyle: CSSProperties = {
     width: "100%",
     height: "auto",
     display: "block",
-    transition: "transform 0.2s ease-in-out",
+    transition: "transform 0.2s ease-in-out, opacity 0.3s ease-out",
     cursor: "pointer",
+    opacity: loaded ? 1 : 0,
   }
 
   const highlightStyle: CSSProperties = {
@@ -72,39 +94,32 @@ export const GalleryImage = ({
     backgroundColor: "#E20612",
   }
 
-  const [readyForHighlight, setReadyForHighlight] = useState(false)
-
-  const srcSet = [
-    `${urlFor(image).width(800).format("webp").url()} 800w`,
-    `${urlFor(image).width(1200).format("webp").url()} 1200w`,
-    `${urlFor(image).width(1600).format("webp").url()} 1600w`,
-    `${urlFor(image).width(2000).format("webp").url()} 2000w`,
-    `${urlFor(image).width(2400).format("webp").url()} 2400w`,
-  ].join(", ")
-
-  const fallbackSrcSet = [
-    `${urlFor(image).width(800).auto("format").url()} 800w`,
-    `${urlFor(image).width(1200).auto("format").url()} 1200w`,
-    `${urlFor(image).width(1600).auto("format").url()} 1600w`,
-    `${urlFor(image).width(2000).auto("format").url()} 2000w`,
-    `${urlFor(image).width(2400).auto("format").url()} 2400w`,
-  ].join(", ")
-
-  const sizes =
-    "(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1440px) 33vw, 25vw"
+  const webpSrcSet = useMemo(() => buildSrcSet(image, "webp"), [image._id])
+  const fallbackSrcSet = useMemo(() => buildSrcSet(image), [image._id])
+  const fallbackSrc = useMemo(
+    () => urlFor(image).width(1200).auto("format").url(),
+    [image._id]
+  )
 
   const highlightRef = useRef<HTMLDivElement>(null)
   const isMobile = useIsMobile()
+
   return (
-    <div style={imageContainerStyle} onClick={() => onClick?.(image)}>
+    <div style={containerStyle} onClick={() => onClick?.(image)}>
       <picture style={{ display: "block" }}>
-        <source srcSet={srcSet} sizes={sizes} type="image/webp" />
+        <source srcSet={webpSrcSet} sizes={DEFAULT_SIZES} type="image/webp" />
         <img
-          src={urlFor(image).width(1600).auto("format").url()}
+          src={fallbackSrc}
           srcSet={fallbackSrcSet}
-          sizes={sizes}
-          alt={(image.alt as string) || `Gallery image ${itemIndex + 1}`}
+          sizes={DEFAULT_SIZES}
+          alt={image.alt || `Gallery image ${itemIndex + 1}`}
+          loading="lazy"
+          decoding="async"
           style={{ ...imageStyle, ...imgStyle }}
+          onLoad={() => {
+            setLoaded(true)
+            setReadyForHighlight(true)
+          }}
           onMouseEnter={e => {
             ;(e.currentTarget as HTMLImageElement).style.transform = "scale(1.02)"
             if (highlightRef.current) {
@@ -119,7 +134,6 @@ export const GalleryImage = ({
               highlightRef.current.style.transition = "opacity 0.1s ease-in-out"
             }
           }}
-          onLoad={() => setReadyForHighlight(true)}
         />
       </picture>
       {highlight && readyForHighlight && (
@@ -129,130 +143,53 @@ export const GalleryImage = ({
   )
 }
 
-export default function Gallery({ images, columns = 2, tag }: Props) {
-  const [columnData, setColumnData] = useState<ColumnItem[][]>([])
-  const [loadedImageData, setLoadedImageData] = useState<
-    Map<number, { width: number; height: number; aspectRatio: number }>
-  >(new Map())
-  const [isLoading, setIsLoading] = useState(true)
-  const containerRef = useRef<HTMLDivElement>(null)
+const containerStyle: CSSProperties = {
+  display: "flex",
+  gap: "1rem",
+  width: "100%",
+}
 
-  useEffect(() => {
-    const newColumns: ColumnItem[][] = Array.from({ length: columns }, () => [])
-    setColumnData(newColumns)
-    setLoadedImageData(new Map())
-    setIsLoading(images.length > 0)
-  }, [columns, images.length])
+const columnStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: "1rem",
+  flex: 1,
+  minWidth: 0,
+}
 
-  const getShortestColumnIndex = (heights: number[]): number => {
-    return heights.indexOf(Math.min(...heights))
-  }
+export default function Gallery({ images, columns, tag }: Props) {
+  const responsiveColumns = useColumnCount()
+  const cols = columns ?? responsiveColumns
 
-  const handleImageLoad = (index: number, img: HTMLImageElement) => {
-    const containerWidth = containerRef.current?.offsetWidth || 1200
-    const columnWidth = Math.floor(containerWidth / columns)
-    const aspectRatio = img.naturalHeight / img.naturalWidth
-    const calculatedHeight = columnWidth * aspectRatio
-
-    setLoadedImageData(prev => {
-      const newMap = new Map(prev)
-      newMap.set(index, {
-        width: columnWidth,
-        height: calculatedHeight,
-        aspectRatio: img.naturalWidth / img.naturalHeight,
-      })
-      if (newMap.size === images.length) {
-        setIsLoading(false)
-      }
-      return newMap
+  // Distribute into shortest-column-first masonry using Sanity's
+  // metadata.dimensions to compute heights. No image loading required.
+  const columnData = useMemo<ColumnItem[][]>(() => {
+    if (images.length === 0) return Array.from({ length: cols }, () => [])
+    const colSlots: ColumnItem[][] = Array.from({ length: cols }, () => [])
+    const heights = new Array(cols).fill(0)
+    // Use an arbitrary unit width; only ratios matter for column balance.
+    const UNIT_W = 100
+    images.forEach(image => {
+      const ar =
+        image.metadata?.dimensions?.aspectRatio ||
+        (image.metadata?.dimensions?.width && image.metadata?.dimensions?.height
+          ? image.metadata.dimensions.width / image.metadata.dimensions.height
+          : 1)
+      const h = UNIT_W / ar // height for a UNIT_W-wide rendering
+      const shortest = heights.indexOf(Math.min(...heights))
+      colSlots[shortest].push({ image, aspectRatio: ar })
+      heights[shortest] += h
     })
-  }
-
-  useEffect(() => {
-    if (loadedImageData.size === 0) return
-
-    const newColumns: ColumnItem[][] = Array.from({ length: columns }, () => [])
-    const newHeights = Array(columns).fill(0)
-
-    const sortedLoadedImageData = Array.from(loadedImageData.entries()).sort(
-      ([a], [b]) => a - b
-    )
-
-    sortedLoadedImageData.forEach(([imageIndex, dimensions]) => {
-      const shortestIndex = getShortestColumnIndex(newHeights)
-      newColumns[shortestIndex].push({
-        image: images[imageIndex],
-        height: dimensions.height,
-        aspectRatio: dimensions.aspectRatio,
-      })
-      newHeights[shortestIndex] += dimensions.height
-    })
-
-    setColumnData(newColumns)
-  }, [loadedImageData, columns, images])
-
-  useEffect(() => {
-    if (images.length === 0) return
-
-    images.forEach((image, index) => {
-      if (loadedImageData.has(index)) return
-      const img = new Image()
-      img.onload = () => handleImageLoad(index, img)
-      img.src = urlFor(image).width(DEFAULT_MAX_WIDTH).fit("max").auto("format").url()
-    })
-  }, [images, loadedImageData, columns])
-
-  const containerStyle: CSSProperties = {
-    display: "flex",
-    gap: "1rem",
-    width: "100%",
-  }
-
-  const columnStyle: CSSProperties = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "1rem",
-    flex: 1,
-  }
-
-  const spinnerContainerStyle: CSSProperties = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    minHeight: "200px",
-    width: "100%",
-  }
-
-  const spinnerStyle: CSSProperties = {
-    width: "40px",
-    height: "40px",
-    border: "4px solid #f3f3f3",
-    borderTop: "4px solid #E20612",
-    borderRadius: "50%",
-    animation: "spin 1s linear infinite",
-  }
-
-  if (isLoading) {
-    return (
-      <div style={spinnerContainerStyle}>
-        <div style={spinnerStyle}></div>
-        <style>{`
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
-        `}</style>
-      </div>
-    )
-  }
+    return colSlots
+  }, [images, cols])
 
   const oneMonthAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
 
   return (
-    <div ref={containerRef} style={containerStyle}>
-      {Array.from({ length: columns }).map((_, columnIndex) => (
+    <div style={containerStyle} data-gallery-ready={images.length > 0 ? "true" : "false"}>
+      {columnData.map((column, columnIndex) => (
         <div key={columnIndex} style={columnStyle}>
-          {columnData[columnIndex]?.map((item, itemIndex) => (
+          {column.map((item, itemIndex) => (
             <Link
               to={`/photography/photo/${item.image.sha1hash.slice(0, 10)}${
                 tag ? `?category=${tag}` : ""
@@ -260,11 +197,10 @@ export default function Gallery({ images, columns = 2, tag }: Props) {
               key={item.image.sha1hash}
             >
               <GalleryImage
-                key={item.image.sha1hash}
                 image={item.image}
                 itemIndex={itemIndex}
                 highlight={
-                  new Date((item.image.metadata.exif as Exif)?.DateTimeOriginal || 0) >
+                  new Date((item.image.metadata?.exif as Exif)?.DateTimeOriginal || 0) >
                   oneMonthAgo
                 }
                 aspectRatio={item.aspectRatio}

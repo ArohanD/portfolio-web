@@ -36,6 +36,7 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "fast-exif": "^1.0.1",
+    "playwright": "^1.61.0",
     "prettier": "2.5.1",
     "sass": "^1.49.0",
     "sass-loader": "^17.0.0",
@@ -52,6 +53,7 @@
     "start": "npm run develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "parity": "node scripts/gallery-parity.mjs",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "deploy:stage": "gatsby build && netlify deploy --dir=public",
     "deploy:prod": "gatsby build && netlify deploy --dir=public --prod"

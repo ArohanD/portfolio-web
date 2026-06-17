@@ -21,7 +21,8 @@
     "dev": "concurrently -n web,studio -c blue,magenta \"yarn workspace web develop\" \"yarn workspace studio dev\"",
     "develop": "yarn workspace web develop",
     "build": "yarn workspace web build",
-    "studio": "yarn workspace studio dev"
+    "studio": "yarn workspace studio dev",
+    "parity": "yarn workspace web parity"
   },
   "resolutions": {
     "sass-loader": "^17.0.0"

@@ -91,3 +91,7 @@ linkedin
 
 # Netlify
 .netlify
+
+# Playwright dev-loop artifacts (parity script screenshots + MCP traces)
+web/__playwright-out__/
+.playwright-mcp/

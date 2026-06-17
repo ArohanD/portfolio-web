@@ -42,3 +42,29 @@ export type Tag = {
   id: string
   label: string
 }
+
+export interface ImageDimensions {
+  width: number
+  height: number
+  aspectRatio: number
+}
+
+export interface GalleryImage {
+  _id: string
+  _createdAt: string
+  sha1hash: string
+  mimeType: string
+  alt?: string
+  description?: string
+  title?: string
+  opt?: {
+    media?: {
+      tags?: { _ref: string; _type: string; weak?: boolean }[]
+    }
+  }
+  metadata: {
+    dimensions: ImageDimensions
+    lqip?: string
+    exif?: Exif
+  }
+}
