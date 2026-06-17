@@ -23,7 +23,8 @@
     "build": "yarn workspace web build",
     "studio": "yarn workspace studio dev",
     "parity": "yarn workspace web parity",
-    "nav-flow": "yarn workspace web nav-flow"
+    "nav-flow": "yarn workspace web nav-flow",
+    "mobile-audit": "yarn workspace web mobile-audit"
   },
   "resolutions": {
     "sass-loader": "^17.0.0"
