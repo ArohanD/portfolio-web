@@ -1,110 +1,83 @@
-import React from "react"
-import {
-  ThumbNailContainer,
-  ThumbNailContainerProps,
-  thumbNailProps,
-} from "../../components/thumbNailGallery"
-import { graphql, useStaticQuery, Link } from "gatsby"
-import { Query } from "../../generated/graphql-types"
-import "./photography.scss"
-import { sanitizeTitle } from "../../../utils"
-const Img: React.FC<any> = () => null
+import React, { useEffect, useState } from "react"
+import type { PageProps } from "gatsby"
+import type { ImageAsset } from "@sanity/types"
 import SideBarLayout from "../../components/pageLayout"
 import SEO from "../../components/seo"
 import MobileNav from "../../components/mobileNav"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
+import Gallery from "../../components/gallery/Gallery"
+import TagList from "../../components/gallery/TagList"
+import { getImages, getTags } from "../../lib/sanity/queries"
+import { sortGalleryImages, imageHasTag } from "../../lib/sanity/utils"
+import type { Tag } from "../../lib/sanity/types"
 
-const PhotoSplash: React.FC = () => {
-  const photoSplashQuery = useStaticQuery(graphql`
-    query PhotoSplash {
-      allDirectory(filter: { relativeDirectory: { eq: "photography" } }) {
-        nodes {
-          relativePath
-        }
-      }
-      allImageSharp {
-        nodes {
-          id
-          parent {
-            ... on File {
-              id
-              name
-              relativePath
-            }
-          }
-          fields {
-            gallery
-            order
-          }
-        }
-      }
+const PhotographyPage: React.FC<PageProps> = ({ location }) => {
+  const [images, setImages] = useState<ImageAsset[]>([])
+  const [tags, setTags] = useState<Tag[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  const params = new URLSearchParams(location.search)
+  const activeTag = params.get("category")
+
+  useEffect(() => {
+    let cancelled = false
+    Promise.all([getImages(), getTags()])
+      .then(([imgs, ts]) => {
+        if (cancelled) return
+        setImages(imgs)
+        setTags(ts)
+        setLoading(false)
+      })
+      .catch(err => {
+        if (cancelled) return
+        console.error("Failed to load gallery from Sanity", err)
+        setError(err?.message || "Failed to load gallery")
+        setLoading(false)
+      })
+    return () => {
+      cancelled = true
     }
-  `) as Query
+  }, [])
 
-  const rawDirectories = photoSplashQuery.allDirectory.nodes
-  const rawImages = photoSplashQuery.allImageSharp.nodes
-
-  const thumbNailData = rawDirectories.map(node => {
-    const { relativePath } = node
-    const thumbImage = matchImageNodeToPhoto(relativePath, rawImages)
-
-    return {
-      title: sanitizeTitle(relativePath.split("/").pop()),
-      url: "/" + relativePath,
-      img: thumbImage,
-    } as thumbNailProps
-  }) as Array<thumbNailProps>
+  const activeTagId = activeTag ? tags.find(t => t.label === activeTag)?.id : undefined
+  const filtered = activeTagId ? images.filter(img => imageHasTag(img, activeTagId)) : images
+  const sorted = sortGalleryImages(filtered)
 
   return (
     <SideBarLayout
-      title={"photography"}
-      sideBarString={"photography"}
-      currentPath={"/photography/"}
+      title="photography"
+      sideBarString="photography"
+      currentPath="/photography/"
     >
-      <div className={"photoSplash-body"}>
-        <h1 className="photoSplash-title">Photography</h1>
-        <ThumbNailContainer
-          thumbNailData={thumbNailData}
-          ThumbNailComponent={<PhotoThumbNail title={""} img={""} url={""} />}
-        />
+      <div style={{ padding: "1rem" }}>
+        <h1 style={{ margin: "0 0 1rem" }}>
+          Photography
+          {activeTag ? ` — ${activeTag}` : ""}
+        </h1>
+        {tags.length > 0 && (
+          <div style={{ marginBottom: "1rem" }}>
+            <TagList tags={tags} activeTag={activeTag} />
+          </div>
+        )}
+        {error ? (
+          <div style={{ padding: "2rem", color: "#E20612" }}>
+            Couldn't load photos: {error}
+          </div>
+        ) : loading ? (
+          <div style={{ padding: "2rem" }}>Loading…</div>
+        ) : sorted.length === 0 ? (
+          <div style={{ padding: "2rem" }}>
+            No photos{activeTag ? ` tagged "${activeTag}"` : ""}.
+          </div>
+        ) : (
+          <Gallery images={sorted} tag={activeTag || undefined} columns={2} />
+        )}
       </div>
       <MobileNav />
     </SideBarLayout>
   )
 }
 
-const PhotoThumbNail: React.FC<thumbNailProps> = ({ img, title, url }) => {
-  return (
-    <AniLink to={url} className={"photoThumbNail-link"} >
-      <div className="photoThumbNail">
-        <div className="photoThumbNail-title">{title}</div>
-        {img && <Img className="photoThumbNail-image" fixed={img} />}
-      </div>
-    </AniLink>
-  )
-}
-
-const matchImageNodeToPhoto = (
-  relativePath: string,
-  imageNodes: Array<any>
-) => {
-  let returnImage
-  imageNodes.forEach(image => {
-    if (image.parent.relativePath.includes(relativePath) && image.fields.order === 0) {
-      returnImage = image.fixed
-    }
-  })
-  // Allow an image to be returned if order has not been set yet in gallery_organizer
-  if (!returnImage) {
-    imageNodes.forEach(image => {
-      if (image.parent.relativePath.includes(relativePath)) {
-        returnImage = image.fixed
-      }
-    })
-  }
-  return returnImage
-}
-
-export default PhotoSplash
+export default PhotographyPage
 
 export const Head = () => <SEO title="Photography" />

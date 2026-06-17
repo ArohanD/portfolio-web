@@ -74,6 +74,19 @@
   }
 }
 
+// Plain <img> replacement for the removed gatsby-image: scale to fill the
+// wrapper while preserving aspect ratio. 330px on desktop matches the size
+// gatsby-image rendered on prod for this layout.
+img.home-profile-photo {
+  width: 100%;
+  height: auto;
+  display: block;
+
+  @media (min-width: $desk-break) {
+    max-width: 330px;
+  }
+}
+
 .home-body-content {
   margin-top: 50px;
   padding-right: 8%;

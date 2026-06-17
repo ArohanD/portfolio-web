@@ -22,7 +22,6 @@ const IndexPage: React.FC = () => {
   }
 
   const [activeHomeLink, setActiveHomeLink] = useState(blankHomeLink)
-  const [profilePhoto, setProfilePhoto] = useState("")
   const [navigatingAway, setNavigatingAway] = useState(false)
 
   const photoQuery = useStaticQuery(graphql`
@@ -38,10 +37,6 @@ const IndexPage: React.FC = () => {
 
   useEffect(() => {
     addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
-
-    photoQuery.homeImages.nodes.map(node => {
-      if (node.name === "profile") setProfilePhoto(node.childImageSharp)
-    })
   }, [])
 
   const homeNavClasses =
@@ -71,13 +66,11 @@ const IndexPage: React.FC = () => {
       {!activeHomeLink.imagePath && (
         <div className="home-section-intro fade-in">
           <div className="home-profile-photo">
-            {profilePhoto && (
-              <Img
-                className="home-profile-photo"
-                alt="Profile Photo"
-                fixed={profilePhoto.fixed}
-              />
-            )}
+            <img
+              src="/profile.png"
+              alt="Profile Photo"
+              className="home-profile-photo"
+            />
             <div className="home-body-social-links">
               <a href="https://www.linkedin.com/in/arohan/">
                 <SiLinkedin size="1.5em" className="contact-icon" />
