@@ -1,10 +1,5 @@
-import React, { useState, useEffect } from "react"
-import { Link, useStaticQuery, graphql } from "gatsby"
+import React, { useState } from "react"
 import "./home-styles.scss"
-
-// gatsby-image stub: removed in Gatsby 5, will be replaced by next/image
-// during the Next.js migration. Rendering nothing is acceptable in the interim.
-const Img: React.FC<any> = () => null
 import SEO from "../components/seo"
 import {
   HomeLink,
@@ -16,31 +11,31 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { RiMailFill } from "react-icons/ri"
 import { SiLinkedin, SiGithub } from "react-icons/si"
 
+// Static asset slugs (under web/static/) that have a hover background image.
+// Resume intentionally has none; hovering it just fades the body without
+// swapping a backdrop in.
+const BACKGROUND_SLUGS = new Set(["dev", "photo", "writing"])
+
+const hasBackground = (slug: string | undefined): slug is string =>
+  !!slug && BACKGROUND_SLUGS.has(slug)
+
 const IndexPage: React.FC = () => {
-  const handleMouseOver = (homeLink: HomeLink) => {
-    setActiveHomeLink(homeLink)
-  }
+  const [activeHomeLink, setActiveHomeLink] =
+    useState<HomeLink>(blankHomeLink)
 
-  const [activeHomeLink, setActiveHomeLink] = useState(blankHomeLink)
-  const [navigatingAway, setNavigatingAway] = useState(false)
+  const handleMouseOver = (homeLink: HomeLink) => setActiveHomeLink(homeLink)
+  const handleMouseLeave = () => setActiveHomeLink(blankHomeLink)
 
-  const photoQuery = useStaticQuery(graphql`
-    query homeData {
-      homeImages: allFile(filter: { relativeDirectory: { eq: "home" } }) {
-        nodes {
-          id
-          name
-        }
-      }
-    }
-  `)
-
-  useEffect(() => {
-    addSrcLinks(homeLinks, photoQuery.homeImages.nodes)
-  }, [])
+  const activeSlug = activeHomeLink.backgroundImageSlug
+  const showBackground = hasBackground(activeSlug)
 
   const homeNavClasses =
-    "home-nav" + (activeHomeLink.imagePath ? " home-nav-faded-text" : "")
+    "home-nav" + (showBackground ? " home-nav-faded-text" : "")
+
+  // window-guarded: SSR builds run this module too; defer the desktop-only
+  // background to client-side rendering.
+  const isDesktop =
+    typeof window !== "undefined" && window.innerWidth > 900
 
   return (
     <div className={"home-container"}>
@@ -51,19 +46,19 @@ const IndexPage: React.FC = () => {
             to={linkObj.path}
             key={linkObj.title}
             onMouseOver={() => handleMouseOver(linkObj)}
-            onMouseLeave={() => setActiveHomeLink(blankHomeLink)}
+            onMouseLeave={handleMouseLeave}
             className={
               activeHomeLink.backgroundImageSlug === linkObj.backgroundImageSlug
                 ? "home_activeLink"
                 : ""
             }
-            style={{ "--active-color": linkObj.textColor }}
+            style={{ "--active-color": linkObj.textColor } as React.CSSProperties}
           >
             {React.cloneElement(linkObj.component())}
           </AniLink>
         ))}
       </nav>
-      {!activeHomeLink.imagePath && (
+      {!showBackground && (
         <div className="home-section-intro fade-in">
           <div className="home-profile-photo">
             <img
@@ -92,38 +87,17 @@ const IndexPage: React.FC = () => {
           </div>
         </div>
       )}
-      {activeHomeLink.title && window.innerWidth > 900 && (
-        <BackgroundImage homeLink={activeHomeLink} />
+      {showBackground && isDesktop && (
+        <img
+          key={activeSlug}
+          className="home-background-image"
+          src={`/${activeSlug}.jpg`}
+          alt={`${activeHomeLink.title} background`}
+          data-testid="home-bg"
+        />
       )}
     </div>
   )
-}
-
-interface BackgroundImageProps {
-  homeLink: HomeLink
-}
-
-const BackgroundImage: React.FC<BackgroundImageProps> = ({
-  homeLink,
-}: BackgroundImageProps) => {
-  if (!homeLink.imagePath) return <div></div>
-
-  return (
-    <Img
-      className={"home-background-image fade-out"}
-      alt={homeLink.imagePath.fluid.originalName}
-      fluid={homeLink.imagePath.fluid}
-    />
-  )
-}
-
-const addSrcLinks = (linkArray: Array<HomeLink>, imageArray: Array<any>) => {
-  linkArray.map((linkObj: HomeLink) => {
-    const target = linkObj.backgroundImageSlug
-    imageArray.forEach(node => {
-      if (target === node.name) linkObj.imagePath = node.childImageSharp
-    })
-  })
 }
 
 export default IndexPage

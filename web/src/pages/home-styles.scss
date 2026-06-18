@@ -5,6 +5,13 @@
   padding: 0 30px;
   padding-top: 50px;
   height: 100vh;
+  // Local stacking context so the absolutely-positioned background image
+  // sits behind the nav — and so neither gets hoisted into the root stacking
+  // context where gatsby-plugin-transition-link's .tl-wrapper (z-index: 1)
+  // would paint over the bg.
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
 
   @media (min-width: $desk-break) {
     padding: 0 30px;
@@ -113,12 +120,21 @@ img.home-profile-photo {
 }
 
 .home-background-image {
+  // Positioned absolutely inside .home-container's local stacking context.
   position: absolute !important;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 140vh;
-  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  // Plain <img> replacement for the removed gatsby-image: crop-to-fill the
+  // viewport so the image isn't stretched.
+  object-fit: cover;
+  object-position: center;
+  pointer-events: none;
+  z-index: 0;
+  // No fade — keyframe animations on this element stuck at opacity 0 (likely
+  // Gatsby Fast-Refresh re-mount restarting the animation). Plain instant
+  // appearance is what prod did too.
 }
 
 @keyframes homefadein {
