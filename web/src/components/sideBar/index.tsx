@@ -1,7 +1,7 @@
 import React from "react"
 import { graphql } from "gatsby"
 import { Link, useStaticQuery } from "gatsby"
-import { HomeLink, homeLinks } from "../../staticContent"
+import { HIDDEN_LINKS, HomeLink, homeLinks } from "../../staticContent"
 import { Query } from "../../generated/graphql-types"
 import { sanitizeTitle, isNotNavDupe } from "../../../utils"
 import "./sidebar.scss"
@@ -40,7 +40,11 @@ const SideBar: React.FC<SideBarProps> = ({ pageString, currentPath }) => {
     })
   }
 
-  const homeLinksWithHome = JSON.parse(JSON.stringify(homeLinks))
+  const homeLinksWithHome = JSON.parse(
+    JSON.stringify(
+      homeLinks.filter(l => !HIDDEN_LINKS.has(l.backgroundImageSlug))
+    )
+  )
 
   homeLinksWithHome.unshift({
     title: "Home",

@@ -1,4 +1,4 @@
-import { Dev_SVG, Photo_SVG, Resume_SVG, Write_SVG } from './components/svgLogos'
+import { Dev_SVG, Maps_SVG, Photo_SVG, Resume_SVG, Write_SVG } from './components/svgLogos'
 
 export interface HomeLink {
   title: string
@@ -25,6 +25,14 @@ export let homeLinks: Array<HomeLink> = [
     textColor: "#EFFFB1",
     imagePath: "",
     component: Photo_SVG
+  },
+  {
+    title: "Maps",
+    path: "/maps",
+    backgroundImageSlug: `maps`,
+    textColor: "#68281B",
+    imagePath: "",
+    component: Maps_SVG
   },
   {
     title: "Writing",
@@ -75,6 +83,13 @@ export let navLinks: Array<HomeLink> = [
     imagePath: "",
   },
   {
+    title: "Maps",
+    path: "/maps",
+    backgroundImageSlug: `maps`,
+    textColor: "#68281B",
+    imagePath: "",
+  },
+  {
     title: "Writing",
     path: "/writing",
     backgroundImageSlug: `writing`,
@@ -89,6 +104,13 @@ export let navLinks: Array<HomeLink> = [
     imagePath: "",
   },
 ]
+
+// Slugs (matching `backgroundImageSlug`) currently hidden from the home-page
+// nav and the global sidebar. Remove entries from this set to bring the
+// links back into both navs at once. The arrays themselves are intentionally
+// left intact so other parts of the codebase can still resolve paths/titles
+// by slug if needed.
+export const HIDDEN_LINKS = new Set<string>(["writing", "resume"])
 
 export const homeContent: Array<String> = [
   `Hi, I’m Arohan,`,

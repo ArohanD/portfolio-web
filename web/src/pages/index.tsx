@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import "./home-styles.scss"
 import SEO from "../components/seo"
 import {
+  HIDDEN_LINKS,
   HomeLink,
   homeLinks,
   blankHomeLink,
@@ -14,7 +15,7 @@ import { SiLinkedin, SiGithub } from "react-icons/si"
 // Static asset slugs (under web/static/) that have a hover background image.
 // Resume intentionally has none; hovering it just fades the body without
 // swapping a backdrop in.
-const BACKGROUND_SLUGS = new Set(["dev", "photo", "writing"])
+const BACKGROUND_SLUGS = new Set(["dev", "photo", "writing", "maps"])
 
 const hasBackground = (slug: string | undefined): slug is string =>
   !!slug && BACKGROUND_SLUGS.has(slug)
@@ -40,7 +41,9 @@ const IndexPage: React.FC = () => {
   return (
     <div className={"home-container"}>
       <nav className={homeNavClasses}>
-        {homeLinks.map((linkObj: HomeLink) => (
+        {homeLinks
+          .filter(l => !HIDDEN_LINKS.has(l.backgroundImageSlug))
+          .map((linkObj: HomeLink) => (
           <AniLink
             fade
             to={linkObj.path}
