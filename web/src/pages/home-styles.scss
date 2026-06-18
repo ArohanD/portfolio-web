@@ -206,11 +206,16 @@ img.home-profile-photo {
   }
 }
 
+// stroke-dasharray applies PER <path>. We need it just above the longest
+// single letter's perimeter so each letter's outline is one continuous dash
+// (hidden when dashoffset = dasharray, drawn cleanly as dashoffset → 0).
+// Setting it bigger than that would leave a visible gap sliding across each
+// letter during animation. Longest-letter lengths measured via svgpathtools.
 .home_dev {
   animation: fill 0.5s ease forwards 1.2s;
   path {
-    stroke-dasharray: 120;
-    stroke-dashoffset: 120;
+    stroke-dasharray: 150;
+    stroke-dashoffset: 150;
     animation: line-animation 2s ease forwards;
   }
 }
@@ -218,8 +223,8 @@ img.home-profile-photo {
 .home_photo {
   animation: fill 0.5s ease forwards 1.5s;
   path {
-    stroke-dasharray: 150;
-    stroke-dashoffset: 150;
+    stroke-dasharray: 160;
+    stroke-dashoffset: 160;
     animation: line-animation 2s ease forwards 0.2s;
   }
 }
@@ -227,17 +232,26 @@ img.home-profile-photo {
 .home_write {
   animation: fill 0.5s ease forwards 1.7s;
   path {
-    stroke-dasharray: 200;
-    stroke-dashoffset: 200;
+    stroke-dasharray: 210;
+    stroke-dashoffset: 210;
     animation: line-animation 2s ease forwards 0.7s;
+  }
+}
+
+.home_maps {
+  animation: fill 0.5s ease forwards 1.6s;
+  path {
+    stroke-dasharray: 210;
+    stroke-dashoffset: 210;
+    animation: line-animation 2s ease forwards 0.45s;
   }
 }
 
 .home_resume {
   animation: fill 0.5s ease forwards 2s;
   path {
-    stroke-dasharray: 190;
-    stroke-dashoffset: 190;
+    stroke-dasharray: 210;
+    stroke-dashoffset: 210;
     animation: line-animation 2s ease forwards 1s;
   }
 }
