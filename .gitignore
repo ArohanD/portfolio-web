@@ -59,6 +59,10 @@ typings/
 .cache/
 public
 
+# Sanity Studio
+dist/
+.sanity/
+
 # Mac files
 .DS_Store
 
@@ -70,10 +74,14 @@ yarn-error.log
 .yarn-integrity
 
 # Images
-*.png 
-*.jpg 
-*.jpeg 
-*.webp 
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# Allow committed static assets (e.g. homepage profile photo) despite the
+# blanket image-ignore above
+!web/static/**
 
 # Linkedin Archive (https://www.linkedin.com/psettings/member-data)
 linkedin
@@ -83,3 +91,7 @@ linkedin
 
 # Netlify
 .netlify
+
+# Playwright dev-loop artifacts (parity script screenshots + MCP traces)
+web/__playwright-out__/
+.playwright-mcp/

@@ -1,66 +1,35 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "portfolio",
+  "version": "1.0.0",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "dependencies": {
-    "@mdx-js/react": "^2.3.0",
-    "body-parser": "^1.19.1",
-    "cors": "^2.8.5",
-    "express": "^4.17.2",
-    "gatsby": "^5.16.1",
-    "gatsby-cli": "^5.16.0",
-    "gatsby-plugin-image": "^3.16.0",
-    "gatsby-plugin-manifest": "^5.16.0",
-    "gatsby-plugin-mdx": "^5.16.0",
-    "gatsby-plugin-offline": "^6.16.0",
-    "gatsby-plugin-sass": "^6.16.0",
-    "gatsby-plugin-sharp": "^5.16.0",
-    "gatsby-plugin-transition-link": "^1.20.5",
-    "gatsby-source-filesystem": "^5.16.0",
-    "gatsby-transformer-csv": "^5.16.0",
-    "gatsby-transformer-remark": "^6.16.0",
-    "gatsby-transformer-sharp": "^5.16.0",
-    "gsap": "^3.9.1",
-    "prop-types": "^15.8.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-icons": "^4.3.1"
+  "description": "Monorepo: Gatsby web app (web/) + Sanity Studio (studio/)",
+  "license": "MIT",
+  "workspaces": {
+    "packages": [
+      "web",
+      "studio"
+    ],
+    "nohoist": [
+      "**/react",
+      "**/react-dom",
+      "**/@types/react",
+      "**/@types/react-dom",
+      "studio/**"
+    ]
   },
-  "devDependencies": {
-    "@types/node": "^25.8.0",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "fast-exif": "^1.0.1",
-    "prettier": "2.5.1",
-    "sass": "^1.49.0",
-    "sass-loader": "^17.0.0",
-    "typescript": "^6.0.3"
+  "scripts": {
+    "dev": "concurrently -n web,studio -c blue,magenta \"yarn workspace web develop\" \"yarn workspace studio dev\"",
+    "develop": "yarn workspace web develop",
+    "build": "yarn workspace web build",
+    "studio": "yarn workspace studio dev",
+    "parity": "yarn workspace web parity",
+    "nav-flow": "yarn workspace web nav-flow",
+    "mobile-audit": "yarn workspace web mobile-audit"
   },
   "resolutions": {
     "sass-loader": "^17.0.0"
   },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "clean": "gatsby clean",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy:stage": "gatsby build && netlify deploy --dir=public",
-    "deploy:prod": "gatsby build && netlify deploy --dir=public --prod"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  "devDependencies": {
+    "concurrently": "^9.1.0"
   }
 }

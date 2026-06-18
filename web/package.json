@@ -1,0 +1,62 @@
+{
+  "name": "web",
+  "private": true,
+  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "version": "0.1.0",
+  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "dependencies": {
+    "@mdx-js/react": "^2.3.0",
+    "@sanity/client": "^7.22.1",
+    "@sanity/image-url": "^2.1.1",
+    "gatsby": "^5.16.1",
+    "gatsby-cli": "^5.16.0",
+    "gatsby-plugin-mdx": "^5.16.0",
+    "gatsby-plugin-sass": "^6.16.0",
+    "gatsby-plugin-sharp": "^5.16.0",
+    "gatsby-plugin-transition-link": "^1.20.5",
+    "gatsby-source-filesystem": "^5.16.0",
+    "gatsby-transformer-csv": "^5.16.0",
+    "gatsby-transformer-remark": "^6.16.0",
+    "gatsby-transformer-sharp": "^5.16.0",
+    "gsap": "^3.9.1",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-icons": "^4.3.1"
+  },
+  "devDependencies": {
+    "@sanity/types": "^6.1.0",
+    "@types/node": "^25.8.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "playwright": "^1.61.0",
+    "prettier": "2.5.1",
+    "sass": "^1.49.0",
+    "sass-loader": "^17.0.0",
+    "typescript": "^6.0.3"
+  },
+  "keywords": [
+    "gatsby"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+    "start": "npm run develop",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "parity": "node scripts/gallery-parity.mjs",
+    "nav-flow": "node scripts/photo-nav-flow.mjs",
+    "mobile-audit": "node scripts/mobile-audit.mjs",
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
+    "deploy:stage": "gatsby build && netlify deploy --dir=public",
+    "deploy:prod": "gatsby build && netlify deploy --dir=public --prod"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
+  },
+  "bugs": {
+    "url": "https://github.com/gatsbyjs/gatsby/issues"
+  }
+}
