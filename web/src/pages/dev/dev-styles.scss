@@ -5,36 +5,6 @@ hr {
   margin: 40px auto;
 }
 
-.image-right-wrapper {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
-  align-items: center;
-  padding: 15px;
-
-  @media (min-width: $desk-break) {
-    flex-direction: row;
-    max-width: 900px;
-    margin: auto;
-  }
-}
-
-.image-right-text {
-  @media (min-width: $desk-break) {
-    max-width: 50%;
-  }
-
-  margin-bottom: 100px;
-}
-
-.image-right-image {
-  display: block;
-  max-height: 500px;
-  @media (min-width: $desk-break) {
-    max-width: 30%;
-  }
-}
-
 .mdx-default-wrapper {
   display: flex;
   flex-direction: column;
@@ -52,8 +22,9 @@ hr {
   width: auto;
   max-width: 90%;
   height: auto;
+  max-height: 500px;
   margin-top: 20px;
-  
+
   @media (min-width: $desk-break) {
     margin-top: 100px;
   }
