@@ -21,6 +21,35 @@ $brut-lede: #2a261f;
   font-family: $font-default;
 }
 
+// Unify the surrounding dev-page chrome with the brutalist paper background so
+// the nav reads as part of the page. Scoped to .dev-pageWrapper, which only the
+// applications page uses — the shared sidebar/mobile-nav are untouched elsewhere.
+.dev-pageWrapper {
+  background: $brut-paper; // desktop: paper gutter behind the sidebar
+
+  // Tighten the desktop sidebar gutter — the default 20vw left too much empty
+  // space between the nav and the content column. flex:none pins the width
+  // exactly (the flex row would otherwise shrink it). (Scoped, so the shared
+  // gallery sidebar keeps 20vw elsewhere.)
+  .gallery-sidebar-container {
+    flex: none;
+    width: 190px;
+  }
+
+  // The fixed bottom mobile nav. A 3px ink rule keeps it distinct from the
+  // (now matching) paper content scrolling behind it, echoing the row borders.
+  .mobileNav_container {
+    background: $brut-paper;
+    border-top: 3px solid $brut-ink;
+  }
+
+  // Drop the white-out filter so the icons read as ink on paper.
+  .mobileNav_icon {
+    filter: none;
+    color: $brut-ink;
+  }
+}
+
 .brut-inner {
   max-width: 1220px;
   margin: 0 auto;
@@ -48,8 +77,10 @@ $brut-lede: #2a261f;
   line-height: 0.84;
   letter-spacing: -0.045em;
   color: $brut-ink;
-  // Scales between the design's 42px (mobile) and 130px (desktop) targets.
-  font-size: clamp(42px, 10vw, 130px);
+  // Fluid between mobile and the design's 130px desktop target. The lower
+  // bound (34px) keeps the single long word "Applications" from clipping the
+  // right edge on the narrowest phones (~320px) once side padding is removed.
+  font-size: clamp(34px, 10vw, 130px);
 }
 
 .brut-lede {

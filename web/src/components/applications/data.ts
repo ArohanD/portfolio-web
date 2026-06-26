@@ -58,7 +58,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     stack: ["React", "Vercel", "SCSS"],
-    links: [{ label: "live site", href: "https://colorgenerator.arohandutt.com/" }],
+    links: [],
     media: { type: "youtube", id: "7rhAApBO2oY", label: "Was Not The Impostor demo" },
   },
   {
@@ -111,7 +111,6 @@ export const PROJECTS: Project[] = [
     stack: ["React", "React Router", "Node", "Javascript", "AWS", "EC2", "PM2", "Firebase", "MySQL", "Express", "ARIA", "Grommet", "Docker"],
     links: [
       { label: "git repo", href: "https://github.com/hratx-blue-ocean/chickpeach" },
-      { label: "live demo", href: "http://ec2-18-220-35-143.us-east-2.compute.amazonaws.com/" },
     ],
     media: { type: "youtube", id: "1Q_Wb6s6fA8", label: "Chickpeach demo" },
   },
@@ -131,7 +130,7 @@ export const PROJECTS: Project[] = [
     stack: ["React", "Firebase", "Javascript"],
     links: [
       { label: "git repo", href: "https://github.com/ArohanD/colorPicker" },
-      { label: "live site", href: "https://colorgenerator.arohandutt.com/" },
+      { label: "live site", href: "https://web-color-generator-3f213.web.app/" },
     ],
     media: { type: "image", src: "/media/web-color-generator.png", label: "Web Color Generator — screenshot" },
   },
