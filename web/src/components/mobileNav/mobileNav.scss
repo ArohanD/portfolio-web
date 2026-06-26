@@ -1,28 +1,96 @@
 @use '../../pages/global-styles.scss' as *;
 
-.mobileNav_container {
+$mobileNav-fab-size: 52px;
+
+// Fixed bottom-right anchor holding the bubble and (when open) the link stack.
+.mobileNav_root {
   position: fixed;
-  bottom: 0;
-  width: 100vw;
-  height: 10vh;
-  max-height: 70px;
-  background-color: $color-primary;
+  right: 18px;
+  bottom: 18px;
+  z-index: 20;
 
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 14px;
+}
+
+// The burger bubble.
+.mobileNav_fab {
+  width: $mobileNav-fab-size;
+  height: $mobileNav-fab-size;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: $color-primary;
+  color: #fff;
+
+  display: flex;
   align-items: center;
-  z-index: 2;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.22);
+  transition: none;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Defeat the global `button:hover/:focus { background: $color-off-primary }`
+// (that blue), its focus outline, and its transition — this menu has none.
+.mobileNav_fab:hover,
+.mobileNav_fab:focus {
+  background: $color-primary;
+  outline: none;
+  transition: none;
 }
 
 .mobileNav_icon {
-  filter: invert(100%) sepia(0%) saturate(7500%) hue-rotate(317deg) brightness(105%) contrast(104%);
-  transform: scale(2);
+  width: 26px;
+  height: 26px;
 }
 
-.mobileNav_container_alt {
-  background-color: black;
-  .mobileNav_icon {
-    filter: invert(59%) sepia(10%) saturate(1625%) hue-rotate(346deg) brightness(88%) contrast(87%);
+// Link stack above the bubble.
+.mobileNav_menu {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li {
+    margin: 0;
   }
 }
 
+.mobileNav_link {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #fff;
+  background-color: $color-primary;
+  padding: 9px 18px;
+  border-radius: 999px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+  -webkit-tap-highlight-color: transparent;
+}
+
+// Transparent full-screen tap-catcher that closes the menu on outside taps.
+.mobileNav_backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 19;
+  background: transparent;
+}
+
+// Mobile only — above the desktop breakpoint the sidebar handles navigation.
+// (Mirrors the sidebar's own `max-width: $desk-break` hide, inverted.)
+@media (min-width: ($desk-break + 1)) {
+  .mobileNav_root,
+  .mobileNav_backdrop {
+    display: none;
+  }
+}
