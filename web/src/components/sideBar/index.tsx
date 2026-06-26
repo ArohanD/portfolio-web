@@ -81,12 +81,14 @@ const LinkBlock: React.FC<linkBlockProps> = ({ links, currentPath }) => {
       {links.map(({ path, title }) => {
         let linkPath = path[0] === "/" ? path : `/${path}`
 
-        // Special case for dev/applications to leave room for more in dev section (ie work, speaking, etc...)
-        // Second case is for category and subsection (photos, people) to be highlighted
-        const highlight =
-          currentPath === linkPath || (currentPath.split('/').includes(linkPath.split('/').join('')) && linkPath !== '/' ) ||
-          (currentPath.includes("dev/") &&
-            linkPath.includes("dev/applications"))
+        // Highlight the active link — exact match, or a subsection of it
+        // (e.g. /dev/applications highlighting "dev", or /photography/people
+        // highlighting "photo"). Trailing slashes are normalized so the match
+        // doesn't hinge on them.
+        const stripSlash = (s: string) => s.replace(/\/+$/, "") || "/"
+        const cur = stripSlash(currentPath)
+        const lp = stripSlash(linkPath)
+        const highlight = cur === lp || (lp !== "/" && cur.startsWith(`${lp}/`))
 
         return (
           <React.Fragment key={title}>

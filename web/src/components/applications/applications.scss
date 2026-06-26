@@ -1,0 +1,309 @@
+// Brutalist Applications page. Reproduces the claude.ai/design "Brutalist"
+// direction (stark high-contrast, oversized grotesque type, heavy black rules,
+// flat metadata, single configurable accent). Per the brief, the three Google
+// fonts in the design (Space Grotesk / Archivo / JetBrains Mono) are all
+// substituted with the site's self-hosted brand typeface, General Sans
+// ($font-default), varying weight + tracking to keep the typographic hierarchy.
+@use '../../pages/global-styles.scss' as *;
+
+// Brutalist palette (kept local — these are specific to this direction).
+$brut-ink: #0a0a0a;
+$brut-paper: #efece4;
+$brut-body: #26231e;
+$brut-sub: #56524b;
+$brut-lede: #2a261f;
+
+.brut {
+  --accent: #1f5c3d; // single configurable accent (deep forest)
+  background: $brut-paper;
+  color: $brut-ink;
+  min-height: 100vh;
+  font-family: $font-default;
+}
+
+// Unify the surrounding dev-page chrome with the brutalist paper background so
+// the nav reads as part of the page. Scoped to .dev-pageWrapper, which only the
+// applications page uses — the shared sidebar/mobile-nav are untouched elsewhere.
+.dev-pageWrapper {
+  background: $brut-paper; // desktop: paper gutter behind the sidebar
+
+  // Tighten the desktop sidebar gutter — the default 20vw left too much empty
+  // space between the nav and the content column. flex:none pins the width
+  // exactly (the flex row would otherwise shrink it). (Scoped, so the shared
+  // gallery sidebar keeps 20vw elsewhere.)
+  .gallery-sidebar-container {
+    flex: none;
+    width: 190px;
+  }
+
+  // The fixed bottom mobile nav. A 3px ink rule keeps it distinct from the
+  // (now matching) paper content scrolling behind it, echoing the row borders.
+  .mobileNav_container {
+    background: $brut-paper;
+    border-top: 3px solid $brut-ink;
+  }
+
+  // Drop the white-out filter so the icons read as ink on paper.
+  .mobileNav_icon {
+    filter: none;
+    color: $brut-ink;
+  }
+}
+
+.brut-inner {
+  max-width: 1220px;
+  margin: 0 auto;
+  // Mobile: tighter padding + room for the fixed bottom MobileNav.
+  padding: 60px 20px calc(56px + 70px);
+
+  @media (min-width: $desk-break) {
+    padding: 70px 72px 90px;
+  }
+}
+
+/* ---- Header ---- */
+.brut-header {
+  margin-bottom: 30px;
+
+  @media (min-width: $desk-break) {
+    margin-bottom: 44px;
+  }
+}
+
+.brut-h1 {
+  margin: 0;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  color: $brut-ink;
+  // Fluid between mobile and the design's 130px desktop target. The lower
+  // bound (34px) keeps the single long word "Applications" from clipping the
+  // right edge on the narrowest phones (~320px) once side padding is removed.
+  font-size: clamp(34px, 10vw, 130px);
+}
+
+.brut-lede {
+  margin: 22px 0 0;
+  max-width: 640px;
+  font-weight: 500;
+  line-height: 1.32;
+  color: $brut-lede;
+  font-size: 18px;
+
+  @media (min-width: $desk-break) {
+    margin-top: 30px;
+    font-size: 26px;
+  }
+}
+
+/* ---- Project rows ---- */
+.brut-row {
+  border-top: 3px solid $brut-ink;
+  padding: 28px 0 36px;
+
+  @media (min-width: $desk-break) {
+    padding: 44px 0 52px;
+  }
+}
+
+.brut-row-title {
+  margin: 0 0 22px;
+  font-weight: 700;
+  line-height: 0.98;
+  letter-spacing: -0.03em;
+  color: $brut-ink;
+  text-wrap: balance;
+  font-size: 30px;
+
+  @media (min-width: $desk-break) {
+    margin-bottom: 30px;
+    font-size: 50px;
+  }
+}
+
+.brut-band {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+
+  @media (min-width: $desk-break) {
+    flex-direction: row;
+    gap: 44px;
+    align-items: flex-start;
+  }
+}
+
+.brut-band--flip {
+  @media (min-width: $desk-break) {
+    flex-direction: row-reverse;
+  }
+}
+
+.brut-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.brut-media-col {
+  order: -1; // mobile: media stacks above the text
+  width: 100%;
+
+  @media (min-width: $desk-break) {
+    order: 0;
+    flex: 0 0 44%;
+    align-self: flex-start;
+  }
+}
+
+/* ---- Body copy ---- */
+.brut-paragraph {
+  margin: 0 0 16px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: $brut-body;
+  text-wrap: pretty;
+  font-size: 14.5px;
+
+  @media (min-width: $desk-break) {
+    font-size: 16.5px;
+  }
+}
+
+.brut-list {
+  margin: 0 0 16px;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    margin-bottom: 10px;
+    padding-left: 24px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: $brut-body;
+    font-size: 14.5px;
+
+    @media (min-width: $desk-break) {
+      font-size: 16px;
+    }
+
+    &::before {
+      content: "\2192"; // → accent arrow marker
+      position: absolute;
+      left: 0;
+      top: 1px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+  }
+}
+
+/* ---- Stack pills (recessive metadata) ---- */
+.brut-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.brut-pill {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: $brut-sub;
+  background: rgba(10, 10, 10, 0.06);
+}
+
+/* ---- Link buttons (primary interactive elements) ---- */
+.brut-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.brut-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 2px solid $brut-ink;
+  background: $brut-paper;
+  color: $brut-ink;
+  text-decoration: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 3px 3px 0 var(--accent);
+  transition: background 0.12s, color 0.12s, transform 0.12s, box-shadow 0.12s;
+
+  &:hover,
+  &:focus-visible {
+    background: $brut-ink;
+    color: $brut-paper;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--accent); // "pressed" effect
+  }
+}
+
+/* ---- Media block ---- */
+.brut-media {
+  position: relative;
+  border: 3px solid $brut-ink;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  // Diagonal-stripe placeholder fill from the design — shows through the
+  // letterbox of any media that doesn't match the 16/9 frame.
+  background: repeating-linear-gradient(
+    135deg,
+    #e3dfd4 0 11px,
+    rgba(10, 10, 10, 0.07) 11px 22px
+  );
+
+  iframe,
+  img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+
+  // Videos are natively 16/9 — fill the frame. Screenshots vary in aspect
+  // ratio (some portrait), so contain them to keep the whole image visible.
+  iframe {
+    object-fit: cover;
+  }
+
+  img {
+    object-fit: contain;
+  }
+}
+
+.brut-media-caption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  padding: 4px 9px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: lowercase;
+  color: $brut-paper;
+  background: $brut-ink;
+  pointer-events: none;
+}
+
+/* ---- Footer ---- */
+.brut-footer {
+  border-top: 3px solid $brut-ink;
+  padding-top: 22px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: $brut-sub;
+}

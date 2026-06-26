@@ -4,7 +4,9 @@
   box-sizing: border-box;
   padding: 0 30px;
   padding-top: 50px;
-  height: 100vh;
+  // min-height (not a fixed height) so a short viewport scrolls a touch
+  // instead of the overflow:hidden clipping the last paragraph.
+  min-height: 100vh;
   // Local stacking context so the absolutely-positioned background image
   // sits behind the nav — and so neither gets hoisted into the root stacking
   // context where gatsby-plugin-transition-link's .tl-wrapper (z-index: 1)
@@ -16,7 +18,7 @@
   @media (min-width: $desk-break) {
     padding: 0 30px;
     padding-left: 10%;
-    padding-top: 220px;
+    padding-top: 90px;
   }
 }
 
@@ -112,7 +114,7 @@ img.home-profile-photo {
     width: 37%;
 
     margin-left: 4%;
-    margin-top: 165px;
+    margin-top: 40px;
 
     font-size: 24px;
     line-height: 32px;
