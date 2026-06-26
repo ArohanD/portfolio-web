@@ -1,63 +1,7 @@
 @use '../global-styles.scss' as *;
 
-hr {
-  width: 30%;
-  margin: 40px auto;
-}
-
-.mdx-default-wrapper {
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  padding: 15px;
-  
-  
-  @media (min-width: $desk-break) {
-    max-width: 900px;
-  }
-}
-
-.mdx-default-media {
-  align-self: center;
-  width: auto;
-  max-width: 90%;
-  height: auto;
-  max-height: 500px;
-  margin-top: 20px;
-
-  @media (min-width: $desk-break) {
-    margin-top: 100px;
-  }
-}
-
-.mdx-iframe {
-  display: inline-block;
-  margin-top: 20px;
-  min-height: 500px;
-}
-
-.dev-sectionHeader {
-  max-width: 90%;
-  text-align: center;
-  display: block;
-  margin: auto;
-  margin-top: 40px;
-
-  h1 {
-    color: $color-primary;
-  }
-}
-
-.dev-applications {
-
-  h1, p, .skillStack-container {
-    text-align: center;
-  }
-}
-
+// Two-column dev page shell: fixed sidebar (desktop) + scrolling content area.
 .dev-pageWrapper {
   display: flex;
   flex-direction: row;
 }
-
-

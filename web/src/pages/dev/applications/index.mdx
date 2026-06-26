@@ -1,9 +1,5 @@
-import ChickPeach from "./chickpeach"
-import Shazamazon from "./shazamazon"
-import VocalCodes from "./vocal-codes"
-import WebColorGenerator from "./web-color-generator"
-import WasNotImpostor from "./was-not-impostor"
-import FaceBrowserExtension from "./face-browser-extension"
+import "../dev-styles.scss"
+import { Applications } from '../../../components/applications'
 import SideBar from '../../../components/sideBar'
 import MobileNav from '../../../components/mobileNav'
 
@@ -11,45 +7,10 @@ import MobileNav from '../../../components/mobileNav'
 
   <SideBar pageString={'dev'} currentPath={'/dev/applications/'} />
 
-<div className='dev-contentWrapper'>
+  <div className='dev-contentWrapper'>
+    <Applications />
+  </div>
 
-<div className='dev-sectionHeader'>
-
-# Applications
-
-Here are the digital stories and experiences I’ve brought to life.
-
-</div>
-
----
-<div className='dev-applications'>
-
-<FaceBrowserExtension />
-
----
-
-<WasNotImpostor />
-
----
-
-<VocalCodes />
-
----
-
-<ChickPeach />
-
----
-
-<WebColorGenerator />
-
----
-
-<Shazamazon />
-
-</div>
-
-</div>
-
-<MobileNav type='dev' />
+  <MobileNav type='dev' />
 
 </div>
