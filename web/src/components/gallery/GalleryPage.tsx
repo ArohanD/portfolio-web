@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Gallery from "./Gallery"
 import TagList from "./TagList"
+import SideBar from "../sideBar"
+import MobileNav from "../mobileNav"
 import { getImages, getTags } from "../../lib/sanity/queries"
 import { sortGalleryImages } from "../../lib/sanity/utils"
 import type { GalleryImage, Tag } from "../../lib/sanity/types"
@@ -61,12 +63,17 @@ const GalleryPage: React.FC<Props> = ({ tag }) => {
   const title = tag ? `Gallery [${tag}]` : "Gallery"
 
   return (
+    <>
     <div className="gallery__page__container">
       <div className="gallery__header__container">
         <header className="gallery__header">
           <h1>{title}</h1>
         </header>
         {tags.length > 0 && <TagList tags={tags} activeTag={tag} />}
+        {/* Reuse the shared nav sidebar, pinned to the bottom-left of the
+            column (see gallery.scss). Hidden below $desk-break, where the
+            fixed MobileNav below takes over. */}
+        <SideBar currentPath={"/photography/"} />
       </div>
       <div className="gallery__container">
         {error ? (
@@ -86,6 +93,8 @@ const GalleryPage: React.FC<Props> = ({ tag }) => {
         )}
       </div>
     </div>
+    <MobileNav />
+    </>
   )
 }
 

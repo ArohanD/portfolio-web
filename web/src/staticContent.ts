@@ -112,6 +112,16 @@ export let navLinks: Array<HomeLink> = [
 // by slug if needed.
 export const HIDDEN_LINKS = new Set<string>(["writing", "resume"])
 
+// The canonical site-nav link list: Home first, then the home sections that
+// aren't hidden by HIDDEN_LINKS. Shared by the desktop SideBar and the mobile
+// nav so the two stay in sync. Returns a fresh array each call (safe to mutate).
+export const getVisibleNavLinks = (): Array<{ title: string; path: string }> => [
+  { title: "Home", path: "/" },
+  ...homeLinks
+    .filter(l => !HIDDEN_LINKS.has(l.backgroundImageSlug))
+    .map(({ title, path }) => ({ title, path })),
+]
+
 export const homeContent: Array<String> = [
   `Hi, I’m Arohan,`,
 

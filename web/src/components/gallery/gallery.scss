@@ -1,7 +1,6 @@
 // Ported from portfolio-cms astro-app/src/layouts/GalleryLayout.astro +
 // components/TagList.astro to match the visual structure of arohan.dev/gallery.
-// Site-nav wrapping is intentionally absent here — that will be re-introduced
-// separately when the parent shell is settled.
+@use '../../pages/global-styles.scss' as *;
 
 .gallery__page__container {
   padding: 1rem;
@@ -46,6 +45,38 @@
 
   .gallery__container {
     padding: 1rem;
+  }
+}
+
+// Reused site nav (shared <SideBar>) pinned to the bottom-left of the gallery's
+// left column. The column becomes a flex stack: heading + tag list sit at the
+// top, the sidebar is pushed to the bottom with margin-top:auto. Only applied
+// from $desk-break up, since <SideBar> hides itself below that breakpoint and
+// the fixed MobileNav takes over — keeping these overrides above $desk-break
+// also avoids clobbering the sidebar's own mobile `display: none`.
+@media (min-width: $desk-break) {
+  .gallery__header__container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+  }
+
+  .gallery__header__container .gallery-sidebar-container {
+    // Neutralize the sidebar's standalone full-height centering so it hugs its
+    // links and parks at the bottom of the column instead.
+    margin-top: auto;
+    width: auto;
+    height: auto;
+    place-items: start;
+    grid-template-rows: auto;
+    padding-bottom: 1rem;
+  }
+
+  .gallery__header__container .gallery-content-cell {
+    grid-row: auto;
+    height: auto;
+    justify-content: flex-start;
   }
 }
 

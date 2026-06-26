@@ -1,68 +1,57 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { Link } from "gatsby"
 import "./mobileNav.scss"
-import { BiChip, BiHomeAlt, BiPen } from "react-icons/bi"
-import { GrGallery } from "react-icons/gr"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
+import { BiMenu, BiX } from "react-icons/bi"
+import { getVisibleNavLinks } from "../../staticContent"
 
 interface MobileNavProps {
-  type?: "photo" | "writing" | "dev"
-  alt?: boolean
+  /** Optional override for the link list. Defaults to the site nav (Home +
+   *  visible sections), matching the desktop sidebar. */
+  links?: Array<{ title: string; path: string }>
 }
 
-const MobileNav: React.FC<MobileNavProps> = ({ type, alt }) => {
-  const [width, setWidth] = useState(1001)
+// Mobile navigation as a bottom-right bubble (FAB). Tapping it slides a stack of
+// nav links up above the bubble; tapping the backdrop or the bubble closes it.
+// Hidden above the desktop breakpoint via CSS — the sidebar covers wider screens.
+const MobileNav: React.FC<MobileNavProps> = ({ links }) => {
+  const [open, setOpen] = useState(false)
 
-  useEffect(() => {
-    const handleResize = () => {
-      setWidth(window.innerWidth)
-    }
-
-    window.addEventListener("resize", handleResize)
-    setWidth(window.innerWidth)
-    return () => {
-      window.removeEventListener("resize", handleResize)
-    }
-  }, [])
-
-  if (width > 1000) return <div></div>
-
-  let iconLink = ""
-  let icon
-
-  switch (type) {
-    case "photo":
-      iconLink = "/photography"
-      icon = GrGallery
-      break
-
-    case "writing":
-      iconLink = "/writing"
-      icon = BiPen
-      break
-
-    case "dev":
-      iconLink = "/dev/applications"
-      icon = BiChip
-      break
-
-    default:
-      iconLink = undefined
-      icon = undefined
-      break
-  }
+  const navLinks = links ?? getVisibleNavLinks()
 
   return (
-    <div className={alt ? "mobileNav_container mobileNav_container_alt" : "mobileNav_container"}>
-      <AniLink to="/">
-        <BiHomeAlt className="mobileNav_icon" />
-      </AniLink>
-      {type && (
-        <AniLink to={iconLink} fade duration={1}>
-          {React.cloneElement(icon(), { className: "mobileNav_icon" })}
-        </AniLink>
+    <>
+      {open && (
+        <div
+          className="mobileNav_backdrop"
+          onClick={() => setOpen(false)}
+        />
       )}
-    </div>
+      <div className="mobileNav_root">
+        {open && (
+          <ul className="mobileNav_menu">
+            {navLinks.map(({ title, path }) => (
+              <li key={title}>
+                <Link to={path} className="mobileNav_link">
+                  {title.toLowerCase()}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
+        <button
+          className="mobileNav_fab"
+          aria-label={open ? "Close navigation" : "Open navigation"}
+          aria-expanded={open}
+          onClick={() => setOpen(o => !o)}
+        >
+          {open ? (
+            <BiX className="mobileNav_icon" />
+          ) : (
+            <BiMenu className="mobileNav_icon" />
+          )}
+        </button>
+      </div>
+    </>
   )
 }
 

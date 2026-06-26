@@ -36,17 +36,15 @@ $brut-lede: #2a261f;
     width: 190px;
   }
 
-  // The fixed bottom mobile nav. A 3px ink rule keeps it distinct from the
-  // (now matching) paper content scrolling behind it, echoing the row borders.
-  .mobileNav_container {
+  // The mobile nav bubble + its link pills. Re-skin them in ink/paper with a
+  // hard 2px ink border so they read as part of the brutalist surface rather
+  // than the default accent-colored FAB.
+  .mobileNav_fab,
+  .mobileNav_link {
     background: $brut-paper;
-    border-top: 3px solid $brut-ink;
-  }
-
-  // Drop the white-out filter so the icons read as ink on paper.
-  .mobileNav_icon {
-    filter: none;
     color: $brut-ink;
+    border: 2px solid $brut-ink;
+    box-shadow: 3px 3px 0 var(--accent, #1f5c3d);
   }
 }
 
