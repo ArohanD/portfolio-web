@@ -9,13 +9,6 @@ module.exports = {
     // gatsby-plugin-react-helmet removed — using Gatsby 5's built-in Head API
     // via <SEO> components exported as `Head` from each page module.
     {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
-    },
-    {
       // gatsby-plugin-mdx@5 requires .mdx files to be sourced via filesystem.
       resolve: `gatsby-source-filesystem`,
       options: {
@@ -56,21 +49,10 @@ module.exports = {
       },
     },
     `gatsby-plugin-typescript`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `data`,
-        path: `linkedin`,
-      },
-    },
+    // The `linkedin` CSV source dir is empty; `PositionsCsv` is defined in
+    // gatsby-node.js so the resume's allPositionsCsv query still resolves (empty).
     `gatsby-transformer-csv`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        path: `${__dirname}/src/markdown`,
-        name: `markdown-pages`,
-      },
-    },
+    // The `markdown` source dir is empty and nothing queries allMarkdownRemark.
     `gatsby-transformer-remark`,
     `gatsby-plugin-mdx`,
     `gatsby-plugin-transition-link`,
