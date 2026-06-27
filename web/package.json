@@ -48,9 +48,7 @@
     "parity": "node scripts/gallery-parity.mjs",
     "nav-flow": "node scripts/photo-nav-flow.mjs",
     "mobile-audit": "node scripts/mobile-audit.mjs",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
-    "deploy:stage": "gatsby build && netlify deploy --dir=public",
-    "deploy:prod": "gatsby build && netlify deploy --dir=public --prod"
+    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
   },
   "repository": {
     "type": "git",

@@ -1,0 +1,18 @@
+# Netlify build config for the monorepo.
+# Only the `web/` Gatsby workspace is deployed here; `studio/` (Sanity) deploys
+# separately via `sanity deploy`.
+[build]
+  # Install/run from the repo root so yarn workspaces resolve.
+  base = "."
+  # Build only the web workspace.
+  command = "yarn workspace web build"
+  # Gatsby output, relative to base.
+  publish = "web/public"
+
+[build.environment]
+  # Mirrors the root .nvmrc.
+  NODE_VERSION = "22"
+
+# Official Gatsby plugin: build caching + Netlify adapter.
+[[plugins]]
+  package = "@netlify/plugin-gatsby"
