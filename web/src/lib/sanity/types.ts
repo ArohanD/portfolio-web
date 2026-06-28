@@ -1,3 +1,5 @@
+import type { Image } from "@sanity/types"
+
 export type Exif = {
   ApertureValue?: number
   BodySerialNumber?: string
@@ -41,6 +43,34 @@ export type Exif = {
 export type Tag = {
   id: string
   label: string
+}
+
+// Portable Text block. Loosely typed; @portabletext/react walks the structure.
+export type PortableTextBlock = {
+  _type: string
+  [key: string]: unknown
+}
+
+export interface ProjectLink {
+  label: string
+  href: string
+}
+
+export type ProjectMedia = {
+  kind: "youtube" | "image"
+  youtubeId?: string
+  image?: Image & { alt?: string }
+  caption?: string
+}
+
+export interface DevProject {
+  _id: string
+  title: string
+  slug: string
+  blurb?: PortableTextBlock[]
+  stack?: string[]
+  links?: ProjectLink[]
+  media?: ProjectMedia
 }
 
 export interface ImageDimensions {
