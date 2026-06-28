@@ -57,13 +57,10 @@ export const PhotoNav: React.FC<PhotoNavProps> = ({ images, currentImageHash, ta
     return getNextAndPreviousImages(images, currentImageHash, categoryTagRef)
   }, [images, currentImageHash, category, tags])
 
-  // Prev/next go to another photo-detail route, which itself reads ?category=
-  // to scope navigation — so the query suffix is preserved on those links.
+  // Preserve ?category= on prev/next so the next photo stays scoped to the tag.
   const photoQuerySuffix = category ? `?category=${encodeURIComponent(category)}` : ""
 
-  // The "grid" button goes back to a gallery page. With sub-gallery routes
-  // now path-based, send the user to /photography/<tag>/ (not the legacy
-  // ?category= form) so they land on the correct filtered gallery.
+  // Grid button returns to the filtered gallery via its path-based route.
   const gridTarget = category
     ? `/photography/${encodeURIComponent(category)}/`
     : "/photography/"

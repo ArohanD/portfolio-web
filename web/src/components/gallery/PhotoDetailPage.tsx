@@ -11,8 +11,8 @@ interface Props {
   hash: string
 }
 
-// Hero-sized srcSet — single dominant image, viewer is actively looking, so
-// no LQIP / no lazy loading. Use larger widths than the masonry tile srcSet.
+// Hero srcSet for the single dominant image. Wider than the masonry tiles, with
+// no LQIP or lazy loading since the viewer is looking right at it.
 const HERO_WIDTHS = [800, 1200, 1600, 2000, 2400]
 
 const stateStyle: React.CSSProperties = { padding: "2rem" }

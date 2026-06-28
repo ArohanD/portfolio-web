@@ -5,11 +5,7 @@ import MobileNav from "../../components/mobileNav"
 import "./maps.scss"
 
 const MapsPage: React.FC = () => (
-  <SideBarLayout
-    title="maps"
-    sideBarString="maps"
-    currentPath="/maps/"
-  >
+  <SideBarLayout currentPath="/maps/">
     <div className="maps-page">
       <div className="maps-page-content">
         <h1 className="maps-page-title">Maps</h1>

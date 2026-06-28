@@ -36,11 +36,7 @@ const Contact: React.FC<any> = (props: PageProps) => {
 
   return (
     <React.Fragment>
-      <SideBarLayout
-        title="Resume Arohan Dutt"
-        sideBarString={"resume"}
-        currentPath={props.uri}
-      >
+      <SideBarLayout currentPath={props.uri}>
         <div className="contact-container">
           <form
             name="contact"

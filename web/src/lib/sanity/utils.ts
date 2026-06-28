@@ -13,28 +13,19 @@ interface ImageWithTags extends ImageAsset {
   }
 }
 
-export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString("en-US", {
-    month: "long",
-    day: "numeric",
-    year: "numeric",
-  })
-}
-
 export function formatExposureTime(exposureTime: number | undefined): string {
   if (!exposureTime) return "N/A"
   const denominator = Math.round(1 / exposureTime)
   return `1/${denominator}`
 }
 
+const shotTime = (image: ImageAsset) =>
+  new Date((image.metadata.exif as Exif)?.DateTimeOriginal || 0).getTime()
+
+const byNewestFirst = (a: ImageAsset, b: ImageAsset) => shotTime(b) - shotTime(a)
+
 export const sortGalleryImages = (images: ImageAsset[]) =>
-  [...images].sort((a, b) => {
-    const rawDateA = (a.metadata.exif as Exif)?.DateTimeOriginal
-    const rawDateB = (b.metadata.exif as Exif)?.DateTimeOriginal
-    const dateA = new Date(rawDateA || 0).getTime()
-    const dateB = new Date(rawDateB || 0).getTime()
-    return dateB - dateA
-  })
+  [...images].sort(byNewestFirst)
 
 export const imageHasTag = (image: ImageAsset, tagRef: string | undefined) => {
   if (!tagRef) return false
@@ -52,13 +43,7 @@ export const getNextAndPreviousImages = (
     ? images.filter(image => imageHasTag(image, tag))
     : images
 
-  const sortedImages = [...filteredImages].sort((a, b) => {
-    const rawDateA = (a.metadata.exif as Exif)?.DateTimeOriginal
-    const rawDateB = (b.metadata.exif as Exif)?.DateTimeOriginal
-    const dateA = new Date(rawDateA || 0).getTime()
-    const dateB = new Date(rawDateB || 0).getTime()
-    return dateB - dateA
-  })
+  const sortedImages = [...filteredImages].sort(byNewestFirst)
 
   const currentImageIndex = sortedImages.findIndex(image =>
     image.sha1hash.startsWith(currentImageHash)

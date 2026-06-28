@@ -5,14 +5,12 @@ import { BiMenu, BiX } from "react-icons/bi"
 import { getVisibleNavLinks } from "../../staticContent"
 
 interface MobileNavProps {
-  /** Optional override for the link list. Defaults to the site nav (Home +
-   *  visible sections), matching the desktop sidebar. */
+  /** Optional override for the link list. Defaults to the shared site nav. */
   links?: Array<{ title: string; path: string }>
 }
 
-// Mobile navigation as a bottom-right bubble (FAB). Tapping it slides a stack of
-// nav links up above the bubble; tapping the backdrop or the bubble closes it.
-// Hidden above the desktop breakpoint via CSS — the sidebar covers wider screens.
+// Bottom-right nav bubble (FAB) for small screens. Tapping it toggles a stack of
+// nav links; CSS hides it above the desktop breakpoint where the sidebar takes over.
 const MobileNav: React.FC<MobileNavProps> = ({ links }) => {
   const [open, setOpen] = useState(false)
 

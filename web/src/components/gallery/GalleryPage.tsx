@@ -62,6 +62,25 @@ const GalleryPage: React.FC<Props> = ({ tag }) => {
   const sorted = sortGalleryImages(images)
   const title = tag ? `Gallery [${tag}]` : "Gallery"
 
+  function renderBody() {
+    if (error)
+      return (
+        <div className="gallery__state gallery__state--error">
+          Couldn&apos;t load photos: {error}
+        </div>
+      )
+    if (loading) return <div className="gallery__state">Loading…</div>
+    if (tagNotFound)
+      return <div className="gallery__state">No tag named &quot;{tag}&quot;.</div>
+    if (sorted.length === 0)
+      return (
+        <div className="gallery__state">
+          No photos{tag ? ` tagged "${tag}"` : ""}.
+        </div>
+      )
+    return <Gallery images={sorted} tag={tag} />
+  }
+
   return (
     <>
     <div className="gallery__page__container">
@@ -70,28 +89,11 @@ const GalleryPage: React.FC<Props> = ({ tag }) => {
           <h1>{title}</h1>
         </header>
         {tags.length > 0 && <TagList tags={tags} activeTag={tag} />}
-        {/* Reuse the shared nav sidebar, pinned to the bottom-left of the
-            column (see gallery.scss). Hidden below $desk-break, where the
-            fixed MobileNav below takes over. */}
+        {/* Shared nav sidebar; CSS hides it below the desktop breakpoint, where
+            the fixed MobileNav takes over. */}
         <SideBar currentPath={"/photography/"} />
       </div>
-      <div className="gallery__container">
-        {error ? (
-          <div className="gallery__state gallery__state--error">
-            Couldn&apos;t load photos: {error}
-          </div>
-        ) : loading ? (
-          <div className="gallery__state">Loading…</div>
-        ) : tagNotFound ? (
-          <div className="gallery__state">No tag named &quot;{tag}&quot;.</div>
-        ) : sorted.length === 0 ? (
-          <div className="gallery__state">
-            No photos{tag ? ` tagged "${tag}"` : ""}.
-          </div>
-        ) : (
-          <Gallery images={sorted} tag={tag} />
-        )}
-      </div>
+      <div className="gallery__container">{renderBody()}</div>
     </div>
     <MobileNav />
     </>

@@ -23,8 +23,15 @@ interface GalleryImageProps {
   highlight?: boolean
   onClick?: (image: GalleryImageType) => void
   imgStyle?: CSSProperties
-  /** width / height — preserves layout while the image streams in. */
+  /** width / height, used to reserve layout space while the image loads. */
   aspectRatio?: number
+}
+
+function aspectRatioOf(image: GalleryImageType): number {
+  const dims = image.metadata?.dimensions
+  if (dims?.aspectRatio) return dims.aspectRatio
+  if (dims?.width && dims?.height) return dims.width / dims.height
+  return 1
 }
 
 // Responsive widths tuned for masonry column slots (~250-700px wide).
@@ -54,7 +61,7 @@ export const GalleryImage = ({
     position: "relative",
     width: "100%",
     aspectRatio: resolvedAspect ? `${resolvedAspect}` : undefined,
-    // LQIP blur-up — visible immediately, sits behind the real image until it loads
+    // LQIP blur-up placeholder, shown behind the real image until it loads.
     backgroundImage: lqip ? `url(${lqip})` : undefined,
     backgroundSize: "cover",
     backgroundPosition: "center",
@@ -161,24 +168,19 @@ export default function Gallery({ images, columns, tag }: Props) {
   const responsiveColumns = useColumnCount()
   const cols = columns ?? responsiveColumns
 
-  // Distribute into shortest-column-first masonry using Sanity's
-  // metadata.dimensions to compute heights. No image loading required.
+  // Shortest-column-first masonry using Sanity dimensions to estimate heights,
+  // so no image loading is needed to balance the columns.
   const columnData = useMemo<ColumnItem[][]>(() => {
     if (images.length === 0) return Array.from({ length: cols }, () => [])
     const colSlots: ColumnItem[][] = Array.from({ length: cols }, () => [])
     const heights = new Array(cols).fill(0)
-    // Use an arbitrary unit width; only ratios matter for column balance.
-    const UNIT_W = 100
+    const UNIT_WIDTH = 100
     images.forEach(image => {
-      const ar =
-        image.metadata?.dimensions?.aspectRatio ||
-        (image.metadata?.dimensions?.width && image.metadata?.dimensions?.height
-          ? image.metadata.dimensions.width / image.metadata.dimensions.height
-          : 1)
-      const h = UNIT_W / ar // height for a UNIT_W-wide rendering
+      const aspectRatio = aspectRatioOf(image)
+      const estimatedHeight = UNIT_WIDTH / aspectRatio
       const shortest = heights.indexOf(Math.min(...heights))
-      colSlots[shortest].push({ image, aspectRatio: ar })
-      heights[shortest] += h
+      colSlots[shortest].push({ image, aspectRatio })
+      heights[shortest] += estimatedHeight
     })
     return colSlots
   }, [images, cols])

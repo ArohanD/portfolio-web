@@ -5,7 +5,6 @@ export interface HomeLink {
   path: string
   backgroundImageSlug: string
   textColor: string
-  imagePath: any
   component?: () => any
 }
 
@@ -15,7 +14,6 @@ export let homeLinks: Array<HomeLink> = [
     path: "/dev/applications",
     backgroundImageSlug: `dev`,
     textColor: "#68281B",
-    imagePath: "",
     component: Dev_SVG
   },
   {
@@ -23,7 +21,6 @@ export let homeLinks: Array<HomeLink> = [
     path: "/photography",
     backgroundImageSlug: `photo`,
     textColor: "#EFFFB1",
-    imagePath: "",
     component: Photo_SVG
   },
   {
@@ -31,7 +28,6 @@ export let homeLinks: Array<HomeLink> = [
     path: "/maps",
     backgroundImageSlug: `maps`,
     textColor: "#68281B",
-    imagePath: "",
     component: Maps_SVG
   },
   {
@@ -39,7 +35,6 @@ export let homeLinks: Array<HomeLink> = [
     path: "/writing",
     backgroundImageSlug: `writing`,
     textColor: "#c44637",
-    imagePath: "",
     component: Write_SVG
   },
   {
@@ -47,7 +42,6 @@ export let homeLinks: Array<HomeLink> = [
     path: "/resume",
     backgroundImageSlug: `resume`,
     textColor: "#edb879",
-    imagePath: "",
     component: Resume_SVG
   },
 ]
@@ -57,64 +51,14 @@ export const blankHomeLink = {
   path: "",
   backgroundImageSlug: ``,
   textColor: "",
-  imagePath: "",
 }
 
-export let navLinks: Array<HomeLink> = [
-  {
-    title: "Home",
-    path: "/",
-    backgroundImageSlug: `home`,
-    textColor: "#68281B",
-    imagePath: "",
-  },
-  {
-    title: "Dev",
-    path: "/dev/applications",
-    backgroundImageSlug: `dev`,
-    textColor: "#68281B",
-    imagePath: "",
-  },
-  {
-    title: "Photo",
-    path: "/photography",
-    backgroundImageSlug: `photo`,
-    textColor: "#EFFFB1",
-    imagePath: "",
-  },
-  {
-    title: "Maps",
-    path: "/maps",
-    backgroundImageSlug: `maps`,
-    textColor: "#68281B",
-    imagePath: "",
-  },
-  {
-    title: "Writing",
-    path: "/writing",
-    backgroundImageSlug: `writing`,
-    textColor: "#c44637",
-    imagePath: "",
-  },
-  {
-    title: "Resume",
-    path: "/resume",
-    backgroundImageSlug: `resume`,
-    textColor: "#edb879",
-    imagePath: "",
-  },
-]
-
-// Slugs (matching `backgroundImageSlug`) currently hidden from the home-page
-// nav and the global sidebar. Remove entries from this set to bring the
-// links back into both navs at once. The arrays themselves are intentionally
-// left intact so other parts of the codebase can still resolve paths/titles
-// by slug if needed.
+// Slugs currently hidden from the home-page nav and the global sidebar.
+// Remove an entry to bring its link back into both navs at once.
 export const HIDDEN_LINKS = new Set<string>(["writing", "resume"])
 
-// The canonical site-nav link list: Home first, then the home sections that
-// aren't hidden by HIDDEN_LINKS. Shared by the desktop SideBar and the mobile
-// nav so the two stay in sync. Returns a fresh array each call (safe to mutate).
+// Canonical site-nav list shared by the desktop SideBar and the mobile nav:
+// Home first, then the home sections not hidden by HIDDEN_LINKS.
 export const getVisibleNavLinks = (): Array<{ title: string; path: string }> => [
   { title: "Home", path: "/" },
   ...homeLinks
@@ -122,7 +66,7 @@ export const getVisibleNavLinks = (): Array<{ title: string; path: string }> => 
     .map(({ title, path }) => ({ title, path })),
 ]
 
-export const homeContent: Array<String> = [
+export const homeContent: string[] = [
   `Hi, I’m Arohan,`,
 
   `I'm a full-stack software engineer focused on building apps and businesses that solve real problems. Inspired by mission-driven projects, and drawn to initiatives that help make the world more green, equitable, and collaborative - I've utilized a strong background in user-driven design to create impactful web & mobile experiences.`,

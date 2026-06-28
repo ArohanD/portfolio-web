@@ -1,7 +1,5 @@
-// Content for the Applications page, ported verbatim from the per-project MDX
-// fragments that previously lived under pages/dev/applications/. Kept as a flat
-// data array so the brutalist layout can alternate rows by index and render the
-// header/footer chrome around them.
+// Content for the Applications page, kept as a flat array so the layout can
+// alternate rows by index.
 
 export type Block =
   | { type: "p"; text: string }

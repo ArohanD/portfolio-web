@@ -7,7 +7,7 @@ import { PageProps } from "gatsby"
 import SideBarLayout from "../../components/pageLayout"
 import SEO from "../../components/seo"
 
-const Resume: React.FC<any> = (props:PageProps) => {
+const Resume: React.FC<PageProps> = props => {
   const resumeQuery = useStaticQuery(graphql`
     query ResumeQuery {
       allPositionsCsv {
@@ -27,36 +27,29 @@ const Resume: React.FC<any> = (props:PageProps) => {
 
   return (
     <React.Fragment>
-      <SideBarLayout
-        title="Resume Arohan Dutt"
-        sideBarString={"resume"}
-        currentPath={props.uri}
-      >
+      <SideBarLayout currentPath={props.uri}>
         <div className={"resume-page-wrapper"}>
           <h1>Resume</h1>
           <div className={"resume-content-wrapper"}>
-            {nodes.map(experience => {
-              if (experience.Company_Name !== "Personal Projects") {
-                return (
-                  <div
-                    key={experience.Title}
-                    className="resume-experience-block"
-                  >
-                    <h4 className="resume-experience-title">{`${experience.Title} @ ${experience.Company_Name}`}</h4>
-                    <p>{`${experience.Started_On.toUpperCase()} - ${
-                      experience.Finished_On
-                        ? experience.Finished_On.toUpperCase()
-                        : "present"
-                    }`}</p>
-                    <ul className="resume-experience-bullets">
-                      {experience.Description.split("•").map(bullet => {
-                        if (bullet !== "") return <li key={bullet}>{bullet}</li>
-                      })}
-                    </ul>
-                  </div>
-                )
-              }
-            })}
+            {nodes
+              .filter(experience => experience.Company_Name !== "Personal Projects")
+              .map(experience => (
+                <div key={experience.Title} className="resume-experience-block">
+                  <h4 className="resume-experience-title">{`${experience.Title} @ ${experience.Company_Name}`}</h4>
+                  <p>{`${experience.Started_On.toUpperCase()} - ${
+                    experience.Finished_On
+                      ? experience.Finished_On.toUpperCase()
+                      : "present"
+                  }`}</p>
+                  <ul className="resume-experience-bullets">
+                    {experience.Description.split("•")
+                      .filter(bullet => bullet !== "")
+                      .map(bullet => (
+                        <li key={bullet}>{bullet}</li>
+                      ))}
+                  </ul>
+                </div>
+              ))}
           </div>
         </div>
       </SideBarLayout>

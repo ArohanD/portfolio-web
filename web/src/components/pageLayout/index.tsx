@@ -4,20 +4,13 @@ import "./pageLayout.scss"
 
 interface LayoutProps {
   children?: React.ReactNode
-  title?: string
-  sideBarString?: string
   currentPath: string
-  metaImage?: string
 }
 
-const SideBarLayout: React.FC<LayoutProps> = ({
-  children,
-  sideBarString,
-  currentPath,
-}) => {
+const SideBarLayout: React.FC<LayoutProps> = ({ children, currentPath }) => {
   return (
     <div className="pageLayout-wrapper">
-      <SideBar pageString={sideBarString} currentPath={currentPath} />
+      <SideBar currentPath={currentPath} />
       <div className="pageLayout-content">{children}</div>
     </div>
   )
