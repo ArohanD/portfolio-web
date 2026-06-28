@@ -3,6 +3,7 @@ import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './src/schemaTypes'
 import {media, mediaAssetSource} from 'sanity-plugin-media'
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 // Environment variables for project configuration
 const projectId = process.env.SANITY_STUDIO_PROJECT_ID || 'your-projectID'
@@ -14,7 +15,24 @@ export default defineConfig({
   projectId,
   dataset,
   // @ts-ignore
-  plugins: [structureTool(), visionTool(), media()],
+  plugins: [
+    structureTool({
+      structure: (S, context) =>
+        S.list()
+          .title('Content')
+          .items([
+            orderableDocumentListDeskItem({
+              type: 'devProject',
+              title: 'Applications',
+              S,
+              context,
+            }),
+            S.documentTypeListItem('post').title('Posts'),
+          ]),
+    }),
+    visionTool(),
+    media(),
+  ],
   schema: {
     types: schemaTypes,
   },

@@ -1,5 +1,5 @@
 import { sanityClient } from "./client"
-import type { GalleryImage, Tag } from "./types"
+import type { DevProject, GalleryImage, Tag } from "./types"
 
 // Only the fields the gallery needs. dimensions/lqip let us render the masonry
 // instantly and show a blur-up placeholder while the image loads.
@@ -21,6 +21,16 @@ export async function getImage(hash: string): Promise<GalleryImage> {
   return await sanityClient.fetch(
     `*[_type == "sanity.imageAsset" && string::startsWith(sha1hash, $hash)][0] ${GALLERY_IMAGE_PROJECTION}`,
     { hash }
+  )
+}
+
+export async function getDevProjects(): Promise<DevProject[]> {
+  return await sanityClient.fetch(
+    `*[_type == "devProject"] | order(orderRank) {
+      _id, title, "slug": slug.current, blurb, stack,
+      links[]{ label, href },
+      media{ kind, youtubeId, caption, image }
+    }`
   )
 }
 
