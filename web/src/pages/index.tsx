@@ -12,9 +12,8 @@ import AniLink from "gatsby-plugin-transition-link/AniLink"
 import { RiMailFill } from "react-icons/ri"
 import { SiLinkedin, SiGithub } from "react-icons/si"
 
-// Static asset slugs (under web/static/) that have a hover background image.
-// Resume intentionally has none; hovering it just fades the body without
-// swapping a backdrop in.
+// Slugs (under web/static/) with a hover background image. Resume has none, so
+// hovering it just fades the body without swapping in a backdrop.
 const BACKGROUND_SLUGS = new Set(["dev", "photo", "writing", "maps"])
 
 const hasBackground = (slug: string | undefined): slug is string =>
@@ -33,8 +32,7 @@ const IndexPage: React.FC = () => {
   const homeNavClasses =
     "home-nav" + (showBackground ? " home-nav-faded-text" : "")
 
-  // window-guarded: SSR builds run this module too; defer the desktop-only
-  // background to client-side rendering.
+  // SSR runs this module too, so guard window for the desktop-only background.
   const isDesktop =
     typeof window !== "undefined" && window.innerWidth > 900
 
@@ -57,7 +55,7 @@ const IndexPage: React.FC = () => {
             }
             style={{ "--active-color": linkObj.textColor } as React.CSSProperties}
           >
-            {React.cloneElement(linkObj.component())}
+            {linkObj.component?.()}
           </AniLink>
         ))}
       </nav>
@@ -82,8 +80,8 @@ const IndexPage: React.FC = () => {
             </div>
           </div>
           <div className="home-body-content">
-            {homeContent.map((block: String) => (
-              <p key={block as string} className="home-about-paragraph">
+            {homeContent.map(block => (
+              <p key={block} className="home-about-paragraph">
                 {block}
               </p>
             ))}

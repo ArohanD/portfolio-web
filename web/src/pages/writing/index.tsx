@@ -6,7 +6,7 @@ import SEO from "../../components/seo"
 
 const WritingSplash: React.FC = () => {
   return (
-    <SideBarLayout title="Writing" currentPath={"/writing/"}>
+    <SideBarLayout currentPath={"/writing/"}>
       <div className="writingSplash-wrapper">
         <div style={{ padding: "40px 20px", maxWidth: 640 }}>
           <h1>Writing</h1>
