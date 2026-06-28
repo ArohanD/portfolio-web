@@ -80,19 +80,28 @@ const MediaBlock: React.FC<{ media?: ProjectMedia }> = ({ media }) => {
     <div className="brut-media">
       {media.kind === "youtube" && media.youtubeId ? (
         <iframe
-          src={`https://www.youtube.com/embed/${media.youtubeId}`}
+          src={`https://www.youtube-nocookie.com/embed/${media.youtubeId}`}
           title={media.caption || "video"}
           frameBorder="0"
+          // Send a referrer so YouTube can verify the embed host (fixes Error 153).
+          referrerPolicy="strict-origin-when-cross-origin"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
         />
       ) : media.image ? (
         <>
-          <img
-            src={urlFor(media.image).width(1200).url()}
-            alt={media.image.alt || media.caption || ""}
-            loading="lazy"
-          />
+          <a
+            className="brut-media-link"
+            href={urlFor(media.image).url()}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <img
+              src={urlFor(media.image).width(1200).url()}
+              alt={media.image.alt || media.caption || ""}
+              loading="lazy"
+            />
+          </a>
           {media.caption && (
             <span className="brut-media-caption">{media.caption}</span>
           )}

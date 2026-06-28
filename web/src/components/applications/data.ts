@@ -2,5 +2,5 @@
 
 export const INTRO = {
   title: "Applications",
-  lede: "Here are the digital stories and experiences I’ve brought to life.",
+  lede: "Here are some of the digital stories and experiences I’ve brought to life.",
 }
